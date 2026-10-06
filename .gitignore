@@ -23,6 +23,7 @@ frontend/vite.config.d.ts
 .tmp/
 __pycache__/
 *.pyc
+.vercel/
 
 # Logs
 logs/

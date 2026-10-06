@@ -17,6 +17,8 @@ export interface ITalentApplication extends Document {
   availability: string;
   desiredEngagement: string;
   cvUrl?: string;
+  cvStorageKey?: string;
+  cvStorage?: 'local' | 'blob';
   cvOriginalName?: string;
   cvMimeType?: string;
   cvSize?: number;
@@ -42,6 +44,8 @@ const TalentApplicationSchema = new Schema<ITalentApplication>(
     availability: { type: String, default: 'Available' },
     desiredEngagement: { type: String, default: 'Full-time' },
     cvUrl: { type: String },
+    cvStorageKey: { type: String, unique: true, sparse: true },
+    cvStorage: { type: String, enum: ['local', 'blob'] },
     cvOriginalName: { type: String },
     cvMimeType: { type: String },
     cvSize: { type: Number },

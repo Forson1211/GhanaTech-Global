@@ -1,11 +1,12 @@
 import { createApp } from './app';
 import { connectDatabase } from './config/database';
-import { env } from './config/environment';
+import { env, validateProductionEnvironment } from './config/environment';
 
 async function startServer(): Promise<void> {
   try {
     console.log('🚀 Starting GhanaTech Global API Server...');
     
+    validateProductionEnvironment();
     // Connect to MongoDB
     await connectDatabase();
 

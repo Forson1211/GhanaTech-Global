@@ -3,9 +3,7 @@ import { createApplicationSchema, updateApplicationSchema } from '../validators/
 import * as applicationService from '../services/applicationService';
 import * as emailService from '../services/emailService';
 import { sendSuccess, sendError } from '../utils/response';
-import path from 'path';
-import fs from 'fs';
-import { env } from '../config/environment';
+import { sendStoredCv } from '../services/cvStorage';
 
 export async function submitApplication(req: Request, res: Response): Promise<void> {
   try {
@@ -97,16 +95,8 @@ export async function downloadCV(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    const filename = path.basename(application.cvUrl);
-    const filePath = path.join(env.UPLOAD_DIR, 'cvs', filename);
-
-    if (!fs.existsSync(filePath)) {
-      sendError(res, 'CV file not found on disk', 404);
-      return;
-    }
-
-    res.download(filePath, application.cvOriginalName || filename);
+    await sendStoredCv(application, res);
   } catch (error: any) {
-    sendError(res, error.message || 'Failed to retrieve CV file', 500);
+    if (!res.headersSent) sendError(res, 'Failed to retrieve CV file', 500);
   }
 }

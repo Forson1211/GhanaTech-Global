@@ -51,6 +51,9 @@ export interface TalentApplication {
   availability: CandidateAvailability;
   desiredEngagement: 'Full-time' | 'Contract' | 'Part-time';
   cvUrl?: string;
+  cvOriginalName?: string;
+  cvMimeType?: string;
+  cvSize?: number;
   status: ApplicationStatus;
   internalNotes?: string;
   createdAt: string;

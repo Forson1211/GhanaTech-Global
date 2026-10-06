@@ -3,53 +3,27 @@ import path from 'path';
 import fs from 'fs';
 import { env } from '../config/environment';
 
-// Ensure upload directory exists
-const cvUploadDir = path.join(env.UPLOAD_DIR, 'cvs');
-if (!fs.existsSync(cvUploadDir)) {
-  fs.mkdirSync(cvUploadDir, { recursive: true });
-}
-
-// Storage abstraction (Disk storage provider, can be swapped for S3 / Cloud Storage)
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, cvUploadDir);
-  },
-  filename: (_req, file, cb) => {
-    // Sanitize filename and create unique timestamped key
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const sanitizedBase = path.basename(file.originalname, path.extname(file.originalname)).replace(/[^a-zA-Z0-9_-]/g, '_');
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${sanitizedBase}-${uniqueSuffix}${ext}`);
-  },
-});
-
-// File filter validation
-const fileFilter = (
-  _req: any,
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) => {
-  const allowedExtensions = ['.pdf', '.doc', '.docx'];
-  const ext = path.extname(file.originalname).toLowerCase();
-
-  const allowedMimeTypes = [
-    'application/pdf',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/octet-stream', // Some browsers report docx as octet-stream
-  ];
-
-  if (allowedExtensions.includes(ext) || allowedMimeTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('Invalid file type. Only PDF and Word documents (.pdf, .doc, .docx) are accepted.'));
-  }
-};
+const storage = env.CV_STORAGE === 'blob'
+  ? multer.memoryStorage()
+  : multer.diskStorage({
+      destination: (_req, _file, cb) => {
+        const folder = path.join(env.UPLOAD_DIR, 'cvs');
+        fs.mkdir(folder, { recursive: true }, (error) => cb(error, folder));
+      },
+      filename: (_req, file, cb) => {
+        const suffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const base = path.basename(file.originalname, path.extname(file.originalname)).replace(/[^a-zA-Z0-9_-]/g, '_');
+        cb(null, `${base}-${suffix}${path.extname(file.originalname).toLowerCase()}`);
+      },
+    });
 
 export const uploadCV = multer({
   storage,
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10 MB limit as per Section 49
+  limits: { fileSize: 10 * 1024 * 1024, files: 1, fields: 25 },
+  fileFilter: (_req, file, cb) => {
+    const allowed = ['.pdf', '.doc', '.docx'];
+    const mime = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/octet-stream'];
+    if (allowed.includes(path.extname(file.originalname).toLowerCase()) && (!file.mimetype || mime.includes(file.mimetype))) cb(null, true);
+    else cb(new Error('Only PDF, DOC and DOCX documents are accepted.'));
   },
-  fileFilter,
 });

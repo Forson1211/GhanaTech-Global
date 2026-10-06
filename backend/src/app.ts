@@ -44,6 +44,8 @@ export function createApp(): Application {
     'http://localhost:5174',
     'http://127.0.0.1:5174',
     'http://localhost:3000',
+    ...[process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL]
+      .filter(Boolean).map((hostname) => `https://${hostname}`),
   ];
 
   app.use(
@@ -54,7 +56,7 @@ export function createApp(): Application {
         if (allowedOrigins.includes(origin)) {
           return callback(null, true);
         }
-        return callback(null, true); // Allow all in dev for ease of local testing
+        return callback(null, !env.isProduction);
       },
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -81,7 +83,7 @@ export function createApp(): Application {
   app.use(cookieParser());
 
   // Static directory for uploaded public images if any (CVs are served via protected download endpoint)
-  app.use('/uploads/images', express.static(path.join(env.UPLOAD_DIR, 'images')));
+  if (!env.isVercel) app.use('/uploads/images', express.static(path.join(env.UPLOAD_DIR, 'images')));
 
   // Health check endpoint
   app.get('/api/health', (_req: Request, res: Response) => {

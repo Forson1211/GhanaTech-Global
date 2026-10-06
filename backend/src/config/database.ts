@@ -1,31 +1,29 @@
 import mongoose from 'mongoose';
 import { env } from './environment';
 
+let connectionPromise: Promise<typeof mongoose> | null = null;
+
 export async function connectDatabase(): Promise<typeof mongoose> {
-  try {
-    const conn = await mongoose.connect(env.MONGODB_URI, {
-      autoIndex: true,
+  if (mongoose.connection.readyState === 1) return mongoose;
+  if (!env.MONGODB_URI) throw new Error('MONGODB_URI is not configured.');
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(env.MONGODB_URI, {
+      autoIndex: !env.isProduction,
+      maxPoolSize: 10,
+      minPoolSize: 0,
       serverSelectionTimeoutMS: 5000,
+      bufferCommands: false,
+    }).catch((error) => {
+      connectionPromise = null;
+      throw error;
     });
-
-    console.log(`[Database] MongoDB connected successfully to: ${conn.connection.host}/${conn.connection.name}`);
-
-    mongoose.connection.on('error', (err) => {
-      console.error('[Database] MongoDB connection error:', err);
-    });
-
-    mongoose.connection.on('disconnected', () => {
-      console.warn('[Database] MongoDB disconnected. Attempting to reconnect...');
-    });
-
-    return conn;
-  } catch (error) {
-    console.error('[Database] Failed to connect to MongoDB:', error);
-    process.exit(1);
   }
+  const connection = await connectionPromise;
+  connectionPromise = null;
+  return connection;
 }
 
 export async function disconnectDatabase(): Promise<void> {
   await mongoose.disconnect();
-  console.log('[Database] MongoDB disconnected cleanly.');
+  connectionPromise = null;
 }

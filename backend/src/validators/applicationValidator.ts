@@ -17,6 +17,7 @@ export const createApplicationSchema = z.object({
   portfolio: z.string().optional(),
   availability: z.string().default('Available Immediately'),
   desiredEngagement: z.string().default('Full-time Remote'),
+  cvToken: z.string().max(4096).optional(),
 });
 
 export const updateApplicationSchema = z.object({

@@ -257,10 +257,14 @@ const validate = () => {
   }
   if (!form.value.phone.trim()) errors.value.phone = 'Phone number is required';
   if (!form.value.location.trim()) errors.value.location = 'Location is required';
-  if (!form.value.yearsExperience || form.value.yearsExperience < 0) {
+  if (!Number.isFinite(Number(form.value.yearsExperience)) || Number(form.value.yearsExperience) < 0) {
     errors.value.yearsExperience = 'Please specify years of experience';
   }
   if (!skillsInput.value.trim()) errors.value.skills = 'Please specify key skills';
+  if (!selectedCvFile.value) errors.value.cv = 'Please attach your CV.';
+  else if (!/\.(pdf|doc|docx)$/i.test(selectedCvFile.value.name) || selectedCvFile.value.size <= 0 || selectedCvFile.value.size > 10 * 1024 * 1024) {
+    errors.value.cv = 'Choose a PDF, DOC or DOCX document up to 10 MB.';
+  }
 
   return Object.keys(errors.value).length === 0;
 };
@@ -296,7 +300,7 @@ const handleSubmit = async () => {
       toast.success('Your application has been received successfully!');
     }
   } catch (err: any) {
-    serverError.value = err?.response?.data?.message || 'Failed to submit application. Please try again.';
+    serverError.value = err?.response?.data?.message || err?.message || 'Failed to submit application. Please try again.';
     toast.error(serverError.value || 'Failed to submit application');
   } finally {
     isSubmitting.value = false;

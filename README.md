@@ -1,5 +1,8 @@
 # GhanaTech Global
 
+For a single Vercel deployment of the frontend and backend, see [the deployment guide](docs/vercel-deployment.md).
+Run `npm ci` and `npm run build` from the repository root. Vercel uses the root `vercel.json`; do not select `frontend` as the project root.
+
 > **U.S.–Ghana Technology Talent & Services Platform**  
 > Connecting forward-thinking U.S. companies with thoroughly vetted, top-tier Ghanaian technology professionals and enterprise-grade managed tech services.
 

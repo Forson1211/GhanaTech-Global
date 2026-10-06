@@ -12,9 +12,11 @@ import { Statistic } from '../models/Statistic';
 import { SiteSettings } from '../models/SiteSettings';
 import { TalentApplication } from '../models/TalentApplication';
 import { CompanyLead } from '../models/CompanyLead';
+import { env } from '../config/environment';
 
 async function seedDatabase(): Promise<void> {
   try {
+    if (env.isProduction) throw new Error('Demo seeding is disabled in production. Use create-admin instead.');
     console.log('🌱 Connecting to database for seeding...');
     await connectDatabase();
 

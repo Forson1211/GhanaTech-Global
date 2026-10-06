@@ -1,8 +1,6 @@
 import { TalentApplication, ITalentApplication, ApplicationStatus } from '../models/TalentApplication';
 import { FilterQuery } from 'mongoose';
-import path from 'path';
-import fs from 'fs';
-import { env } from '../config/environment';
+import { deleteStoredCv, resolveUploadedCv, storeMultipartCv } from './cvStorage';
 
 export interface ApplicationQueryOptions {
   search?: string;
@@ -14,13 +12,14 @@ export interface ApplicationQueryOptions {
 }
 
 export async function submitApplication(data: any, file?: Express.Multer.File): Promise<ITalentApplication> {
-  const applicationData = { ...data };
-
-  if (file) {
-    applicationData.cvUrl = `/uploads/cvs/${file.filename}`;
-    applicationData.cvOriginalName = file.originalname;
-    applicationData.cvMimeType = file.mimetype;
-    applicationData.cvSize = file.size;
+  const { cvToken, ...applicationData } = data;
+  if (cvToken && file) throw new Error('Submit only one CV document.');
+  if (cvToken) {
+    Object.assign(applicationData, await resolveUploadedCv(cvToken));
+    // Enforce one application per uploaded document, including on a fresh database.
+    await TalentApplication.collection.createIndex({ cvStorageKey: 1 }, { unique: true, sparse: true });
+  } else if (file) {
+    Object.assign(applicationData, await storeMultipartCv(file));
   }
 
   const application = new TalentApplication(applicationData);
@@ -101,23 +100,13 @@ export async function updateApplicationStatusAndNotes(
 }
 
 export async function deleteApplication(id: string): Promise<ITalentApplication> {
-  const application = await TalentApplication.findByIdAndDelete(id);
+  const application = await TalentApplication.findById(id);
   if (!application) {
     throw new Error('Application not found');
   }
 
-  // Clean up CV file on disk if exists
-  if (application.cvUrl) {
-    const filename = path.basename(application.cvUrl);
-    const filePath = path.join(env.UPLOAD_DIR, 'cvs', filename);
-    if (fs.existsSync(filePath)) {
-      try {
-        fs.unlinkSync(filePath);
-      } catch (err) {
-        console.error('Failed to unlink CV file:', err);
-      }
-    }
-  }
-
+  // Remove storage first so a failure can be retried without losing the reference.
+  await deleteStoredCv(application);
+  await application.deleteOne();
   return application;
 }
