@@ -2,6 +2,8 @@ import { createApp } from './app';
 import { connectDatabase } from './config/database';
 import { env, validateProductionEnvironment } from './config/environment';
 
+const app = createApp();
+
 async function startServer(): Promise<void> {
   try {
     console.log('🚀 Starting GhanaTech Global API Server...');
@@ -9,8 +11,6 @@ async function startServer(): Promise<void> {
     validateProductionEnvironment();
     // Connect to MongoDB
     await connectDatabase();
-
-    const app = createApp();
 
     const server = app.listen(env.PORT, () => {
       console.log(`\n======================================================`);
@@ -38,4 +38,16 @@ async function startServer(): Promise<void> {
   }
 }
 
-startServer();
+// In standalone / local mode, start the server listening on PORT.
+// In Vercel serverless / services mode, ensure database is connected and export app.
+if (!process.env.VERCEL) {
+  startServer();
+} else {
+  validateProductionEnvironment();
+  connectDatabase().catch((error) => {
+    console.error('[Vercel Express] Database connection error:', error);
+  });
+}
+
+export { app, startServer };
+export default app;

@@ -38,6 +38,7 @@ export function createApp(): Application {
 
   // CORS Configuration
   const allowedOrigins = [
+    process.env.FRONTEND_URL,
     env.CLIENT_URL,
     'http://localhost:5173',
     'http://127.0.0.1:5173',
@@ -46,7 +47,7 @@ export function createApp(): Application {
     'http://localhost:3000',
     ...[process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL]
       .filter(Boolean).map((hostname) => `https://${hostname}`),
-  ];
+  ].filter(Boolean) as string[];
 
   app.use(
     cors({

@@ -18,14 +18,17 @@ const handler = require('../api/index.js');
 mongoose.connection.readyState = 1;
 after(() => { Object.assign(env, originalEnvironment); mongoose.connection.readyState = originalState; });
 
-test('Vercel routes reserve /api and serve real assets before the SPA fallback', () => {
+test('Vercel services configuration routes /api to backend and other paths to frontend', () => {
   const config = require('../vercel.json');
-  const matchesApi = url => config.routes.filter(route => route.src && route.dest === '/api/index.js').some(route => new RegExp('^' + route.src + '$').test(url));
+  assert.ok(config.services);
+  assert.equal(config.services.backend.framework, 'express');
+  assert.equal(config.services.frontend.framework, 'vite');
+  assert.ok(Array.isArray(config.services.backend.bindings));
+  assert.equal(config.services.backend.bindings[0].service, 'frontend');
+  assert.equal(config.services.backend.bindings[0].env, 'FRONTEND_URL');
+  const matchesApi = url => config.rewrites.filter(r => r.destination?.service === 'backend').some(r => new RegExp('^' + r.source + '$').test(url));
   for (const url of ['/api', '/api/health', '/api/applications', '/api/applications/admin/id/cv']) assert.equal(matchesApi(url), true);
   for (const url of ['/', '/about', '/join-talent', '/images/african-office-team.jpg']) assert.equal(matchesApi(url), false);
-  assert.equal(config.routes[2].handle, 'filesystem');
-  assert.equal(config.routes.at(-1).dest, '/index.html');
-  assert.ok(fs.existsSync(path.join(__dirname, '..', config.outputDirectory, 'index.html')));
   const lock = require('../package-lock.json');
   assert.ok(lock.packages['backend'].dependencies['@vercel/blob']);
   assert.ok(lock.packages['frontend'].dependencies['@vercel/blob']);
