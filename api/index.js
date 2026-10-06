@@ -9,7 +9,8 @@ module.exports = async function handler(request, response) {
   try {
     validateProductionEnvironment();
     await connectDatabase();
-  } catch {
+  } catch (error) {
+    console.error('[API Startup Error]:', error);
     response.statusCode = 503;
     response.setHeader('Content-Type', 'application/json');
     response.setHeader('Cache-Control', 'no-store');
