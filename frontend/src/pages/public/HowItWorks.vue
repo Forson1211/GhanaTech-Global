@@ -1,0 +1,141 @@
+<template>
+  <div class="bg-white min-h-screen">
+    <!-- Header Hero with GhanaTech purple gradient and organic curve -->
+    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
+      <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
+        <div class="hidden sm:block absolute -bottom-12 -left-12 w-[240px] h-[240px] rounded-full border border-white/15 pointer-events-none" />
+        <div class="hidden sm:block absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full border border-white/10 pointer-events-none" />
+        <div class="hidden sm:block absolute -top-16 -right-16 w-[360px] h-[360px] rounded-full border border-white/15 pointer-events-none" />
+      </div>
+
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+        <!-- Main Title -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+          How GhanaTech Global Works
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+          From precise role definition to ongoing placement support, our structured methodology ensures seamless transatlantic engineering integration.
+        </p>
+      </div>
+
+      <!-- Organic Curved Wave Bottom Divider (overlapping by 2px to eliminate subpixel gap) -->
+      <div class="absolute -bottom-1 sm:-bottom-2 inset-x-0 overflow-hidden leading-none pointer-events-none z-20">
+        <svg class="relative block w-full h-12 sm:h-16 lg:h-20 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,0 C320,105 880,105 1200,0 L1200,125 L0,125 Z" fill="currentColor"></path>
+        </svg>
+      </div>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <!-- Part 1: The 5-Step Client Process -->
+      <div class="mb-20">
+        <h2 class="text-2xl font-bold text-brand-dark mb-8 text-center sm:text-left">
+          The 5-Step Placement Process
+        </h2>
+        <div class="space-y-4">
+          <div
+            v-for="(step, idx) in steps"
+            :key="step.number"
+            class="p-6 rounded-3xl bg-brand-lightest/40 border border-brand-border/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          >
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 rounded-2xl bg-brand-primary text-white font-mono font-black text-lg flex items-center justify-center flex-shrink-0 shadow-violet-sm">
+                {{ step.number }}
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-brand-dark">{{ step.title }}</h3>
+                <p class="text-xs text-brand-muted mt-1 leading-relaxed max-w-xl">{{ step.description }}</p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-brand-primary bg-brand-soft px-3 py-1 rounded-full whitespace-nowrap">
+              {{ step.timeline }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 2: Technical Assessment Standard -->
+      <div class="bg-brand-darkest text-white rounded-3xl p-8 sm:p-12 shadow-violet-lg mb-16">
+        <span class="text-xs font-bold text-brand-bright uppercase tracking-wider block mb-2">Vetting Methodology</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-4">We assess technical ability, not just resumes.</h2>
+        <p class="text-xs sm:text-sm text-brand-soft leading-relaxed max-w-2xl mb-8">
+          Every candidate presented to your team has successfully cleared our 4-phase evaluation gauntlet.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <span class="font-mono text-xl font-black text-brand-bright block mb-1">01</span>
+            <strong class="text-white text-sm block mb-1">Profile Screening</strong>
+            <p class="text-[11px] text-brand-soft/70">Academic verification, past enterprise deliverables, and identity checks.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <span class="font-mono text-xl font-black text-brand-bright block mb-1">02</span>
+            <strong class="text-white text-sm block mb-1">Technical Challenge</strong>
+            <p class="text-[11px] text-brand-soft/70">Timed coding exams, live terminal debugging, and architecture design.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <span class="font-mono text-xl font-black text-brand-bright block mb-1">03</span>
+            <strong class="text-white text-sm block mb-1">Professional Interview</strong>
+            <p class="text-[11px] text-brand-soft/70">English fluency evaluation, cross-cultural alignment, and problem solving.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <span class="font-mono text-xl font-black text-brand-bright block mb-1">04</span>
+            <strong class="text-white text-sm block mb-1">Client Presentation</strong>
+            <p class="text-[11px] text-brand-soft/70">High-match shortlist delivered to hiring manager with zero obligation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <router-link
+          to="/hire-talent"
+          class="px-8 py-3.5 rounded-full bg-brand-primary text-white text-sm font-bold hover:bg-brand-dark transition-colors shadow-violet-md inline-block"
+        >
+          Start Your Technical Hiring Request
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+const steps = [
+  {
+    number: '01',
+    title: 'Tell Us What You Need',
+    description: 'Submit your role requirements, tech stack parameters, and preferred engagement model through our streamlined intake form.',
+    timeline: 'Day 1',
+  },
+  {
+    number: '02',
+    title: 'We Source & Assess',
+    description: 'We query our active Ghanaian database and run domain-specific evaluations verified by senior technical directors.',
+    timeline: 'Days 1 - 2',
+  },
+  {
+    number: '03',
+    title: 'Meet Your Shortlist',
+    description: 'Receive comprehensive candidate dossiers including technical assessment breakdowns, code repos, and video introductions.',
+    timeline: 'Within 48 Hours',
+  },
+  {
+    number: '04',
+    title: 'Interview & Hire',
+    description: 'Conduct final team video interviews. Make your selection with transparent compensation and zero upfront recruiting fees.',
+    timeline: 'Days 3 - 5',
+  },
+  {
+    number: '05',
+    title: 'Ongoing Support',
+    description: 'We manage international compliance, payroll, workstation setup, performance check-ins, and replacement guarantees.',
+    timeline: 'Continuous',
+  },
+];
+</script>

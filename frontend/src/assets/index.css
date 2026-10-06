@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-brand-primary: #6D28D9;
+  --color-brand-dark: #4C1D95;
+  --color-brand-bright: #7C3AED;
+  --color-brand-soft: #EDE9FE;
+  --color-brand-lightest: #F5F3FF;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-border: #DDD6FE;
+  --color-brand-text: #0F0A1C;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    @apply bg-white text-brand-text font-sans antialiased selection:bg-brand-primary selection:text-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar in brand violet */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F5F3FF;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C4B5FD;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8B5CF6;
+  }
+}
+
+@layer utilities {
+  .bg-grid-violet {
+    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, rgba(109, 40, 217, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(109, 40, 217, 0.05) 1px, transparent 1px);
+  }
+
+  .bg-radial-hero {
+    background: radial-gradient(ellipse 90% 60% at 50% -15%, rgba(124, 58, 237, 0.18), rgba(255, 255, 255, 0));
+  }
+
+  .text-gradient-violet {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-dark via-brand-primary to-brand-bright;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes pulse-beam {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 5s ease-in-out 1.5s infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-beam {
+  animation: pulse-beam 2.5s ease-in-out infinite;
+}

@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: website photo for a large rounded image card on the right of a recruitment landing section.
+Primary request: Bright professional studio photograph of a smiling young adult Black Ghanaian woman, long neat natural black hair, wearing a muted slate-blue fitted short-sleeve t-shirt and light blue jeans. She faces the camera with a friendly natural smile and points both hands toward the left side of the frame, as in a classic website call-to-action model photo. Her right index finger points diagonally upper-left, her left hand points across her chest to the left. Realistic anatomically correct hands.
+Scene/backdrop: Plain very light off-white studio backdrop, no objects.
+Composition/framing: Nearly square portrait photo, subject centered slightly right, photographed from upper thighs upward with generous headroom (her head starts about 17% below the top edge). Body reaches the bottom edge; all hands fully visible. Leave open background at top right and lower left for floating UI cards added in HTML.
+Lighting/mood: Soft high-key studio daylight, natural skin texture, realistic polished commercial photography.
+Constraints: Generate only the photograph. No words, letters, logos, numbers, buttons, user interface, graphics, watermark, or border.
