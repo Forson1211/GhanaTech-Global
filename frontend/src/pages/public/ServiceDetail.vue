@@ -19,7 +19,7 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          <span>All Managed Services</span>
+          <span>All Services</span>
         </router-link>
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
@@ -37,7 +37,7 @@
             :to="{ path: '/hire-talent', query: { technologyNeed: currentService.title } }"
             class="px-8 py-3.5 rounded-full bg-white text-brand-dark font-extrabold text-xs uppercase tracking-wide hover:bg-brand-soft transition-all shadow-lg transform hover:-translate-y-0.5"
           >
-            Request {{ currentService.title }} Pod
+            Request {{ currentService.title }} Team
           </router-link>
           <router-link
             :to="{ path: '/talent', query: { category: currentService.title } }"
@@ -62,7 +62,7 @@
       <div class="space-y-12">
         <div>
           <h2 class="text-2xl font-extrabold text-brand-dark mb-6">
-            Practice Capabilities & Deliverables
+            How We Can Help
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
@@ -83,22 +83,22 @@
 
         <!-- How We Deliver Section -->
         <div class="bg-brand-darkest text-white rounded-3xl p-8 sm:p-10 shadow-violet-lg">
-          <h3 class="text-xl font-bold mb-4">Engagement & Delivery Options</h3>
+          <h3 class="text-xl font-bold mb-4">Ways to Work With Us</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-brand-soft">
             <div class="p-4 rounded-xl bg-white/5 border border-white/10">
               <span class="text-brand-bright font-bold uppercase tracking-wider block mb-1">Option 1</span>
-              <strong class="text-white text-sm block mb-1">Dedicated Contributor</strong>
-              Full-time senior specialist reporting directly to your engineering manager.
+              <strong class="text-white text-sm block mb-1">Hire One Professional</strong>
+              Work with one experienced professional who reports to your team manager.
             </div>
             <div class="p-4 rounded-xl bg-white/5 border border-white/10">
               <span class="text-brand-bright font-bold uppercase tracking-wider block mb-1">Option 2</span>
-              <strong class="text-white text-sm block mb-1">Turnkey Engineering Pod</strong>
-              Multi-disciplinary team with dedicated lead, delivery management, and sprint commitments.
+              <strong class="text-white text-sm block mb-1">Build a Dedicated Team</strong>
+              Bring together a team with a leader, agreed tasks, and regular progress updates.
             </div>
             <div class="p-4 rounded-xl bg-white/5 border border-white/10">
               <span class="text-brand-bright font-bold uppercase tracking-wider block mb-1">Option 3</span>
-              <strong class="text-white text-sm block mb-1">Direct Hire Placement</strong>
-              Permanent addition to your cap table with seamless Ghana-US contract conversion.
+              <strong class="text-white text-sm block mb-1">Hire Someone Directly</strong>
+              Hire a professional directly into your company with agreed employment terms.
             </div>
           </div>
         </div>
@@ -108,7 +108,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { servicesService } from '@/services/services';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -117,51 +118,59 @@ const serviceDetails: Record<string, any> = {
   cybersecurity: {
     title: 'Cybersecurity',
     slug: 'cybersecurity',
-    description: 'Enterprise 24/7 security monitoring, SIEM tuning, vulnerability management, and regulatory compliance support.',
+    description: "Help monitor security threats, find weaknesses, and prepare for security reviews.",
     capabilities: [
-      { name: '24/7 SOC Tier 1/2 Monitoring', details: 'Continuous real-time alert triage, intrusion detection, and incident escalation protocols.' },
-      { name: 'SIEM Engineering & Detection Rules', details: 'Splunk, Microsoft Sentinel, and Elastic log collection, correlation rules, and parsing.' },
-      { name: 'Identity & Access Management (IAM)', details: 'Okta, Azure AD, role-based access policies, and least-privilege zero-trust governance.' },
-      { name: 'GRC & Security Framework Compliance', details: 'SOC 2 Type II, ISO 27001, and HIPAA documentation and policy audit remediation.' },
+      { name: "24/7 Security Monitoring", details: "Review security alerts, identify possible attacks, and help teams respond." },
+      { name: "Security Alerts & Monitoring Tools", details: "Set up tools such as Splunk and Microsoft Sentinel to collect security information and identify threats." },
+      { name: "Account Access & Permissions (IAM)", details: "Manage who can sign in and which systems they can access, using tools such as Okta and Azure AD." },
+      { name: "Security Risks & Review Support", details: "Help prepare security policies, records, and improvements for reviews such as SOC 2 and ISO 27001." },
     ],
   },
   'cloud-it': {
     title: 'Cloud & IT',
     slug: 'cloud-it',
-    description: 'Cloud infrastructure modernization, automated Kubernetes deployment pipelines, and high-availability systems reliability engineering.',
+    description: "Improve cloud systems, automate software updates, and keep applications running reliably.",
     capabilities: [
-      { name: 'Cloud Architecture & Migration', details: 'Design, lift-and-shift, or re-platforming to AWS and Microsoft Azure with minimal downtime.' },
-      { name: 'Infrastructure as Code (IaC)', details: 'Terraform and Ansible modular automation for repeatable, version-controlled environments.' },
-      { name: 'Container Orchestration & CI/CD', details: 'Kubernetes cluster deployment, Helm chart templating, GitHub Actions, and ArgoCD workflows.' },
-      { name: 'FinOps & Cloud Cost Optimization', details: 'Comprehensive infrastructure audits and reserved instance planning to cut cloud bills by 30%+.' },
+      { name: "Cloud Setup & Moving Systems", details: "Plan cloud systems and help move existing applications to AWS or Microsoft Azure." },
+      { name: "Automated Cloud Setup", details: "Use Terraform and Ansible to set up systems consistently and track changes." },
+      { name: "App Management & Software Releases", details: "Manage applications with Kubernetes and automate releases with tools such as GitHub Actions." },
+      { name: "Cloud Cost Reviews", details: "Review cloud usage and suggest ways to reduce unnecessary costs." },
     ],
   },
   software: {
     title: 'Software Engineering',
     slug: 'software',
-    description: 'Agile frontend, backend, and full-stack software development squads writing clean, tested, maintainable production software.',
+    description: "Build reliable websites, apps, and business software with developers and testers.",
     capabilities: [
-      { name: 'Modern Frontend Development', details: 'Responsive, accessible single-page web applications built in Vue 3, React, and TypeScript.' },
-      { name: 'Scalable Microservice Backends', details: 'High-throughput REST and GraphQL APIs using Node.js, Python, Go, and relational/NoSQL datastores.' },
-      { name: 'Automated QA & Reliability Testing', details: 'End-to-end regression suites, Playwright/Cypress integration tests, and unit coverage.' },
-      { name: 'Technical Debt & Performance Optimization', details: 'Code refactoring, database query indexing, memory leak triage, and latency reductions.' },
+      { name: "Website & App Interfaces", details: "Build easy-to-use websites and app screens with Vue, React, and TypeScript." },
+      { name: "Business Systems Behind Your Apps", details: "Build the systems that process data and connect applications, using Node.js, Python, Go, and databases." },
+      { name: "Software Testing", details: "Test software features and automate checks with tools such as Playwright and Cypress." },
+      { name: "Improving Existing Software", details: "Improve code, fix performance problems, and make existing applications easier to maintain." },
     ],
   },
   data: {
     title: 'Data & Analytics',
     slug: 'data',
-    description: 'Data platform engineering, automated ETL/ELT pipelines, Snowflake/BigQuery warehousing, and business intelligence reporting.',
+    description: "Bring business data together and create reports and dashboards your team can use.",
     capabilities: [
-      { name: 'Data Pipeline Engineering', details: 'Robust batch and streaming pipelines using Python, Airflow, dbt, and Kafka.' },
-      { name: 'Cloud Data Warehousing', details: 'Data modeling, star schema architecture, and partition strategies in Snowflake and BigQuery.' },
-      { name: 'BI Dashboards & Reporting', details: 'Executive KPI reporting, interactive stakeholder dashboards in Power BI, Tableau, and Metabase.' },
-      { name: 'Data Governance & Quality Assurance', details: 'Automated schema tests, Great Expectations checks, and metadata cataloging.' },
+      { name: "Collecting & Moving Data", details: "Collect and move data between systems with Python, Airflow, dbt, and Kafka." },
+      { name: "Organising Data in the Cloud", details: "Organise business data in Snowflake and BigQuery so it is ready for analysis." },
+      { name: "Dashboards & Reports", details: "Build reports and dashboards with Power BI, Tableau, and Metabase." },
+      { name: "Data Quality & Access", details: "Check that data is accurate, organised, and available to the right people." },
     ],
   },
 };
 
+const loadedService = ref<any>(null);
+watch(() => route.params.slug, async slug => {
+  loadedService.value = null;
+  try { const response = await servicesService.getServiceBySlug(String(slug)); if (route.params.slug === slug && response.success && response.data) { const service = response.data; loadedService.value = { ...service, capabilities: service.capabilities.map(capability => typeof capability === 'string' ? { name: capability, details: '' } : { name: capability.title, details: capability.description }) }; } }
+  catch { /* Retain the existing approved practice descriptions for known slugs. */ }
+}, { immediate: true });
+
 const currentService = computed(() => {
+  if (loadedService.value) return loadedService.value;
   const slug = (route.params.slug as string) || (route.path.split('/').pop() || 'software');
-  return serviceDetails[slug] || serviceDetails['software'];
+  return serviceDetails[slug] || { title: "Service Not Found", description: "Browse our services or contact our team for help.", capabilities: [] };
 });
 </script>

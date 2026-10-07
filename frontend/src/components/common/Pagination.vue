@@ -46,6 +46,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 import { computed } from 'vue';
 
 interface Props {

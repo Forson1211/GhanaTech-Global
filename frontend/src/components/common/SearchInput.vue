@@ -9,7 +9,7 @@
     <input
       type="text"
       :value="modelValue"
-      :placeholder="placeholder"
+      :placeholder="t(placeholder)"
       class="block w-full pl-10 pr-9 py-2.5 bg-white border border-brand-border rounded-xl text-sm text-brand-text placeholder-brand-muted/70 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all shadow-violet-sm"
       @input="handleInput"
     />
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 import { ref } from 'vue';
 
 interface Props {

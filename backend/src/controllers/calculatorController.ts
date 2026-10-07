@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { CalculatorConfig } from '../models/CalculatorConfig';
 import { sendSuccess, sendError } from '../utils/response';
+import { z } from 'zod';
+const configSchema = z.object({ role: z.string().trim().min(2).max(200), seniority: z.enum(['Junior', 'Mid-Level', 'Senior']), usEstimatedAnnualCost: z.coerce.number().finite().positive(), ghanaTechEstimatedAnnualCost: z.coerce.number().finite().nonnegative(), notes: z.string().max(5000).optional() });
 
 // Fallback baseline costs if specific role/seniority combo isn't customized yet
 const DEFAULT_SENIORITY_MULTIPLIERS = {
@@ -74,7 +76,7 @@ export async function calculateEstimate(req: Request, res: Response): Promise<vo
 
 export async function saveCalculatorConfig(req: Request, res: Response): Promise<void> {
   try {
-    const { role, seniority, usEstimatedAnnualCost, ghanaTechEstimatedAnnualCost, notes } = req.body;
+    const { role, seniority, usEstimatedAnnualCost, ghanaTechEstimatedAnnualCost, notes } = configSchema.parse(req.body);
 
     if (!role || !seniority || usEstimatedAnnualCost === undefined || ghanaTechEstimatedAnnualCost === undefined) {
       sendError(res, 'Role, seniority, and costs are required', 400);
@@ -112,4 +114,13 @@ export async function deleteCalculatorConfig(req: Request, res: Response): Promi
   } catch (error: any) {
     sendError(res, error.message || 'Failed to delete calculator configuration', 400);
   }
+}
+
+export async function updateCalculatorConfig(req: Request, res: Response): Promise<void> {
+  try {
+    const data = configSchema.parse(req.body);
+    const config = await CalculatorConfig.findByIdAndUpdate(req.params.id, { $set: data }, { new: true, runValidators: true });
+    if (!config) { sendError(res, 'Config not found', 404); return; }
+    sendSuccess(res, 'Calculator configuration updated', config);
+  } catch { sendError(res, 'Invalid calculator configuration', 400); }
 }

@@ -19,6 +19,8 @@
     }
   },
   "rewrites": [
+    { "source": "/robots.txt", "destination": { "service": "backend" } },
+    { "source": "/sitemap.xml", "destination": { "service": "backend" } },
     {
       "source": "/api",
       "destination": {
@@ -37,5 +39,6 @@
         "service": "frontend"
       }
     }
-  ]
+  ],
+  "crons": [{ "path": "/api/cron/communications", "schedule": "0 8 * * *" }]
 }

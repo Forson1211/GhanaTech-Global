@@ -1,39 +1,36 @@
 <template>
-  <div class="min-h-screen bg-brand-lightest/40 flex flex-col justify-center py-12 sm:px-6 lg:px-8 selection:bg-brand-primary selection:text-white">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-      <!-- Logo icon -->
-      <router-link to="/" class="inline-flex items-center space-x-3 group mb-4">
-        <div class="w-12 h-12 rounded-2xl bg-brand-primary flex items-center justify-center text-white shadow-violet-md group-hover:bg-brand-dark transition-all">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M3.6 9h16.8M3.6 15h16.8" />
-            <circle cx="12" cy="12" r="3" fill="#EDE9FE" />
-          </svg>
-        </div>
-      </router-link>
-
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
-        GhanaTech Global Admin
-      </h1>
-      <p class="mt-2 text-xs sm:text-sm text-brand-muted">
-        Sign in to manage talent, applications, client leads, and site content.
-      </p>
+  <div class="login-page relative isolate min-h-screen bg-brand-primary flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 selection:bg-brand-primary selection:text-white">
+    <div class="login-backdrop" aria-hidden="true">
+      <span class="login-glow login-glow--top"></span>
+      <span class="login-glow login-glow--bottom"></span>
+      <span class="login-orbit login-orbit--left"></span>
+      <span class="login-orbit login-orbit--right"></span>
+      <span v-for="particle in 6" :key="particle" class="login-particle"></span>
     </div>
-
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
+    <div class="relative z-10 w-full sm:mx-auto sm:max-w-md">
       <div class="bg-white py-8 px-6 sm:px-10 rounded-3xl border border-brand-border/80 shadow-violet-md space-y-6">
-        <!-- Error Alert Message -->
-        <div
-          v-if="errorMessage"
-          class="p-3.5 rounded-xl bg-brand-lightest border border-brand-primary text-xs font-semibold text-brand-dark flex items-center space-x-2"
-        >
-          <svg class="w-4 h-4 text-brand-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <span>{{ errorMessage }}</span>
-        </div>
+        <form class="space-y-5" aria-label="Admin sign in" @submit.prevent="handleLogin">
+          <div class="text-center">
+            <router-link to="/" class="inline-flex items-center" aria-label="GhanaTech Global home">
+              <img
+                src="/images/white%20background.png"
+                alt="GhanaTech Global"
+                class="h-16 sm:h-20 w-auto max-w-full object-contain"
+              />
+            </router-link>
+          </div>
 
-        <form class="space-y-5" @submit.prevent="handleLogin">
+          <!-- Error Alert Message -->
+          <div
+            v-if="errorMessage"
+            class="p-3.5 rounded-xl bg-brand-lightest border border-brand-primary text-xs font-semibold text-brand-dark flex items-center space-x-2"
+          >
+            <svg class="w-4 h-4 text-brand-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>{{ errorMessage }}</span>
+          </div>
+
           <!-- Email Input -->
           <Input
             v-model="email"
@@ -164,3 +161,93 @@ const handleLogin = async () => {
   }
 };
 </script>
+
+<style scoped>
+.login-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.login-glow {
+  position: absolute;
+  width: clamp(360px, 60vw, 850px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: login-glow-drift 24s ease-in-out infinite alternate;
+}
+.login-glow--top {
+  top: -30%;
+  left: -16%;
+  background: radial-gradient(circle, #c4b5fd45 0%, #a78bfa18 38%, transparent 70%);
+}
+.login-glow--bottom {
+  bottom: -35%;
+  right: -18%;
+  background: radial-gradient(circle, #ede9fe30 0%, #a78bfa20 38%, transparent 70%);
+  animation-delay: -12s;
+  animation-direction: alternate-reverse;
+}
+
+.login-orbit {
+  position: absolute;
+  width: clamp(240px, 34vw, 490px);
+  aspect-ratio: 1;
+  border: 1px solid #ffffff24;
+  border-radius: 50%;
+  animation: login-orbit-turn 70s linear infinite;
+}
+.login-orbit::before {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border: 1px solid #ffffff12;
+  border-radius: 50%;
+}
+.login-orbit::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  background: #ede9fe99;
+  border-radius: 50%;
+  box-shadow: 0 0 14px #ede9fe66;
+}
+.login-orbit--left { top: 14%; left: -13%; }
+.login-orbit--right { right: -12%; bottom: 8%; animation-direction: reverse; animation-delay: -30s; }
+
+.login-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ede9fe;
+  opacity: .35;
+  animation: login-particle-float 14s ease-in-out infinite alternate;
+}
+.login-particle:nth-of-type(5) { left: 12%; top: 67%; animation-delay: -4s; }
+.login-particle:nth-of-type(6) { left: 23%; top: 21%; width: 3px; height: 3px; animation-delay: -9s; }
+.login-particle:nth-of-type(7) { left: 79%; top: 17%; animation-delay: -2s; }
+.login-particle:nth-of-type(8) { left: 90%; top: 72%; width: 3px; height: 3px; animation-delay: -11s; }
+.login-particle:nth-of-type(9) { left: 68%; top: 85%; width: 6px; height: 6px; animation-delay: -7s; }
+.login-particle:nth-of-type(10) { left: 45%; top: 8%; animation-delay: -5s; }
+
+@keyframes login-glow-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(7%, 10%, 0) scale(1.12); }
+}
+@keyframes login-orbit-turn {
+  to { transform: rotate(360deg); }
+}
+@keyframes login-particle-float {
+  from { transform: translate3d(0, 0, 0); opacity: .2; }
+  to { transform: translate3d(16px, -36px, 0); opacity: .5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-glow, .login-orbit, .login-particle { animation: none; }
+}
+</style>

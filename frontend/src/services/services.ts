@@ -18,35 +18,35 @@ export const servicesService = {
 
   // Admin Services
   async getAdminServices(): Promise<ApiResponse<ServiceItem[]>> {
-    return (api.get('/admin/services') as unknown) as ApiResponse<ServiceItem[]>;
+    return (api.get('/services/admin/all') as unknown) as ApiResponse<ServiceItem[]>;
   },
 
   async createService(data: Partial<ServiceItem>): Promise<ApiResponse<ServiceItem>> {
-    return (api.post('/admin/services', data) as unknown) as ApiResponse<ServiceItem>;
+    return (api.post('/services/admin', data) as unknown) as ApiResponse<ServiceItem>;
   },
 
   async updateService(id: string, data: Partial<ServiceItem>): Promise<ApiResponse<ServiceItem>> {
-    return (api.put(`/admin/services/${id}`, data) as unknown) as ApiResponse<ServiceItem>;
+    return (api.put(`/services/admin/${id}`, data) as unknown) as ApiResponse<ServiceItem>;
   },
 
   async deleteService(id: string): Promise<ApiResponse<null>> {
-    return (api.delete(`/admin/services/${id}`) as unknown) as ApiResponse<null>;
+    return (api.delete(`/services/admin/${id}`) as unknown) as ApiResponse<null>;
   },
 
   // Admin Categories
   async getAdminCategories(): Promise<ApiResponse<TechnologyCategory[]>> {
-    return (api.get('/admin/categories') as unknown) as ApiResponse<TechnologyCategory[]>;
+    return (api.get('/categories/admin/all') as unknown) as ApiResponse<TechnologyCategory[]>;
   },
 
   async createCategory(data: Partial<TechnologyCategory>): Promise<ApiResponse<TechnologyCategory>> {
-    return (api.post('/admin/categories', data) as unknown) as ApiResponse<TechnologyCategory>;
+    return (api.post('/categories/admin/all', data) as unknown) as ApiResponse<TechnologyCategory>;
   },
 
   async updateCategory(id: string, data: Partial<TechnologyCategory>): Promise<ApiResponse<TechnologyCategory>> {
-    return (api.put(`/admin/categories/${id}`, data) as unknown) as ApiResponse<TechnologyCategory>;
+    return (api.put(`/categories/admin/${id}`, data) as unknown) as ApiResponse<TechnologyCategory>;
   },
 
   async deleteCategory(id: string): Promise<ApiResponse<null>> {
-    return (api.delete(`/admin/categories/${id}`) as unknown) as ApiResponse<null>;
+    return (api.delete(`/categories/admin/${id}`) as unknown) as ApiResponse<null>;
   },
 };

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import PublicLayout from '@/layouts/PublicLayout.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import { updatePageMetadata } from '@/utils/seo';
 
 const routes: RouteRecordRaw[] = [
   // Public Routes (PublicLayout)
@@ -28,7 +29,9 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'talent/:id',
-        redirect: '/hire-talent',
+        name: 'CandidateProfile',
+        component: () => import('@/pages/public/CandidateProfile.vue'),
+        meta: { title: 'Technology Professional | GhanaTech Global' },
       },
       {
         path: 'hire-talent',
@@ -64,6 +67,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/public/ServiceDetail.vue'),
         meta: { title: 'Practice Details | GhanaTech Global' },
       },
+      { path: 'managed-teams', name: 'ManagedTeams', component: () => import('@/pages/public/BusinessInfo.vue'), meta: { title: 'Dedicated Managed Teams | GhanaTech Global', description: 'Build a dedicated team of vetted Ghanaian technology professionals for global delivery.' } },
+      { path: 'for-talent', name: 'ForTalent', component: () => import('@/pages/public/BusinessInfo.vue'), meta: { title: 'For Technology Talent | GhanaTech Global', description: 'Join the GhanaTech Global Talent Network for full-time, contract, project, and managed-team opportunities.' } },
+      { path: 'industries', name: 'Industries', component: () => import('@/pages/public/BusinessInfo.vue'), meta: { title: 'Industry Technology Expertise | GhanaTech Global', description: 'Technology talent and delivery expertise aligned with your business requirements.' } },
+      { path: 'talent-directory', name: 'TalentDirectory', component: () => import('@/pages/public/TalentDirectory.vue'), meta: { title: 'Available Technology Talent | GhanaTech Global', description: 'Explore approved Ghanaian technology professionals and submit your hiring requirement.' } },
       {
         path: 'how-it-works',
         name: 'HowItWorks',
@@ -76,6 +83,13 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/public/WhyGhana.vue'),
         meta: { title: 'Why Ghana? | GhanaTech Global' },
       },
+      ...[
+        { path: 'leadership', name: 'Leadership', title: 'Leadership' },
+        { path: 'insights', name: 'Insights', title: 'Insights' },
+        { path: 'insights/:slug', name: 'Insight', title: 'Insights' },
+        { path: 'privacy', name: 'Privacy', title: 'Privacy Policy' },
+        { path: 'terms', name: 'Terms', title: 'Terms of Use' },
+      ].map(page => ({ path: page.path, name: page.name, component: () => import('@/pages/public/ContentPage.vue'), meta: { title: page.title + ' | GhanaTech Global' } })),
       {
         path: 'contact',
         name: 'Contact',
@@ -105,6 +119,10 @@ const routes: RouteRecordRaw[] = [
     component: AdminLayout,
     meta: { requiresAuth: true },
     children: [
+      { path: 'account', name: 'AdminAccount', component: () => import('@/pages/admin/Account.vue'), meta: { title: 'Account Settings | GhanaTech Admin' } },
+      { path: 'jobs', name: 'AdminJobs', component: () => import('@/pages/admin/Publishing.vue'), meta: { title: 'Career Opportunities | GhanaTech Admin' } },
+      { path: 'content', name: 'AdminContent', component: () => import('@/pages/admin/Publishing.vue'), meta: { title: 'Website Content | GhanaTech Admin' } },
+      { path: 'communications', name: 'AdminCommunications', component: () => import('@/pages/admin/Communications.vue'), meta: { title: 'Communications | GhanaTech Admin' } },
       {
         path: '',
         name: 'AdminDashboard',
@@ -199,6 +217,12 @@ router.beforeEach((to, _from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title as string;
   }
+
+  const descriptions: Record<string, string> = { Home: 'GhanaTech Global connects exceptional Ghanaian technology professionals with global companies. Vetted Technology Talent. Global Delivery.', Talent: 'Explore technology talent across cybersecurity, cloud, software, data, IT, and business technology.', HireTalent: 'Submit your technology hiring requirement for direct placement, managed talent, or a technology project.', JoinTalent: 'Join the GhanaTech Global Talent Network with your skills, experience, preferences, and CV.', Services: 'Technology talent, managed teams, and technology solutions for global companies.' };
+  let description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+  if (!description) { description = document.createElement('meta'); description.name = 'description'; document.head.appendChild(description); }
+  description.content = to.meta.description as string || descriptions[String(to.name)] || descriptions.Home;
+  updatePageMetadata(String(to.meta.title || 'GhanaTech Global'), description.content, to.path, to.path.startsWith('/admin'));
 
   const token = localStorage.getItem('gtg_token');
 

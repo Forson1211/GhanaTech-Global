@@ -69,7 +69,7 @@
 
             <!-- Core Stack Badges -->
             <div class="mb-6">
-              <span class="block text-[10px] uppercase font-bold text-brand-muted mb-2">Core Tech Stack</span>
+              <span class="block text-[10px] uppercase font-bold text-brand-muted mb-2">Skills &amp; Tools</span>
               <div class="flex flex-wrap gap-1.5">
                 <span
                   v-for="skill in roleItem.skills"

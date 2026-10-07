@@ -5,9 +5,7 @@
         <h2 id="why-ghana-title">Ghanaian talent.<br />Ready for the world.</h2>
         <p>
           <span class="why-ghana-desktop-description">
-          Discover Ghana’s skilled technology professionals. Technical expertise,
-          clear communication, and global ambition make meaningful connections
-          with U.S. teams possible.
+          Meet skilled tech professionals from Ghana. Explore their experience, communication skills, and interest in working with global teams.
           </span>
           <span class="why-ghana-mobile-description">Meet Ghana’s skilled technology professionals, ready to connect and grow with U.S. teams.</span>
         </p>

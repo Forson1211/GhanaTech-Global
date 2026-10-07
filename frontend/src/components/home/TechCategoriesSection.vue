@@ -3,8 +3,8 @@
     <div class="areas-container">
       <div class="areas-heading">
         <div>
-          <h2 id="career-areas-title">Find your area of expertise.</h2>
-          <p>Explore opportunities across four technology disciplines.</p>
+          <h2 id="career-areas-title">Find Your Type of Work.</h2>
+          <p>Explore jobs in software, cloud, security, and data.</p>
         </div>
         <router-link to="/jobs" class="areas-link">Explore jobs <ArrowRight :size="20" aria-hidden="true" /></router-link>
       </div>
@@ -23,10 +23,10 @@
 import { ArrowRight, Cloud, CodeXml, Database, ShieldCheck } from 'lucide-vue-next';
 
 const categories = [
-  { title: 'Cybersecurity', icon: ShieldCheck, description: 'SOC analysts, security engineers, and risk specialists.' },
-  { title: 'Cloud & IT', icon: Cloud, description: 'Cloud engineers, DevOps specialists, and IT professionals.' },
-  { title: 'Software Engineering', icon: CodeXml, description: 'Frontend, backend, full-stack, and QA engineers.' },
-  { title: 'Data & Analytics', icon: Database, description: 'Data engineers, analysts, and business intelligence specialists.' },
+  { title: 'Cybersecurity', icon: ShieldCheck, description: "Help protect systems and data from online threats." },
+  { title: 'Cloud & IT', icon: Cloud, description: "Build and support cloud systems and business computers." },
+  { title: 'Software Engineering', icon: CodeXml, description: "Build websites and apps, or test software." },
+  { title: 'Data & Analytics', icon: Database, description: "Work with data, reports, and business dashboards." },
 ];
 </script>
 

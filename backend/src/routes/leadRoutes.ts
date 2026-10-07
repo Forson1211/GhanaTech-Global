@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   submitLead,
+  submitContact,
   getAdminLeads,
   getAdminLeadById,
   updateLead,
@@ -12,6 +13,7 @@ const router = Router();
 
 // Public route: submit company hiring request
 router.post('/', submitLead);
+router.post('/contact', submitContact);
 
 // Admin protected routes
 router.get('/admin/all', authenticateUser, getAdminLeads);

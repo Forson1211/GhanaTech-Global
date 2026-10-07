@@ -24,8 +24,8 @@ import { ClipboardCheck, Handshake, UserRoundCheck } from 'lucide-vue-next';
 
 const assurances = [
   {
-    title: 'IP Protection & NDAs',
-    description: 'Your work product and source code belong to your company, backed by IP transfer agreements and confidentiality protection.',
+    title: "Work Ownership & Privacy",
+    description: "Your agreements explain who owns the code and other work, and how private information is protected.",
     icon: Handshake,
     iconClass: 'trust-icon-protection',
   },
@@ -36,8 +36,8 @@ const assurances = [
     iconClass: 'trust-icon-verification',
   },
   {
-    title: 'Replacement Guarantee',
-    description: 'If a placement falls short during the initial period, we help arrange a suitable replacement so your team can keep moving.',
+    title: "Support After Hiring",
+    description: "If a new hire is not the right fit, talk to our team about the next steps and agreed replacement terms.",
     icon: UserRoundCheck,
     iconClass: 'trust-icon-support',
   },

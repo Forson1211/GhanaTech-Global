@@ -6,7 +6,7 @@
           RIGOROUS VETTING STANDARD
         </div>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-          We assess technical ability, not just resumes.
+          We Review Experience and Check Skills
         </h2>
         <p class="mt-3 text-base text-brand-muted">
           Only the top 3% of applicants advance through our multi-stage evaluation pipeline to join the active GhanaTech Global roster.
@@ -54,13 +54,13 @@
 const steps = [
   {
     number: '01',
-    title: 'Profile Screening',
+    title: "CV & Background Review",
     description: 'Comprehensive review of verified background, work history, enterprise contributions, credentials, and identity verification.',
     detail: 'Top 25% pass to Technical Exam',
   },
   {
     number: '02',
-    title: 'Technical Assessment',
+    title: "Practical Skill Checks",
     description: 'Domain-specific timed coding exams, architecture reviews, and hands-on lab challenges (SOC incident triage, cloud deployment, live debugging).',
     detail: 'Hands-on practical code evaluation',
   },

@@ -1,6 +1,6 @@
 # Deploy GhanaTech Global as one Vercel project
 
-The Vue website and Express API share one domain. Vercel serves `frontend/dist` and runs `api/index.js` for every `/api` request. Website routes such as `/join-talent` and `/admin/login` fall back to the Vue application; unknown API routes return JSON rather than the homepage.
+The Vue website and Express API share one domain through the existing Vercel Services configuration. The `frontend` service builds the Vite application; the `backend` service runs Express. Requests for `/api`, `/robots.txt`, and `/sitemap.xml` route to the backend. Website routes such as `/join-talent` and `/admin/login` fall back to the Vue application; unknown API routes return JSON rather than the homepage.
 
 ## 1. Import the repository
 
@@ -9,13 +9,12 @@ Import https://github.com/Forson1211/GhanaTech-Global into Vercel.
 | Setting | Value |
 | --- | --- |
 | Root directory | Repository root (leave empty) |
-| Framework preset | Other |
+| Framework preset | Services |
 | Node.js | 22.x |
-| Install command | `npm ci` |
-| Build command | `npm run build` |
-| Output directory | `frontend/dist` |
+| Per-service frameworks | Express for `backend`, Vite for `frontend` |
+| Root build/output overrides | Leave unset; each service owns its build |
 
-These commands and routing are already configured in `vercel.json`. No second Vercel project is needed.
+The service roots, frameworks, bindings, routing, and daily communications schedule are configured in `vercel.json`. Select Services in the project's Build and Deployment settings; the `services` key alone does not enable this framework. No second Vercel project is needed. See [Vercel's Services guide](https://vercel.com/kb/guide/vercel-services).
 
 ## 2. Connect the database and private document storage
 
@@ -32,7 +31,10 @@ Set these project environment variables before deploying:
 | `CV_STORAGE` | `blob` |
 | `BLOB_READ_WRITE_TOKEN` | Added by the connected private Blob store |
 | `CLIENT_URL` | Your production website origin, e.g. `https://your-domain.com` |
+| `SITE_URL` | The same canonical production origin, for sitemap and robots URLs |
 | `VITE_API_URL` | `/api` for development overrides; production always uses `/api` |
+| `VITE_SITE_URL` | The canonical production origin, for browser metadata |
+| `CRON_SECRET` | A random secret protecting the communications scheduler |
 
 Apply the settings to Production and the Preview environments you intend to use. Prefer a separate database and Blob store for previews. Redeploy after changing environment variables. Never put database, JWT or Blob secrets into a `VITE_` variable or a committed file.
 
@@ -73,6 +75,8 @@ Check:
 - A hiring request and newsletter signup are saved.
 - A talent application accepts a PDF or Word résumé up to 10 MB.
 - Signed-in recruiters can download résumés; unauthenticated requests cannot.
+- Published jobs and approved content appear publicly; drafts stay private.
+- `/robots.txt` and `/sitemap.xml` return the correct content and canonical domain.
 
 ## How résumé storage works
 
@@ -91,7 +95,7 @@ npm run dev:api
 npm run dev
 ```
 
-The frontend's Vite proxy sends `/api` to port 5000. Local development can keep `CV_STORAGE=local` in `backend/.env`. Set `CV_STORAGE=blob` with a private store token to test cloud uploads locally; application submission does not depend on a Blob webhook arriving.
+The frontend's Vite proxy sends `/api`, `/robots.txt`, and `/sitemap.xml` to port 5010. Keep `PORT=5010` in `backend/.env`, or set `DEV_API_TARGET` when intentionally using another API port. Local development can keep `CV_STORAGE=local`. Set `CV_STORAGE=blob` with a private store token to test cloud uploads locally; application submission does not depend on a Blob webhook arriving.
 
 Before pushing:
 
@@ -100,6 +104,6 @@ npm run build
 npm test
 ```
 
-The existing email notification service logs notifications. Hosting configuration does not enable an email provider or send confirmation emails.
+The communications worker is implemented but stays disabled until `EMAIL_DELIVERY_ENABLED=true`, `RESEND_API_KEY`, and a verified `EMAIL_FROM` are configured. Set `CRON_SECRET` for the protected daily schedule and confirm its authentication on the deployed project. See [launch setup](launch-checklist.md) for delivery, reminders, retry limits, publishing, and content prerequisites.
 
-References: [Node.js functions](https://vercel.com/docs/functions/runtimes/node-js), [Vite](https://vercel.com/docs/frameworks/frontend/vite), [private Blob storage](https://vercel.com/docs/vercel-blob/private-storage), [client uploads](https://vercel.com/docs/vercel-blob/client-upload).
+References: [Services](https://vercel.com/kb/guide/vercel-services), [Node.js functions](https://vercel.com/docs/functions/runtimes/node-js), [Vite](https://vercel.com/docs/frameworks/frontend/vite), [private Blob storage](https://vercel.com/docs/vercel-blob/private-storage), [client uploads](https://vercel.com/docs/vercel-blob/client-upload), [cron authentication](https://vercel.com/docs/cron-jobs/manage-cron-jobs).

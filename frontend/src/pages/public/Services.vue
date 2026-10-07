@@ -14,12 +14,12 @@
 
         <!-- Main Title -->
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-          Enterprise Managed Services Powered by Ghanaian Talent
+          Technology Services for Your Business
         </h1>
 
         <!-- Subtitle -->
         <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          From 24/7 cybersecurity defense and cloud infrastructure maintenance to dedicated software engineering pods and high-volume data pipelines.
+          Get help with online security, cloud systems, software, data, and IT support. Hire a person, build a team, or discuss a project.
         </p>
       </div>
 
@@ -43,13 +43,13 @@
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-bold text-brand-primary bg-brand-soft px-3 py-1 rounded-full">
-                Practice Area
+                Service Area
               </span>
               <router-link
                 :to="`/services/${service.slug}`"
                 class="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1"
               >
-                <span>Read Full Practice Overview</span>
+                <span>Read About This Service</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -65,7 +65,7 @@
             </p>
 
             <div class="space-y-2 mb-6">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark">Core Capabilities:</h4>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark">How We Can Help:</h4>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                 <div
                   v-for="cap in service.capabilities"
@@ -88,10 +88,10 @@
             </router-link>
 
             <router-link
-              :to="{ path: '/hire-talent', query: { technologyNeed: service.title } }"
+              :to="{ path: '/hire-talent', query: { technologyNeed: service.title, engagementType: 'Managed talent' } }"
               class="px-6 py-2.5 rounded-xl bg-brand-primary text-white text-xs font-bold hover:bg-brand-dark transition-colors shadow-violet-sm"
             >
-              Deploy a {{ service.title }} Pod
+              Build a {{ service.title }} Team
             </router-link>
           </div>
         </div>
@@ -100,16 +100,16 @@
       <!-- Turnkey Pod SLA Guarantee Card -->
       <div class="bg-gradient-to-r from-brand-dark to-brand-primary rounded-3xl p-8 sm:p-12 text-white shadow-violet-lg flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-2 max-w-xl text-center md:text-left">
-          <h3 class="text-2xl font-extrabold tracking-tight">Need a Customized Technology Squad?</h3>
+          <h3 class="text-2xl font-extrabold tracking-tight">Need a Team for Your Project?</h3>
           <p class="text-sm text-brand-soft leading-relaxed">
-            We assemble customized multi-disciplinary teams (e.g. 1 Lead Architect + 2 Software Engineers + 1 Cloud Engineer) managed under a single transparent SLA.
+            We can help you bring together the right mix of developers, testers, and cloud specialists. Agree on responsibilities, costs, and progress updates with our team.
           </p>
         </div>
         <router-link
           to="/hire-talent"
           class="px-8 py-3.5 rounded-full bg-white text-brand-primary font-bold text-xs hover:bg-brand-lightest shadow-violet-md whitespace-nowrap"
         >
-          Discuss Pod Requirements
+          Talk About Your Team
         </router-link>
       </div>
     </div>
@@ -117,16 +117,18 @@
 </template>
 
 <script setup lang="ts">
-const services = [
+import { ref, onMounted } from 'vue';
+import { servicesService } from '@/services/services';
+const services = ref([
   {
     title: 'Cybersecurity',
     slug: 'cybersecurity',
-    description: 'Enterprise 24/7 threat detection, SIEM log analysis, GRC frameworks, and IAM configuration designed to protect digital assets and achieve compliance.',
+    description: "Help protect your systems and data with security monitoring, risk reviews, and account access controls.",
     capabilities: [
       '24/7 SOC Triage & Containment',
       'SIEM Engineering & Tuning',
       'GRC & SOC 2 Preparation',
-      'Identity & Access Management (IAM)',
+      "Account Access & Permissions (IAM)",
       'Vulnerability Scanning & Patching',
       'Cloud Security Posture (CSPM)',
     ],
@@ -134,11 +136,11 @@ const services = [
   {
     title: 'Cloud & IT',
     slug: 'cloud-it',
-    description: 'End-to-end cloud infrastructure management, automated CI/CD release engineering, Kubernetes container orchestration, and continuous systems administration.',
+    description: "Set up and manage cloud systems, automate software updates, and keep business IT running.",
     capabilities: [
       'AWS & Azure Cloud Migration',
       'Terraform Infrastructure as Code',
-      'Kubernetes (EKS/AKS) Orchestration',
+      "Managing Apps with Kubernetes",
       'Automated CI/CD Delivery Pipelines',
       'Linux/Unix Server Administration',
       'Cloud Spend & FinOps Auditing',
@@ -147,7 +149,7 @@ const services = [
   {
     title: 'Software Engineering',
     slug: 'software',
-    description: 'Turnkey full-stack web and mobile application engineering squads building reliable APIs, dynamic frontends, and robust transactional backends.',
+    description: "Build websites, mobile apps, and software that connects your business tools.",
     capabilities: [
       'Frontend (Vue 3, TypeScript, React)',
       'Backend Microservices (Node, Python, Go)',
@@ -160,7 +162,7 @@ const services = [
   {
     title: 'Data & Analytics',
     slug: 'data',
-    description: 'Modern data stack engineering, automated ETL ingestion pipelines, warehouse modeling, and executive business intelligence dashboards.',
+    description: "Organise business data and create reports and dashboards that help you make decisions.",
     capabilities: [
       'Snowflake & BigQuery Data Warehousing',
       'dbt Data Modeling & Transformation',
@@ -170,5 +172,11 @@ const services = [
       'Predictive Modeling Support',
     ],
   },
-];
+]);
+onMounted(async () => {
+  try {
+    const response = await servicesService.getServices();
+    if (response.success && response.data) services.value = response.data.map(service => ({ title: service.title, slug: service.slug, description: service.description, capabilities: service.capabilities.map(capability => typeof capability === 'string' ? capability : capability.title) }));
+  } catch { /* Existing practice content remains available while the API is offline. */ }
+});
 </script>

@@ -6,7 +6,7 @@
           GOT QUESTIONS?
         </div>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-          Frequently Asked Questions
+          Common Questions
         </h2>
         <p class="mt-3 text-base text-brand-muted">
           Everything you need to know about partnering with GhanaTech Global.
@@ -42,62 +42,62 @@ import Accordion from '@/components/common/Accordion.vue';
 const defaultFaqs: FAQItem[] = [
   {
     order: 1,
-    question: 'What technology professionals do you provide?',
-    answer: 'We provide vetted professionals across four core domains: Cybersecurity (SOC analysts, security engineers, GRC specialists, IAM consultants), Cloud & IT (AWS/Azure architects, DevOps engineers, Linux sysadmins), Software Engineering (frontend, backend, full-stack developers in Vue, React, Node, Python, Java, Go, plus QA engineers), and Data & Analytics (data engineers, BI analysts, pipeline specialists).',
+    question: "What kinds of professionals can I hire?",
+    answer: "We help you hire people for cybersecurity, cloud systems, software development, data and reporting, IT support, and business or project management.",
     isPublished: true,
   },
   {
     order: 2,
-    question: 'How are candidates assessed?',
-    answer: 'Our 4-stage assessment process includes rigorous profile screening, hands-on timed technical challenges and domain-specific code reviews, a comprehensive video evaluation focusing on English fluency and problem-solving, and verified background/credential verification.',
+    question: "How do you check candidates?",
+    answer: "We review each CV, check background details and practical skills, and interview candidates about their experience and communication.",
     isPublished: true,
   },
   {
     order: 3,
-    question: 'How quickly can I receive candidates?',
-    answer: 'From receiving your specific requirements, our team typically delivers a curated shortlist of 2 to 3 pre-vetted candidates ready for interviews within 48 to 72 hours.',
+    question: "How soon can I meet candidates?",
+    answer: "For candidates already checked in our network, we usually suggest profiles within 48 to 72 hours. Starting work depends on interviews, availability, and the job.",
     isPublished: true,
   },
   {
     order: 4,
-    question: 'Can I hire one professional?',
-    answer: 'Yes. You can hire a single individual contributor dedicated full-time to your team, whether you need one frontend developer, one SOC analyst, or a specialized DevOps engineer.',
+    question: "Can I hire just one person?",
+    answer: "Yes. Tell us the job and skills you need, and we can help you find one suitable person.",
     isPublished: true,
   },
   {
     order: 5,
-    question: 'Can I build an entire team?',
-    answer: 'Absolutely. Many U.S. clients scale up entire dedicated squads or pods (e.g., 1 lead architect, 3 full-stack engineers, and 1 QA analyst, or a complete 24/7 3-shift SOC tier 1/2 rotation).',
+    question: "Can you help me build a team?",
+    answer: "Yes. We can help you build a team of developers, testers, cloud engineers, or other professionals, with the right mix of skills for your project.",
     isPublished: true,
   },
   {
     order: 6,
-    question: 'Do you provide managed cybersecurity?',
-    answer: 'Yes. Beyond direct staffing, we deliver managed cybersecurity services including 24/7 SOC monitoring, SIEM management, continuous vulnerability assessments, and SOC 2/ISO 27001 readiness.',
+    question: "Can you help with cybersecurity?",
+    answer: "Yes. We can help monitor security threats, check for weaknesses, manage account access, and prepare for security reviews. Talk to us about the support you need.",
     isPublished: true,
   },
   {
     order: 7,
-    question: 'Do you provide cloud and DevOps services?',
-    answer: 'Yes. We offer managed cloud migrations, AWS/Azure infrastructure architecture, Terraform automation, Kubernetes cluster setup, and 24/7 on-call infrastructure reliability support.',
+    question: "Can you help with cloud and IT systems?",
+    answer: "Yes. We can help set up, move, and manage cloud systems, automate software updates, and keep your IT systems running.",
     isPublished: true,
   },
   {
     order: 8,
-    question: 'Can you support software projects?',
-    answer: 'Yes. We provide turnkey custom software development, modernizing legacy systems, building customer-facing web and mobile applications, and creating scalable API microservices.',
+    question: "Can you help with software projects?",
+    answer: "Yes. We can help build websites and mobile apps, improve existing software, and connect your business systems.",
     isPublished: true,
   },
   {
     order: 9,
-    question: 'How does pricing work?',
-    answer: 'We operate with simple, transparent billing. Clients typically save 60% to 75% compared to equivalent U.S. domestic salaries. For direct placements, we offer straightforward hiring options; for managed services, we offer predictable monthly retainers with zero hidden fees.',
+    question: "How much does it cost?",
+    answer: "Costs depend on the job, experience, number of people, and support you need. Our team will explain the pricing before you agree to hire or start a project.",
     isPublished: true,
   },
   {
     order: 10,
-    question: 'How do I get started?',
-    answer: 'Simply click "Hire Talent" to submit your role requirements or schedule an intro call. A technical director will review your stack and schedule candidate interviews right away.',
+    question: "How do I get started?",
+    answer: "Choose Hire Tech Professionals, fill in the hiring form, and our team will contact you to discuss the next steps.",
     isPublished: true,
   },
 ];

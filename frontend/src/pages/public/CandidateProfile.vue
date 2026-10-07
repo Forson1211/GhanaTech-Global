@@ -1,15 +1,15 @@
 <template>
-  <div class="py-12 bg-brand-lightest/40 min-h-screen">
+  <div class="pt-32 pb-12 bg-brand-lightest/40 min-h-screen">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Back Link -->
       <router-link
-        to="/talent"
+        to="/talent-directory"
         class="inline-flex items-center text-xs font-bold text-brand-muted hover:text-brand-primary mb-6 transition-colors gap-1.5"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        <span>Back to Talent Directory</span>
+        <span>Back to Candidate Profiles</span>
       </router-link>
 
       <!-- Loading State -->
@@ -28,8 +28,8 @@
       <div v-else-if="!candidate" class="py-12 text-center bg-white rounded-3xl p-8 border border-brand-border">
         <p class="text-base font-bold text-brand-dark">Candidate profile not found</p>
         <p class="text-xs text-brand-muted mt-1">This candidate profile may have been updated or placed.</p>
-        <router-link to="/talent" class="mt-4 inline-block px-5 py-2 rounded-full bg-brand-primary text-white text-xs font-bold">
-          Return to Directory
+        <router-link to="/talent-directory" class="mt-4 inline-block px-5 py-2 rounded-full bg-brand-primary text-white text-xs font-bold">
+          Browse Candidate Profiles
         </router-link>
       </div>
 
@@ -114,7 +114,7 @@
                 :to="{ path: '/hire-talent', query: { candidateId: candidate._id, candidateName: `${candidate.firstName} ${candidate.lastName}`, role: candidate.role } }"
                 class="w-full md:w-auto px-8 py-3.5 rounded-full bg-brand-primary text-white font-extrabold text-sm hover:bg-brand-dark transition-all duration-200 shadow-violet-md block text-center"
               >
-                Request This Candidate
+                Ask About This Candidate
               </router-link>
             </div>
           </div>
@@ -126,7 +126,7 @@
           <div class="lg:col-span-2 space-y-6">
             <!-- Headline / Executive Summary -->
             <div class="bg-white rounded-3xl p-8 border border-brand-border/80 shadow-violet-sm">
-              <h2 class="text-base font-bold text-brand-dark mb-3">Professional Summary</h2>
+              <h2 class="text-base font-bold text-brand-dark mb-3">About This Person</h2>
               <p class="text-sm text-brand-muted leading-relaxed whitespace-pre-line">
                 {{ candidate.bio || candidate.headline }}
               </p>
@@ -138,9 +138,9 @@
                 ✓
               </div>
               <div>
-                <h3 class="text-xs font-bold text-brand-dark uppercase tracking-wider">GhanaTech Global Verified</h3>
+                <h3 class="text-xs font-bold text-brand-dark uppercase tracking-wider">GhanaTech Global Candidate Profiles</h3>
                 <p class="text-xs text-brand-muted mt-0.5">
-                  This professional has completed code challenge verification, English fluency assessment, and identity authentication.
+                  Review their skills and experience, then ask our team whether they could be right for your job.
                 </p>
               </div>
             </div>
@@ -150,7 +150,7 @@
           <div class="space-y-6">
             <div class="bg-white rounded-3xl p-6 border border-brand-border/80 shadow-violet-sm space-y-5">
               <h3 class="text-sm font-bold text-brand-dark border-b border-brand-border/40 pb-3">
-                Skills & Technologies
+                Skills &amp; Tools
               </h3>
 
               <div class="flex flex-wrap gap-2">
@@ -169,12 +169,12 @@
                   <span class="font-bold text-brand-dark">{{ candidate.yearsExperience }}+ Years</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-brand-muted">Vetting Stage</span>
+                  <span class="text-brand-muted">Skill Check Status</span>
                   <span class="font-bold text-brand-primary">{{ candidate.assessmentStatus }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-brand-muted">Placement Readiness</span>
-                  <span class="font-bold text-brand-dark">Immediate</span>
+                  <span class="text-brand-muted">Ready for Work</span>
+                  <span class="font-bold text-brand-dark">{{ candidate.availability }}</span>
                 </div>
               </div>
 
@@ -183,7 +183,7 @@
                   :to="{ path: '/hire-talent', query: { candidateId: candidate._id, candidateName: `${candidate.firstName} ${candidate.lastName}`, role: candidate.role } }"
                   class="w-full py-3 rounded-xl bg-brand-soft hover:bg-brand-primary hover:text-white text-brand-dark font-bold text-xs transition-colors text-center block"
                 >
-                  Schedule Interview
+                  Request an Interview
                 </router-link>
               </div>
             </div>
@@ -195,7 +195,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { candidateService } from '@/services/candidates';
 import type { PublicCandidate } from '@/types/candidate';
@@ -206,7 +206,9 @@ const route = useRoute();
 const candidate = ref<PublicCandidate | null>(null);
 const loading = ref(true);
 
-onMounted(async () => {
+watch(() => route.params.id, async () => {
+  loading.value = true;
+  candidate.value = null;
   const id = route.params.id as string;
   try {
     const res = await candidateService.getPublicCandidateById(id);
@@ -214,26 +216,9 @@ onMounted(async () => {
       candidate.value = res.data;
     }
   } catch {
-    // If not found in backend or offline, mock with sample matching id
-    candidate.value = {
-      _id: id,
-      firstName: 'Kwame',
-      lastName: 'Asante',
-      headline: 'Senior Cybersecurity & SOC Analyst with 7+ years incident response and SIEM tuning experience.',
-      location: 'Accra',
-      country: 'Ghana',
-      role: 'SOC Analyst',
-      category: 'Cybersecurity',
-      yearsExperience: 7,
-      skills: ['Splunk', 'CrowdStrike', 'MITRE ATT&CK', 'Incident Response', 'Network Forensics', 'Linux', 'Python'],
-      bio: 'Senior security practitioner with extensive enterprise experience operating in 24/7 Security Operations Centers (SOC). Specializes in high-fidelity alert tuning, SIEM log correlation, threat intelligence integration, and containment orchestration.\n\nDemonstrated background leading cross-functional incident response teams, conducting digital forensics investigations, and drafting executive debriefs for audit compliance (SOC 2, ISO 27001).',
-      availability: 'Available',
-      assessmentStatus: 'Ready for Placement',
-      profileStatus: 'Approved',
-      createdAt: new Date().toISOString(),
-    };
+    candidate.value = null;
   } finally {
     loading.value = false;
   }
-});
+}, { immediate: true });
 </script>

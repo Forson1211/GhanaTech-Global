@@ -6,7 +6,7 @@ const isVercel = process.env.VERCEL === '1';
 const isProduction = isVercel || process.env.NODE_ENV === 'production';
 
 export const env = {
-  PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 5000,
+  PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 5010,
   MONGODB_URI: process.env.MONGODB_URI || (isProduction ? '' : 'mongodb://127.0.0.1:27017/ghanatech_global'),
   JWT_SECRET: process.env.JWT_SECRET || (isProduction ? '' : 'local_development_only_change_before_deployment'),
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',

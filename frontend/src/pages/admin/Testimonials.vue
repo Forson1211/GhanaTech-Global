@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Testimonials Management</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Manage demo feedback and client reviews displayed in the homepage carousel.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Customer Reviews") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Manage demo feedback and client reviews displayed in the homepage carousel.") }} </p>
       </div>
 
       <Button variant="primary" size="md" @click="openCreateModal">
@@ -11,61 +11,55 @@
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
-        </template>
-        Add Testimonial
-      </Button>
+        </template> {{ t("Add Testimonial") }} </Button>
     </div>
 
     <!-- Table -->
     <Table :loading="loading" :empty="testimonials.length === 0" :col-span="5">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Client & Role</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Company</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Quote Snippet</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Status</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Client & Role") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Company") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Quote Snippet") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Status") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
-      <tr v-for="t in testimonials" :key="t._id" class="hover:bg-brand-lightest/40 transition-colors">
+      <tr v-for="testimonial in testimonials" :key="testimonial._id" class="hover:bg-brand-lightest/40 transition-colors">
         <td class="py-4 px-6">
-          <p class="font-bold text-brand-dark text-sm">{{ t.name }}</p>
-          <p class="text-xs text-brand-muted">{{ t.role }}</p>
+          <p class="font-bold text-brand-dark text-sm">{{ testimonial.name }}</p>
+          <p class="text-xs text-brand-muted">{{ testimonial.role }}</p>
         </td>
 
         <td class="py-4 px-4 text-xs font-semibold text-brand-dark">
-          {{ t.company }}
+          {{ testimonial.company }}
         </td>
 
         <td class="py-4 px-4 text-xs text-brand-muted line-clamp-2 max-w-sm">
-          "{{ t.quote }}"
+          "{{ testimonial.quote }}"
         </td>
 
         <td class="py-4 px-4">
-          <StatusBadge :status="t.status" />
+          <StatusBadge :status="testimonial.status" />
         </td>
 
         <td class="py-4 px-6 text-right space-x-2">
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
-            @click="togglePublish(t)"
+            @click="togglePublish(testimonial)"
           >
-            {{ t.status === 'published' ? 'Unpublish' : 'Publish' }}
+            {{ testimonial.status === 'published' ? 'Unpublish' : 'Publish' }}
           </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-dark hover:bg-brand-soft rounded-lg transition-colors"
-            @click="openEditModal(t)"
-          >
-            Edit
-          </button>
+            @click="openEditModal(testimonial)"
+          > {{ t("Edit") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
-            @click="confirmDelete(t._id!, t.name)"
-          >
-            Delete
-          </button>
+            @click="confirmDelete(testimonial._id!, testimonial.name)"
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
     </Table>
@@ -82,8 +76,8 @@
         <Select v-model="form.status" label="Status" :options="['published', 'draft']" />
 
         <div class="pt-4 border-t border-brand-border/40 flex justify-end space-x-3">
-          <Button variant="ghost" size="sm" @click="showModal = false">Cancel</Button>
-          <Button type="submit" variant="primary" size="sm" :loading="isSaving">Save Testimonial</Button>
+          <Button variant="ghost" size="sm" @click="showModal = false"> {{ t("Cancel") }} </Button>
+          <Button type="submit" variant="primary" size="sm" :loading="isSaving"> {{ t("Save Testimonial") }} </Button>
         </div>
       </form>
     </Modal>
@@ -101,6 +95,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
 import { testimonialService } from '@/services/testimonials';
 import type { TestimonialItem } from '@/types/common';
@@ -156,10 +152,10 @@ const openCreateModal = () => {
   showModal.value = true;
 };
 
-const openEditModal = (t: TestimonialItem) => {
+const openEditModal = (testimonial: TestimonialItem) => {
   isEditing.value = true;
-  currentId.value = t._id || null;
-  form.value = { ...t };
+  currentId.value = testimonial._id || null;
+  form.value = { ...testimonial };
   showModal.value = true;
 };
 
@@ -182,10 +178,10 @@ const saveTestimonial = async () => {
   }
 };
 
-const togglePublish = async (t: TestimonialItem) => {
+const togglePublish = async (testimonial: TestimonialItem) => {
   try {
-    const newStatus = t.status === 'published' ? 'draft' : 'published';
-    await testimonialService.togglePublish(t._id!, newStatus);
+    const newStatus = testimonial.status === 'published' ? 'draft' : 'published';
+    await testimonialService.togglePublish(testimonial._id!, newStatus);
     toast.success(`Testimonial status changed to ${newStatus}.`);
     fetchTestimonials();
   } catch {

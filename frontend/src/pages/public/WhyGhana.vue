@@ -19,7 +19,7 @@
 
         <!-- Subtitle -->
         <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          The Silicon Valley of West Africa: unmatched stability, native English communication, deep technical education, and timezone alignment with North America.
+          Discover skilled tech professionals, clear English communication, and ways to work with teams in Ghana.
         </p>
       </div>
 
@@ -43,10 +43,10 @@
           <div class="space-y-3">
             <h2 class="text-2xl font-bold text-brand-dark">Technical Talent</h2>
             <p class="text-sm text-brand-muted leading-relaxed">
-              Ghana has cultivated an extraordinary technical ecosystem anchored by institutions like Ashesi University, the University of Ghana, and the Kwame Nkrumah University of Science and Technology (KNUST), alongside global engineering presences from major tech multinationals.
+              Ghana has universities, training communities, and experienced professionals working in technology.
             </p>
             <p class="text-xs text-brand-muted leading-relaxed">
-              Engineers in Ghana specialize across modern web architectures, cloud infrastructure automation, security operations, and data engineering, bringing both theoretical depth and hands-on production agility.
+              You can find people with experience in websites, software, cloud systems, cybersecurity, and data.
             </p>
           </div>
         </div>
@@ -59,10 +59,10 @@
           <div class="space-y-3">
             <h2 class="text-2xl font-bold text-brand-dark">English-Speaking Professionals</h2>
             <p class="text-sm text-brand-muted leading-relaxed">
-              English is the sole official language of instruction, enterprise commerce, and judicial governance in Ghana. Technical talent is educated entirely in English from primary school through master's degrees.
+              English is widely used in education and business in Ghana.
             </p>
             <p class="text-xs text-brand-muted leading-relaxed">
-              Unlike traditional offshore destinations where language barriers require dedicated translators or create ambiguity during sprint retrospectives, Ghanaian engineers communicate with high clarity, write articulate technical specifications, and seamlessly participate in daily standups.
+              Our candidate review includes communication checks so teams can discuss work, write updates, and join meetings clearly.
             </p>
           </div>
         </div>
@@ -73,12 +73,12 @@
             03
           </div>
           <div class="space-y-3">
-            <h2 class="text-2xl font-bold text-brand-dark">Time-Zone Compatibility</h2>
+            <h2 class="text-2xl font-bold text-brand-dark">Working Across Time Zones</h2>
             <p class="text-sm text-brand-muted leading-relaxed">
-              Located on the Prime Meridian, Ghana observes Greenwich Mean Time (GMT +0) year-round. This geographic advantage affords generous overlapping working hours with the continental United States.
+              Ghana uses GMT throughout the year. Your team can agree on working hours and meeting times before work starts.
             </p>
             <p class="text-xs text-brand-muted leading-relaxed">
-              Ghana is only 4 to 5 hours ahead of Eastern Standard Time (EST) and 6 to 7 hours ahead of Central and Mountain times. Engineering teams can easily hold synchronous sprint ceremonies, pair program during morning hours, and take advantage of follow-the-sun code reviews in the afternoon.
+              Teams in Ghana and the U.S. can plan shared meeting times and clear handovers between working hours.
             </p>
           </div>
         </div>
@@ -89,12 +89,12 @@
             04
           </div>
           <div class="space-y-3">
-            <h2 class="text-2xl font-bold text-brand-dark">Global Standards</h2>
+            <h2 class="text-2xl font-bold text-brand-dark">Reliable Teamwork</h2>
             <p class="text-sm text-brand-muted leading-relaxed">
-              Ghana represents one of the most stable, uninterrupted multiparty democracies in Africa. The nation maintains robust intellectual property laws, a modern Data Protection Act aligned with global privacy standards, and extensive subsea fiber optic cables ensuring redundant gigabit connectivity.
+              Agree on responsibilities, communication, security needs, and expected results before the work begins.
             </p>
             <p class="text-xs text-brand-muted leading-relaxed">
-              Partnering with GhanaTech Global pairs this domestic stability with enforceable U.S. commercial contracts, giving enterprise technology buyers complete peace of mind.
+              GhanaTech Global helps you discuss these arrangements and understand the next steps.
             </p>
           </div>
         </div>
@@ -102,16 +102,16 @@
 
       <!-- Bottom CTA Card -->
       <div class="bg-brand-darkest text-white rounded-3xl p-8 sm:p-12 text-center shadow-violet-lg">
-        <h3 class="text-2xl font-extrabold mb-3">Ready to Experience the Ghanaian Advantage?</h3>
+        <h3 class="text-2xl font-extrabold mb-3">Ready to Meet Candidates from Ghana?</h3>
         <p class="text-xs sm:text-sm text-brand-soft max-w-xl mx-auto mb-8">
-          Browse verified profiles or book a call with our technical advisors to review matching candidates.
+          Browse candidate profiles or talk to our team about the people you need.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <router-link to="/talent" class="px-8 py-3 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-brand-bright transition-colors shadow-violet-sm">
-            Browse Talent Directory
+            Browse Candidate Profiles
           </router-link>
           <router-link to="/hire-talent" class="px-8 py-3 rounded-full bg-white text-brand-dark text-xs font-bold hover:bg-brand-lightest transition-colors">
-            Hire an Engineer
+            Send a Hiring Request
           </router-link>
         </div>
       </div>

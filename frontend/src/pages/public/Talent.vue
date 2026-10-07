@@ -14,11 +14,11 @@
         <div class="text-center max-w-3xl mx-auto">
 
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-            Recruit World-Class Ghanaian Tech Talent for Your U.S. Team
+            Find the Right Tech Professionals for Your Team
           </h1>
 
           <p class="mt-4 text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
-            GhanaTech Global recruits, technically assesses, places, and supports elite Ghanaian software engineers, cloud architects, cybersecurity specialists, and data practitioners. Pre-vetted for technical excellence, native English fluency, and seamless U.S. timezone collaboration.
+            We help companies hire skilled people from Ghana for software, cloud, security, data, IT support, and project work. We check their skills, experience, and communication before introducing them to your team.
           </p>
 
           <!-- Dual Call to Action -->
@@ -27,13 +27,13 @@
               to="/hire-talent"
               class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-brand-dark font-extrabold text-xs sm:text-sm uppercase tracking-wide shadow-lg hover:bg-brand-soft hover:shadow-xl transition-all transform hover:-translate-y-0.5"
             >
-              Hire Ghanaian Talent
+              Hire Tech Professionals
             </router-link>
             <router-link
               to="/join-talent"
               class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/10 text-white border border-white/30 text-xs sm:text-sm font-bold hover:bg-white/20 transition-all text-center"
             >
-              Apply to Join Talent Network
+              Join Our Talent Network
             </router-link>
           </div>
 
@@ -41,19 +41,19 @@
           <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-white/15 text-left">
             <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15">
               <span class="block text-2xl sm:text-3xl font-black text-white">Top 2%</span>
-              <span class="text-xs font-semibold text-white/80">Vetting Acceptance Rate</span>
+              <span class="text-xs font-semibold text-white/80">Candidates Who Pass Our Checks</span>
             </div>
             <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15">
               <span class="block text-2xl sm:text-3xl font-black text-white">48–72h</span>
-              <span class="text-xs font-semibold text-white/80">Candidate Shortlists</span>
+              <span class="text-xs font-semibold text-white/80">Suggested Candidates</span>
             </div>
             <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15">
               <span class="block text-2xl sm:text-3xl font-black text-white">100%</span>
-              <span class="text-xs font-semibold text-white/80">Native English Fluency</span>
+              <span class="text-xs font-semibold text-white/80">English Communication</span>
             </div>
             <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15">
               <span class="block text-2xl sm:text-3xl font-black text-white">55%–70%</span>
-              <span class="text-xs font-semibold text-white/80">Annual Cost Efficiency</span>
+              <span class="text-xs font-semibold text-white/80">Estimated Yearly Savings</span>
             </div>
           </div>
         </div>
@@ -72,13 +72,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-16">
           <div class="inline-flex items-center px-3.5 py-1 rounded-full bg-brand-soft text-brand-dark text-xs font-bold mb-3 border border-brand-border">
-            RIGOROUS EVALUATION
+            HOW WE CHECK SKILLS
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-            We Assess Technical Ability, Not Just Resumes
+            We Check Skills and Experience
           </h2>
           <p class="mt-3 text-sm text-brand-muted">
-            Our multi-tier assessment methodology filters for top-decile technical competency, architectural judgment, and professional autonomy.
+            We review work experience, check practical skills, and meet candidates before recommending them.
           </p>
         </div>
 
@@ -87,9 +87,9 @@
           <div class="p-6 rounded-3xl bg-brand-lightest/40 border border-brand-border/70 hover:border-brand-primary/50 transition-all flex flex-col justify-between">
             <div>
               <span class="inline-block text-3xl font-black text-brand-primary/40 mb-3">01</span>
-              <h3 class="text-lg font-bold text-brand-dark mb-2">Resume & Pedigree Screening</h3>
+              <h3 class="text-lg font-bold text-brand-dark mb-2">CV &amp; Background Checks</h3>
               <p class="text-xs text-brand-muted leading-relaxed">
-                Verification of professional background, production project repositories, university education, and client references. Only 15% advance to technical testing.
+                We review each CV, past work, education, and references before moving to skill tests.
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-brand-border/40 text-[11px] font-semibold text-brand-primary">
@@ -101,13 +101,13 @@
           <div class="p-6 rounded-3xl bg-brand-lightest/40 border border-brand-border/70 hover:border-brand-primary/50 transition-all flex flex-col justify-between">
             <div>
               <span class="inline-block text-3xl font-black text-brand-primary/40 mb-3">02</span>
-              <h3 class="text-lg font-bold text-brand-dark mb-2">Technical Assessment</h3>
+              <h3 class="text-lg font-bold text-brand-dark mb-2">Practical Skill Checks</h3>
               <p class="text-xs text-brand-muted leading-relaxed">
-                Live hands-on coding, systems architecture challenges, algorithmic problem-solving, and domain-specific scenarios evaluated by senior technical architects.
+                Experienced professionals use practical tasks to check how candidates solve problems and do the work.
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-brand-border/40 text-[11px] font-semibold text-brand-primary">
-              ✓ Tested on production problems
+              ✓ Checked with practical tasks
             </div>
           </div>
 
@@ -115,13 +115,13 @@
           <div class="p-6 rounded-3xl bg-brand-lightest/40 border border-brand-border/70 hover:border-brand-primary/50 transition-all flex flex-col justify-between">
             <div>
               <span class="inline-block text-3xl font-black text-brand-primary/40 mb-3">03</span>
-              <h3 class="text-lg font-bold text-brand-dark mb-2">Communication & Culture</h3>
+              <h3 class="text-lg font-bold text-brand-dark mb-2">Communication &amp; Teamwork</h3>
               <p class="text-xs text-brand-muted leading-relaxed">
-                In-depth interviews assessing verbal clarity, written precision, asynchronous collaboration, empathy, and comfort operating inside U.S. agile sprints.
+                We check how candidates explain their work, write clearly, and work with other people.
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-brand-border/40 text-[11px] font-semibold text-brand-primary">
-              ✓ Flawless English & agile fluency
+              ✓ Clear communication and teamwork
             </div>
           </div>
 
@@ -129,13 +129,13 @@
           <div class="p-6 rounded-3xl bg-brand-lightest/40 border border-brand-border/70 hover:border-brand-primary/50 transition-all flex flex-col justify-between">
             <div>
               <span class="inline-block text-3xl font-black text-brand-primary/40 mb-3">04</span>
-              <h3 class="text-lg font-bold text-brand-dark mb-2">Client Match & Ongoing Support</h3>
+              <h3 class="text-lg font-bold text-brand-dark mb-2">Meet Candidates &amp; Get Support</h3>
               <p class="text-xs text-brand-muted leading-relaxed">
-                Curated shortlists presented for your final interview. Once selected, GhanaTech Global manages payroll, equipment, legal compliance, and ongoing HR support.
+                We suggest suitable candidates for you to interview. We then agree on hiring arrangements and the support your team needs.
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-brand-border/40 text-[11px] font-semibold text-brand-primary">
-              ✓ Zero administrative friction
+              ✓ Help with the next steps
             </div>
           </div>
         </div>
@@ -147,13 +147,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-12">
           <div class="inline-flex items-center px-3.5 py-1 rounded-full bg-brand-soft text-brand-dark text-xs font-bold mb-3 border border-brand-border">
-            SPECIALIZED DISCIPLINES
+            TYPES OF WORK
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-            Key Engineering Roles We Recruit & Place
+            People We Can Help You Hire
           </h2>
           <p class="mt-2 text-sm text-brand-muted">
-            Explore our specialized talent disciplines and typical technical proficiencies.
+            Choose a type of work to see common roles, skills, and experience.
           </p>
         </div>
 
@@ -178,7 +178,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div class="space-y-4">
               <span class="px-3 py-1 rounded-full bg-brand-soft text-brand-primary text-xs font-bold border border-brand-border">
-                PRACTICE OVERVIEW
+                ABOUT THIS TYPE OF WORK
               </span>
               <h3 class="text-2xl font-extrabold text-brand-dark">
                 {{ currentDiscipline.name }}
@@ -188,7 +188,7 @@
               </p>
 
               <div class="pt-4 space-y-2">
-                <span class="block text-xs font-bold text-brand-dark">Common Certifications & Standards:</span>
+                <span class="block text-xs font-bold text-brand-dark">Common Certificates &amp; Standards:</span>
                 <div class="flex flex-wrap gap-1.5">
                   <span
                     v-for="cert in currentDiscipline.certifications"
@@ -242,7 +242,7 @@
                   :to="{ path: '/hire-talent', query: { role: role.title, technologyNeed: currentDiscipline.name } }"
                   class="text-xs font-bold text-brand-primary hover:text-brand-dark flex items-center gap-1 group"
                 >
-                  <span>Inquire for this role</span>
+                  <span>Ask About This Job</span>
                   <span class="group-hover:translate-x-1 transition-transform">→</span>
                 </router-link>
               </div>
@@ -257,13 +257,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-14">
           <div class="inline-flex items-center px-3.5 py-1 rounded-full bg-brand-soft text-brand-dark text-xs font-bold mb-3 border border-brand-border">
-            FLEXIBLE ENGAGEMENT
+            WAYS TO WORK WITH US
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-            How U.S. Companies Partner With Us
+            Choose How You Want to Hire
           </h2>
           <p class="mt-2 text-sm text-brand-muted">
-            Choose the model that best matches your roadmap, engineering leadership, and budget structure.
+            Hire one person, build a team, or get help with a project.
           </p>
         </div>
 
@@ -274,19 +274,19 @@
               <div class="w-12 h-12 rounded-2xl bg-brand-soft text-brand-primary flex items-center justify-center font-black text-xl mb-6 shadow-violet-sm">
                 01
               </div>
-              <h3 class="text-xl font-bold text-brand-dark mb-2">Dedicated Staff Augmentation</h3>
+              <h3 class="text-xl font-bold text-brand-dark mb-2">Add Someone to Your Team</h3>
               <p class="text-xs text-brand-muted leading-relaxed mb-6">
-                Embed pre-assessed Ghanaian engineers directly into your engineering sprints. They attend your daily standups, push code to your GitHub/GitLab, and report to your Engineering Managers.
+                Work with a Ghanaian tech professional who joins your meetings, uses your tools, and reports to your team manager.
               </p>
               <ul class="space-y-2.5 text-xs text-brand-dark font-medium mb-8">
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> Direct sprint integration
+                  <span class="text-brand-primary font-bold">✓</span> Works with your existing team
                 </li>
                 <li class="flex items-center gap-2">
                   <span class="text-brand-primary font-bold">✓</span> Flexible 40 hr/week schedule
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> Transparent monthly retainers
+                  <span class="text-brand-primary font-bold">✓</span> Clear monthly costs
                 </li>
               </ul>
             </div>
@@ -294,7 +294,7 @@
               to="/hire-talent"
               class="w-full py-2.5 px-4 rounded-xl bg-brand-soft text-brand-dark hover:bg-brand-primary hover:text-white font-bold text-xs text-center transition-all"
             >
-              Request Dedicated Engineers
+              Find Someone for Your Team
             </router-link>
           </div>
 
@@ -307,19 +307,19 @@
               <div class="w-12 h-12 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-black text-xl mb-6 shadow-violet-sm">
                 02
               </div>
-              <h3 class="text-xl font-bold text-brand-dark mb-2">Autonomous Managed Squads</h3>
+              <h3 class="text-xl font-bold text-brand-dark mb-2">Build a Dedicated Team</h3>
               <p class="text-xs text-brand-muted leading-relaxed mb-6">
-                Deploy complete, cross-functional squads (Tech Lead, Senior Backend, Frontend, and QA) to take ownership of specific feature sets, microservices, or cloud infrastructure modernizations.
+                Bring together developers, testers, and a team leader to work on your software or technology project.
               </p>
               <ul class="space-y-2.5 text-xs text-brand-dark font-medium mb-8">
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> Turnkey team with senior Tech Lead
+                  <span class="text-brand-primary font-bold">✓</span> A team with an experienced leader
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> Sprint commitments & milestone tracking
+                  <span class="text-brand-primary font-bold">✓</span> Agreed tasks and progress updates
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> GhanaTech technical advisory oversight
+                  <span class="text-brand-primary font-bold">✓</span> Support from GhanaTech Global
                 </li>
               </ul>
             </div>
@@ -327,7 +327,7 @@
               to="/hire-talent"
               class="w-full py-3 px-4 rounded-xl bg-brand-primary text-white hover:bg-brand-dark font-bold text-xs text-center transition-all shadow-violet-sm"
             >
-              Deploy a Dedicated Squad
+              Build Your Team
             </router-link>
           </div>
 
@@ -337,16 +337,16 @@
               <div class="w-12 h-12 rounded-2xl bg-brand-soft text-brand-primary flex items-center justify-center font-black text-xl mb-6 shadow-violet-sm">
                 03
               </div>
-              <h3 class="text-xl font-bold text-brand-dark mb-2">Direct Placement & Executive Search</h3>
+              <h3 class="text-xl font-bold text-brand-dark mb-2">Hire Someone Directly</h3>
               <p class="text-xs text-brand-muted leading-relaxed mb-6">
-                Targeted executive search and placement for permanent engineering hires, architects, or practice heads looking to build long-term relationships with your firm.
+                Find a tech professional or team leader to hire directly for a long-term role in your company.
               </p>
               <ul class="space-y-2.5 text-xs text-brand-dark font-medium mb-8">
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> Customized candidate sourcing
+                  <span class="text-brand-primary font-bold">✓</span> Candidates chosen for your needs
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-brand-primary font-bold">✓</span> In-depth technical portfolio vetting
+                  <span class="text-brand-primary font-bold">✓</span> Skills and past work reviewed
                 </li>
                 <li class="flex items-center gap-2">
                   <span class="text-brand-primary font-bold">✓</span> 90-day replacement guarantee
@@ -357,7 +357,7 @@
               to="/hire-talent"
               class="w-full py-2.5 px-4 rounded-xl bg-brand-soft text-brand-dark hover:bg-brand-primary hover:text-white font-bold text-xs text-center transition-all"
             >
-              Discuss Direct Placement
+              Ask About Direct Hiring
             </router-link>
           </div>
         </div>
@@ -370,26 +370,26 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="p-6 rounded-2xl bg-white border border-brand-border/70">
             <h4 class="text-sm font-bold text-brand-dark mb-1 flex items-center gap-2">
-              <span class="text-brand-primary">🔒</span> U.S. Legal & IP Protection
+              <span class="text-brand-primary">🔒</span> Agreements &amp; Ownership of Your Work
             </h4>
             <p class="text-xs text-brand-muted leading-relaxed">
-              All intellectual property, code commits, and project artifacts are owned 100% by your company under U.S.-governed commercial agreements.
+              Your agreements set out who owns the code and other work created for your company.
             </p>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-brand-border/70">
             <h4 class="text-sm font-bold text-brand-dark mb-1 flex items-center gap-2">
-              <span class="text-brand-primary">💻</span> Enterprise Hardware & Security
+              <span class="text-brand-primary">💻</span> Equipment &amp; Security
             </h4>
             <p class="text-xs text-brand-muted leading-relaxed">
-              We provision encrypted, high-performance hardware configured with Mobile Device Management (MDM) and enterprise antivirus standards.
+              We discuss the computers, software, and security setup needed for the job.
             </p>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-brand-border/70">
             <h4 class="text-sm font-bold text-brand-dark mb-1 flex items-center gap-2">
-              <span class="text-brand-primary">🌐</span> Payroll, Benefits & Compliance
+              <span class="text-brand-primary">🌐</span> Pay &amp; Employment Support
             </h4>
             <p class="text-xs text-brand-muted leading-relaxed">
-              We handle all statutory taxation, local social security, healthcare, and employment compliance in Ghana. You receive a simple U.S. monthly invoice.
+              We agree on pay, benefits, employment responsibilities, and billing before work starts.
             </p>
           </div>
         </div>
@@ -400,23 +400,23 @@
     <section class="py-20 bg-brand-dark text-white text-center">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
-          Ready to Expand Your Technology Team?
+          Ready to Grow Your Team?
         </h2>
         <p class="text-sm sm:text-base text-brand-lightest/80 max-w-2xl mx-auto mb-8">
-          Tell us about your technical roadmap and talent requirements. We'll present a curated shortlist of assessed Ghanaian professionals within 48 to 72 hours.
+          Tell us about the work and the people you need. Our team will help you plan the next steps.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <router-link
             to="/hire-talent"
             class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-brand-dark text-sm font-bold hover:bg-brand-soft transition-all shadow-violet-sm"
           >
-            Start Your Hiring Sprint
+            Send a Hiring Request
           </router-link>
           <router-link
             to="/join-talent"
             class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-primary/40 text-white border border-white/20 text-sm font-bold hover:bg-brand-primary transition-all"
           >
-            Apply to Join Network
+            Join Our Talent Network
           </router-link>
         </div>
       </div>
@@ -425,7 +425,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 const activeDiscipline = ref('cyber');
 
@@ -433,63 +435,63 @@ const disciplines = [
   {
     id: 'cyber',
     name: 'Cybersecurity',
-    description: 'Defensive, offensive, and compliance security practitioners safeguarding cloud infrastructures, enterprise networks, and regulated data.',
+    description: "People who protect computers, accounts, networks, and important business data.",
     certifications: ['CISSP', 'CEH', 'CompTIA Security+', 'CISM', 'AWS Security Specialty', 'SOC 2 Type II Auditing'],
     roles: [
       {
         title: 'SOC Analyst',
         experience: '3–7+ Years',
-        summary: '24/7 security monitoring, alert triage, proactive threat hunting, and incident response across SIEM and EDR platforms.',
+        summary: "Monitor security alerts, investigate threats, and help teams respond to attacks.",
         skills: ['Splunk', 'CrowdStrike', 'Microsoft Sentinel', 'Incident Triage', 'MITRE ATT&CK'],
       },
       {
         title: 'Security Engineer',
         experience: '5–10+ Years',
-        summary: 'Cloud security hardening, penetration testing, IAM architecture, and vulnerability remediation across AWS and Azure environments.',
+        summary: "Find and fix security weaknesses in cloud systems, accounts, and applications.",
         skills: ['Cloud Security', 'IAM', 'Burp Suite', 'Terraform', 'NIST CSF', 'Pen Testing'],
       },
       {
         title: 'GRC & Compliance Specialist',
         experience: '4–8+ Years',
-        summary: 'Guiding organizations through SOC 2 Type II, ISO 27001, and HIPAA compliance audits with continuous risk management.',
+        summary: "Help businesses understand security risks and prepare for reviews such as SOC 2 and ISO 27001.",
         skills: ['ISO 27001', 'SOC 2', 'Risk Assessment', 'Audit Defense', 'Vendor Risk'],
       },
       {
         title: 'IAM Specialist',
         experience: '4–8+ Years',
-        summary: 'Architecting identity lifecycles, Single Sign-On (SSO), multi-factor authentication, and privileged access management (PAM).',
+        summary: "Manage who can sign in to company systems and what they are allowed to access.",
         skills: ['Okta', 'Azure AD / Entra ID', 'Ping Identity', 'OAuth 2.0 / OIDC', 'CyberArk'],
       },
     ],
   },
   {
     id: 'cloud',
-    name: 'Cloud & IT',
-    description: 'Certified cloud architects, DevOps practitioners, and systems administrators building reliable, automated multi-region infrastructures.',
+    name: 'Cloud & DevOps',
+    description: "People who build, manage, and automate cloud systems and business IT.",
     certifications: ['AWS Solutions Architect', 'Azure Administrator', 'CKA (Kubernetes)', 'Terraform Associate', 'Linux LPIC'],
     roles: [
       {
         title: 'AWS Cloud Architect',
         experience: '6–12+ Years',
-        summary: 'Designing highly available, fault-tolerant, and secure cloud topologies with infrastructure as code and microservice frameworks.',
+        summary: "Plan secure cloud systems that keep applications available and can grow with the business.",
         skills: ['AWS', 'Terraform', 'EKS', 'VPC Architecture', 'CloudWatch', 'Cost Optimization'],
       },
       {
         title: 'DevOps & SRE Engineer',
         experience: '5–10+ Years',
-        summary: 'Automating zero-downtime CI/CD pipelines, container orchestration with Kubernetes, and enterprise observability.',
+        summary: "Automate software releases, manage cloud applications, and monitor system performance.",
         skills: ['Kubernetes', 'Docker', 'GitHub Actions', 'Prometheus', 'Grafana', 'GitOps'],
       },
       {
         title: 'Azure Cloud Engineer',
         experience: '4–9+ Years',
-        summary: 'Deploying and managing Azure enterprise services, Virtual WANs, AKS clusters, and Azure DevOps release pipelines.',
+        summary: "Set up and manage business applications and networks on Microsoft Azure.",
         skills: ['Azure', 'ARM / Bicep', 'AKS', 'Azure DevOps', 'Entra ID', 'PowerShell'],
       },
       {
         title: 'Systems Administrator',
         experience: '4–8+ Years',
-        summary: 'Managing Linux/Windows server fleets, network routing, VPNs, user provisioning, and day-to-day IT operational stability.',
+        summary: "Keep servers and networks running, manage user accounts, and solve IT problems.",
         skills: ['Linux RHEL/Ubuntu', 'Active Directory', 'Bash / Python', 'Networking', 'Zero Trust'],
       },
     ],
@@ -497,31 +499,31 @@ const disciplines = [
   {
     id: 'software',
     name: 'Software Engineering',
-    description: 'Senior full-stack, frontend, and backend developers architecting high-performance web applications, distributed APIs, and enterprise SaaS products.',
+    description: "People who build websites, mobile apps, and the software businesses use every day.",
     certifications: ['AWS Developer', 'Node.js Certified Developer', 'Professional Scrum Master'],
     roles: [
       {
         title: 'Full-Stack Developer',
         experience: '4–9+ Years',
-        summary: 'End-to-end product development using modern TypeScript, reactive frontend frameworks, and scalable relational/NoSQL backends.',
+        summary: "Build both the website or app interface and the systems that work behind it.",
         skills: ['Vue 3', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Docker'],
       },
       {
         title: 'Backend Systems Engineer',
         experience: '5–11+ Years',
-        summary: 'Architecting high-throughput distributed microservices, message queues, and API gateways capable of high concurrency.',
+        summary: "Build the systems that process data and connect apps, databases, and business tools.",
         skills: ['Go', 'Node.js', 'Python', 'Redis', 'Kafka', 'PostgreSQL', 'gRPC'],
       },
       {
         title: 'Frontend Developer',
         experience: '4–8+ Years',
-        summary: 'Crafting responsive, accessible, pixel-perfect user interfaces with state management, animations, and optimal Core Web Vitals.',
+        summary: "Build website and app screens that are easy to use on phones and computers.",
         skills: ['Vue 3', 'React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Pinia', 'REST / GraphQL'],
       },
       {
         title: 'QA Automation Engineer',
         experience: '4–8+ Years',
-        summary: 'Building comprehensive test automation frameworks (unit, integration, E2E) to maintain continuous delivery confidence.',
+        summary: "Create automated tests to find bugs and check that software works correctly.",
         skills: ['Playwright', 'Cypress', 'Jest', 'CI/CD Integration', 'API Testing', 'Selenium'],
       },
     ],
@@ -529,36 +531,49 @@ const disciplines = [
   {
     id: 'data',
     name: 'Data & Analytics',
-    description: 'Data engineers and business intelligence analysts turning fragmented operational data into high-value analytical assets and executive dashboards.',
+    description: "People who organise data and turn it into useful reports and dashboards.",
     certifications: ['dbt Certified Developer', 'Snowflake SnowPro Core', 'Microsoft Power BI Data Analyst', 'Databricks Associate'],
     roles: [
       {
         title: 'Data Engineer',
         experience: '5–10+ Years',
-        summary: 'Building streaming and batch data pipelines, configuring data lakehouses, and optimizing analytics transformation models.',
+        summary: "Collect, organise, and move data so businesses can use it reliably.",
         skills: ['Snowflake', 'dbt', 'Python', 'Apache Airflow', 'AWS Redshift', 'SQL'],
       },
       {
         title: 'BI & Data Analyst',
         experience: '4–8+ Years',
-        summary: 'Transforming complex datasets into actionable executive dashboards, cohort retention models, and revenue forecasting tools.',
+        summary: "Create reports and dashboards that help teams understand results and make decisions.",
         skills: ['Power BI', 'SQL', 'Tableau', 'Looker', 'Data Modeling', 'Excel / Financials'],
       },
       {
         title: 'Machine Learning Engineer',
         experience: '4–8+ Years',
-        summary: 'Deploying operational ML pipelines, embedding vectors, LLM integrations, and predictive models into production applications.',
+        summary: "Build and connect AI tools that help software recognise patterns and make predictions.",
         skills: ['Python', 'PyTorch', 'LangChain', 'Vector DBs', 'FastAPI', 'MLOps'],
       },
       {
         title: 'Business Analyst',
         experience: '4–8+ Years',
-        summary: 'Bridging business stakeholders and engineering teams with detailed requirement documentation, sprint user stories, and acceptance criteria.',
+        summary: "Help business and technology teams agree on what to build and how it should work.",
         skills: ['Agile / Scrum', 'Jira', 'Process Mapping', 'SQL', 'Product Backlog', 'User Stories'],
       },
     ],
   },
+  { id: 'it', name: 'IT', description: "People who help staff use computers and keep business IT running.", certifications: ['CompTIA A+', 'CompTIA Network+', 'Microsoft certifications'], roles: [
+    { title: 'Help Desk & Technical Support', experience: 'All experience levels', summary: "Help people fix computer problems, set up devices, and use company systems.", skills: ['Help Desk', 'Troubleshooting', 'Technical Support'] },
+    { title: 'Systems Administrator', experience: 'All experience levels', summary: "Manage servers, user accounts, backups, and day-to-day IT support.", skills: ['Windows', 'Linux', 'Systems Administration'] },
+    { title: 'Network Engineer', experience: 'All experience levels', summary: "Set up and maintain the networks that connect computers and business systems.", skills: ['Networking', 'Infrastructure', 'VPN'] },
+  ] },
+  { id: 'business', name: 'Business Technology', description: "People who help plan projects, manage teams, and turn business needs into clear tasks.", certifications: ['PMP', 'Professional Scrum Master', 'Business analysis certifications'], roles: [
+    { title: 'Business Analyst', experience: 'All experience levels', summary: "Understand business needs and explain what a project or system should do.", skills: ['Business Analysis', 'Requirements', 'Process Mapping'] },
+    { title: 'Project & Program Manager', experience: 'All experience levels', summary: "Plan projects, organise work, manage risks, and keep teams on schedule.", skills: ['Project Management', 'Program Management', 'Delivery'] },
+    { title: 'Scrum Master', experience: 'All experience levels', summary: "Help teams organise their work, solve problems, and improve how they work together.", skills: ['Scrum', 'Agile', 'Facilitation'] },
+    { title: 'Product Professional', experience: 'All experience levels', summary: "Decide what a product needs and help teams build the most useful features.", skills: ['Product Management', 'Roadmaps', 'Prioritization'] },
+  ] },
 ];
+
+watch(() => route.query.category, category => { const match = disciplines.find(item => item.name === category || item.id === category || category === 'Cloud & IT' && item.id === 'cloud'); if (match) activeDiscipline.value = match.id; }, { immediate: true });
 
 const currentDiscipline = computed(() => {
   return disciplines.find((d) => d.id === activeDiscipline.value) || disciplines[0];

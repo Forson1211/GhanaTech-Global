@@ -19,7 +19,7 @@
 
         <!-- Subtitle -->
         <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          Have questions about our talent pool, managed practices, pricing structures, or enterprise SLAs? Our team is here to help.
+          Have a question about hiring, jobs, building a team, or our services? We are here to help.
         </p>
       </div>
 
@@ -43,13 +43,13 @@
           </div>
           <h4 class="text-lg font-semibold text-slate-900 tracking-tight">Phone</h4>
           <p class="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed max-w-[270px]">
-            The phrasal sequence of the is now so that many campaign and benefit
+            Call us to talk about hiring or your technology project.
           </p>
           <a
-            href="tel:+152534468854"
+            :href="'tel:' + settings.supportPhone.replace(/[^+0-9]/g, '')"
             class="inline-block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
           >
-            +152 534-468-854
+            {{ settings.supportPhone }}
           </a>
         </div>
 
@@ -62,13 +62,13 @@
           </div>
           <h4 class="text-lg font-semibold text-slate-900 tracking-tight">Email</h4>
           <p class="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed max-w-[270px]">
-            The phrasal sequence of the is now so that many campaign and benefit
+            Email us about hiring people, building a team, or getting help with a project.
           </p>
           <a
-            href="mailto:contact@example.com"
+            :href="'mailto:' + settings.contactEmail"
             class="inline-block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
           >
-            contact@example.com
+            {{ settings.contactEmail }}
           </a>
         </div>
 
@@ -82,10 +82,10 @@
           </div>
           <h4 class="text-lg font-semibold text-slate-900 tracking-tight">Location</h4>
           <p class="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed max-w-[270px]">
-            The phrasal sequence of the is now so that many campaign and benefit
+            {{ settings.accraOfficeAddress }}
           </p>
           <a
-            href="https://maps.google.com"
+            :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(settings.accraOfficeAddress)"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
@@ -109,7 +109,7 @@
         <!-- Right: Form Card -->
         <div class="lg:col-span-6">
           <div class="bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50 p-7 sm:p-9 md:p-10">
-            <h3 class="text-2xl font-bold text-slate-900 mb-6">Get in touch !</h3>
+            <h3 class="text-2xl font-bold text-slate-900 mb-6">Send Us a Message</h3>
 
             <div v-if="submitted" class="py-10 text-center space-y-4">
               <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto text-xl font-bold">
@@ -170,7 +170,7 @@
 
               <!-- Question / Subject Row -->
               <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-2">Your Question:</label>
+                <label class="block text-xs font-semibold text-slate-700 mb-2">Subject:</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -189,7 +189,7 @@
 
               <!-- Comment / Message Row -->
               <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-2">Your Comment:</label>
+                <label class="block text-xs font-semibold text-slate-700 mb-2">Message:</label>
                 <div class="relative">
                   <div class="absolute top-3.5 left-0 pl-3.5 flex items-start pointer-events-none text-slate-400">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -233,9 +233,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useSiteSettings } from '@/composables/useSiteSettings';
+import { leadService } from '@/services/leads';
 import { useToast } from '@/composables/useToast';
 
 const toast = useToast();
+const { settings } = useSiteSettings();
 
 const name = ref('');
 const email = ref('');
@@ -252,13 +255,16 @@ const resetForm = () => {
   submitted.value = false;
 };
 
-const submitContact = () => {
-  if (!name.value || !email.value || !message.value) return;
+const submitContact = async () => {
+  if (loading.value || !name.value.trim() || !email.value.trim() || !subject.value.trim() || !message.value.trim()) return;
   loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
+  try {
+    const response = await leadService.submitContact({ name: name.value, email: email.value, subject: subject.value, message: message.value });
+    if (!response.success) throw new Error(response.message);
     submitted.value = true;
-    toast.success('Your message has been transmitted to our advisors.');
-  }, 600);
+    toast.success("Our team has received your message.");
+  } catch (error: any) { toast.error(error?.response?.data?.message || 'Your message could not be sent. Please try again.'); }
+  finally { loading.value = false; }
 };
+
 </script>

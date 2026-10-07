@@ -18,20 +18,22 @@
         class="px-4 py-2 text-xs font-medium text-brand-dark hover:bg-brand-soft/60 rounded-lg transition-colors"
         @click="$emit('cancel')"
       >
-        {{ cancelText }}
+        {{ t(cancelText) }}
       </button>
       <button
         type="button"
         class="px-4 py-2 text-xs font-semibold text-white bg-brand-dark hover:bg-brand-primary rounded-lg transition-colors shadow-violet-sm"
         @click="$emit('confirm')"
       >
-        {{ confirmText }}
+        {{ t(confirmText) }}
       </button>
     </template>
   </Modal>
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 import Modal from './Modal.vue';
 
 interface Props {

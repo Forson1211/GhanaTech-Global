@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Talent Applications</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Review incoming talent submissions, view CVs, and log recruiter internal notes.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Job Applications") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Review incoming talent submissions, view CVs, and log recruiter internal notes.") }} </p>
       </div>
     </div>
 
@@ -19,13 +19,8 @@
           class="text-xs border border-brand-border/80 rounded-xl px-3 py-2 bg-white text-brand-dark font-medium cursor-pointer"
           @change="fetchApplications"
         >
-          <option value="">All Application Statuses</option>
-          <option value="New">New</option>
-          <option value="Reviewing">Reviewing</option>
-          <option value="Shortlisted">Shortlisted</option>
-          <option value="Interview">Interview</option>
-          <option value="Accepted">Accepted</option>
-          <option value="Rejected">Rejected</option>
+          <option value=""> {{ t("All Application Statuses") }} </option>
+          <option v-for="status in APPLICATION_STATUSES" :key="status" :value="status">{{ status }}</option>
         </select>
       </div>
     </div>
@@ -33,12 +28,12 @@
     <!-- Applications Table -->
     <Table :loading="loading" :empty="applications.length === 0" :col-span="6">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Applicant</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Target Role & Area</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Experience</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Status</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">CV Resume</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Applicant") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Target Role & Area") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Experience") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Status") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("CV Resume") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="app in applications" :key="app._id" class="hover:bg-brand-lightest/40 transition-colors">
@@ -46,7 +41,7 @@
         <td class="py-4 px-6">
           <p class="font-bold text-brand-dark text-xs sm:text-sm">{{ app.name }}</p>
           <p class="text-[11px] text-brand-muted">{{ app.email }} • {{ app.phone }}</p>
-          <p class="text-[10px] text-brand-muted/80">Applied: {{ formatDate(app.createdAt) }}</p>
+          <p class="text-[10px] text-brand-muted/80"> {{ t("Applied:") }} {{ formatDate(app.createdAt) }}</p>
         </td>
 
         <!-- Role -->
@@ -57,8 +52,7 @@
 
         <!-- Experience -->
         <td class="py-4 px-4 text-xs font-semibold text-brand-dark">
-          {{ app.yearsExperience }} Years
-        </td>
+          {{ app.yearsExperience }} {{ t("Years") }} </td>
 
         <!-- Status Dropdown -->
         <td class="py-4 px-4">
@@ -67,12 +61,7 @@
             class="text-xs border border-brand-border/60 rounded-lg px-2 py-1 bg-white text-brand-dark cursor-pointer font-medium"
             @change="updateStatus(app._id, ($event.target as HTMLSelectElement).value as any)"
           >
-            <option value="New">New</option>
-            <option value="Reviewing">Reviewing</option>
-            <option value="Shortlisted">Shortlisted</option>
-            <option value="Interview">Interview</option>
-            <option value="Accepted">Accepted</option>
-            <option value="Rejected">Rejected</option>
+            <option v-for="status in APPLICATION_STATUSES" :key="status" :value="status">{{ status }}</option>
           </select>
         </td>
 
@@ -87,9 +76,9 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <span>Download CV</span>
+            <span> {{ t("Download CV") }} </span>
           </button>
-          <span v-else class="text-xs text-brand-muted">No File</span>
+          <span v-else class="text-xs text-brand-muted"> {{ t("No File") }} </span>
         </td>
 
         <!-- Actions -->
@@ -98,16 +87,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
             @click="viewDetails(app)"
-          >
-            Notes & Details
-          </button>
+          > {{ t("Notes & Details") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(app._id, app.name)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
 
@@ -124,35 +109,35 @@
     <!-- Details & Internal Notes Modal -->
     <Modal v-model="showDetailsModal" :title="`Application: ${selectedApp?.name || ''}`" max-width="xl">
       <div v-if="selectedApp" class="space-y-5">
-        <div class="grid grid-cols-2 gap-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
-            <span class="text-brand-muted block">Applicant Name:</span>
+            <span class="text-brand-muted block"> {{ t("Applicant Name:") }} </span>
             <strong class="text-brand-dark text-sm">{{ selectedApp.name }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Contact Email:</span>
+            <span class="text-brand-muted block"> {{ t("Contact Email:") }} </span>
             <strong class="text-brand-dark">{{ selectedApp.email }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Phone:</span>
+            <span class="text-brand-muted block"> {{ t("Phone:") }} </span>
             <strong class="text-brand-dark">{{ selectedApp.phone }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Location:</span>
+            <span class="text-brand-muted block"> {{ t("Location:") }} </span>
             <strong class="text-brand-dark">{{ selectedApp.location }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Role / Area:</span>
+            <span class="text-brand-muted block"> {{ t("Role / Area:") }} </span>
             <strong class="text-brand-dark">{{ selectedApp.role }} ({{ selectedApp.technologyArea }})</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Experience & Availability:</span>
+            <span class="text-brand-muted block"> {{ t("Experience & Availability:") }} </span>
             <strong class="text-brand-dark">{{ selectedApp.yearsExperience }} yrs • {{ selectedApp.availability }}</strong>
           </div>
         </div>
 
         <div>
-          <span class="text-xs text-brand-muted block mb-1">Declared Skills:</span>
+          <span class="text-xs text-brand-muted block mb-1"> {{ t("Declared Skills:") }} </span>
           <div class="flex flex-wrap gap-1">
             <span v-for="s in selectedApp.skills" :key="s" class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-soft text-brand-dark">
               {{ s }}
@@ -161,12 +146,18 @@
         </div>
 
         <div v-if="selectedApp.cvUrl" class="p-3 bg-brand-lightest rounded-xl border border-brand-border/60 flex items-center justify-between">
-          <span class="text-xs font-semibold text-brand-dark">Attached Resume / CV File</span>
-          <button type="button" @click="downloadCV(selectedApp)" class="text-xs font-bold text-brand-primary underline">
-            Open / Download Document
-          </button>
+          <span class="text-xs font-semibold text-brand-dark"> {{ t("Attached Resume / CV File") }} </span>
+          <button type="button" @click="downloadCV(selectedApp)" class="text-xs font-bold text-brand-primary underline"> {{ t("Open / Download Document") }} </button>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div><span class="text-brand-muted block"> {{ t("Employment Status:") }} </span><strong class="text-brand-dark">{{ selectedApp.employmentStatus || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Education:") }} </span><strong class="text-brand-dark">{{ selectedApp.education || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Certifications:") }} </span><strong class="text-brand-dark">{{ selectedApp.certifications?.join(', ') || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Employment Preferences:") }} </span><strong class="text-brand-dark">{{ selectedApp.employmentPreferences?.join(', ') || selectedApp.desiredEngagement }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Authorization:") }} </span><strong class="text-brand-dark">{{ selectedApp.consent ? 'Provided on ' + formatDate(selectedApp.consentAt) : 'Not recorded for this application' }}</strong></div>
+        </div>
+        <div v-if="selectedApp.statusHistory?.length" class="space-y-2"><p class="text-xs font-bold text-brand-dark"> {{ t("Talent Pipeline History") }} </p><p v-for="(entry, index) in selectedApp.statusHistory" :key="index" class="text-xs text-brand-muted">{{ entry.status }} &middot; {{ formatDate(entry.changedAt) }}</p></div>
         <!-- Recruiter Internal Notes (NEVER EXPOSED PUBLICLY) -->
         <div class="pt-4 border-t border-brand-border/40">
           <Textarea
@@ -178,10 +169,8 @@
         </div>
 
         <div class="flex justify-end space-x-3 pt-2">
-          <Button variant="ghost" size="sm" @click="showDetailsModal = false">Close</Button>
-          <Button variant="primary" size="sm" :loading="isSavingNotes" @click="saveNotes">
-            Save Internal Notes
-          </Button>
+          <Button variant="ghost" size="sm" @click="showDetailsModal = false"> {{ t("Close") }} </Button>
+          <Button variant="primary" size="sm" :loading="isSavingNotes" @click="saveNotes"> {{ t("Save Internal Notes") }} </Button>
         </div>
       </div>
     </Modal>
@@ -199,7 +188,10 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
+import { APPLICATION_STATUSES } from '@/utils/constants';
 import { applicationService } from '@/services/applications';
 import type { TalentApplication, ApplicationStatus } from '@/types/candidate';
 import { formatDate } from '@/utils/formatters';
@@ -247,6 +239,7 @@ const fetchApplications = async () => {
     }
   } catch {
     applications.value = [];
+    toast.error('Applications could not be loaded.');
   } finally {
     loading.value = false;
   }

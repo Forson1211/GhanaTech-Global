@@ -1,9 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Proposal' | 'Closed' | 'Rejected';
+import { LEAD_STATUSES, statusHistoryDefinition, type StatusHistoryEntry } from '../utils/workflow';
+export type LeadStatus = typeof LEAD_STATUSES[number];
 
 export interface ICompanyLead extends Document {
   name: string;
+  source?: 'hiring' | 'contact';
   company: string;
   email: string;
   phone?: string;
@@ -14,6 +16,15 @@ export interface ICompanyLead extends Document {
   engagementType: string;
   budgetRange?: string;
   message?: string;
+  requiredSkills?: string[];
+  experienceLevel?: string;
+  employmentType?: string;
+  desiredStartDate?: string;
+  jobDescription?: string;
+  statusHistory?: StatusHistoryEntry[];
+  discoveryAt?: Date;
+  placedAt?: Date;
+  followUps?: { day: number; dueAt: Date; completed: boolean }[];
   status: LeadStatus;
   internalNotes?: string;
   candidateId?: string;
@@ -25,6 +36,7 @@ export interface ICompanyLead extends Document {
 const CompanyLeadSchema = new Schema<ICompanyLead>(
   {
     name: { type: String, required: true, trim: true },
+    source: { type: String, enum: ['hiring', 'contact'], default: 'hiring' },
     company: { type: String, required: true, trim: true, index: true },
     email: { type: String, required: true, lowercase: true, trim: true, index: true },
     phone: { type: String, trim: true },
@@ -35,9 +47,18 @@ const CompanyLeadSchema = new Schema<ICompanyLead>(
     engagementType: { type: String, default: 'Full-Time Dedicated' },
     budgetRange: { type: String, trim: true },
     message: { type: String },
+    requiredSkills: [{ type: String, trim: true }],
+    experienceLevel: { type: String, trim: true },
+    employmentType: { type: String, trim: true },
+    desiredStartDate: { type: String },
+    jobDescription: { type: String },
+    statusHistory: [new Schema(statusHistoryDefinition, { _id: false })],
+    discoveryAt: { type: Date },
+    placedAt: { type: Date },
+    followUps: [new Schema({ day: { type: Number, enum: [30, 60, 90] }, dueAt: { type: Date }, completed: { type: Boolean, default: false } }, { _id: false })],
     status: {
       type: String,
-      enum: ['New', 'Contacted', 'Qualified', 'Proposal', 'Closed', 'Rejected'],
+      enum: LEAD_STATUSES,
       default: 'New',
       index: true,
     },

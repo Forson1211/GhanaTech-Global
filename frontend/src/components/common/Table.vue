@@ -29,8 +29,8 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
                   </div>
-                  <p class="text-sm font-medium text-brand-dark">No records found</p>
-                  <p class="text-xs text-brand-muted mt-1">Try adjusting your search or filters.</p>
+                  <p class="text-sm font-medium text-brand-dark">{{ t('No records found') }}</p>
+                  <p class="text-xs text-brand-muted mt-1">{{ t('Try adjusting your search or filters.') }}</p>
                 </div>
               </slot>
             </td>
@@ -47,6 +47,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 interface Props {
   loading?: boolean;
   empty?: boolean;

@@ -40,7 +40,9 @@ export function useAuth() {
         throw new Error(response.message || 'Login failed');
       }
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.message || 'Invalid email or password.';
+      const msg = err?.response?.data?.message || (!err?.response && err?.isAxiosError
+        ? 'Unable to connect to the sign-in service. Please try again shortly.'
+        : err?.message || 'Invalid email or password.');
       error.value = msg;
       throw new Error(msg);
     } finally {

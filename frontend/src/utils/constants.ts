@@ -16,6 +16,7 @@ export const POPULAR_ROLES = [
   'Data Analyst',
   'Data Engineer',
   'Business Analyst',
+  'Security Analyst', 'Cloud Security Engineer', 'SRE Engineer', 'Kubernetes Engineer', 'Mobile Developer', 'QA Automation Engineer', 'BI Analyst', 'SQL Developer', 'Data Scientist', 'Power BI Developer', 'Help Desk Technician', 'Network Engineer', 'Project Manager', 'Scrum Master', 'Product Manager', 'Program Manager',
 ] as const;
 
 export const TECH_CATEGORIES = [
@@ -34,23 +35,19 @@ export const AVAILABILITY_OPTIONS = [
   'Unavailable',
 ] as const;
 
-export const APPLICATION_STATUSES = [
-  'New',
-  'Reviewing',
-  'Shortlisted',
-  'Interview',
-  'Accepted',
-  'Rejected',
-] as const;
-
-export const LEAD_STATUSES = [
-  'New',
-  'Contacted',
-  'Qualified',
-  'Proposal',
-  'Closed',
-  'Rejected',
-] as const;
+export const APPLICATION_STATUSES = ['Applied', 'Screening', 'Technical Assessment', 'Interview', 'Verified', 'Talent Pool', 'Presented', 'Client Interview', 'Selected', 'Placed', 'Rejected', 'New', 'Reviewing', 'Shortlisted', 'Accepted'] as const;
+export const LEAD_STATUSES = ['New', 'Contacted', 'Discovery Scheduled', 'Qualified', 'Job Requirement Received', 'Candidates Presented', 'Client Interviews', 'Offer', 'Closed Won', 'Closed Lost', 'Proposal', 'Closed', 'Rejected'] as const;
+export const TALENT_TECH_AREAS = ['Cybersecurity', 'Cloud & DevOps', 'Software Engineering', 'Data & Analytics', 'IT', 'Business Technology', 'Cloud & IT'] as const;
+export const EMPLOYMENT_PREFERENCES = ['Full-time', 'Contract', 'Project', 'Managed team'] as const;
+export const SKILLS_BY_AREA: Record<string, string[]> = {
+  Cybersecurity: ['Security Analysis', 'Security Engineering', 'SOC', 'IAM', 'GRC', 'Cloud Security'],
+  'Cloud & DevOps': ['AWS', 'Azure', 'DevOps', 'SRE', 'Infrastructure', 'Automation', 'Kubernetes'],
+  'Software Engineering': ['Frontend', 'Backend', 'Full Stack', 'Mobile', 'QA Automation', 'TypeScript', 'Python', 'Java'],
+  'Data & Analytics': ['Data Analysis', 'Data Engineering', 'BI', 'SQL', 'Data Science', 'Power BI', 'Reporting'],
+  IT: ['Help Desk', 'Systems Administration', 'Networking', 'Infrastructure', 'Technical Support'],
+  'Business Technology': ['Business Analysis', 'Project Management', 'Scrum', 'Product Management', 'Program Management'],
+  'Cloud & IT': ['AWS', 'Azure', 'DevOps', 'Kubernetes', 'Systems Administration', 'Networking'],
+};
 
 export const CANDIDATE_STATUSES = [
   'Pending',
@@ -66,12 +63,7 @@ export const COMPANY_SIZES = [
   '1,000+ employees',
 ] as const;
 
-export const ENGAGEMENT_TYPES = [
-  'Full-Time Dedicated',
-  'Contract / Project-Based',
-  'Direct Hire Placement',
-  'Managed Services Pod',
-] as const;
+export const ENGAGEMENT_TYPES = ['Direct placement', 'Managed talent', 'Technology project', 'Not sure'] as const;
 
 export const BUDGET_RANGES = [
   '$25k - $45k / year',

@@ -163,3 +163,8 @@ export async function deleteCategory(req: Request, res: Response): Promise<void>
     sendError(res, error.message || 'Failed to delete category', 400);
   }
 }
+
+export async function getAdminCategories(_req: Request, res: Response): Promise<void> {
+  try { sendSuccess(res, 'Admin categories retrieved', await TechnologyCategory.find().sort({ order: 1, createdAt: 1 }).lean()); }
+  catch { sendError(res, 'Failed to retrieve categories', 500); }
+}

@@ -21,6 +21,10 @@ import faqRoutes from './routes/faqRoutes';
 import statisticsRoutes from './routes/statisticsRoutes';
 import adminRoutes from './routes/adminRoutes';
 import newsletterRoutes from './routes/newsletterRoutes';
+import { jobRoutes, contentRoutes } from './routes/publishingRoutes';
+import { publicSettingsRoutes } from './routes/publicSettingsRoutes';
+import { communicationRoutes, cronRoutes } from './routes/communicationRoutes';
+import { seoRoutes } from './routes/seoRoutes';
 
 export function createApp(): Application {
   const app: Application = express();
@@ -109,6 +113,12 @@ export function createApp(): Application {
   app.use('/api/statistics', statisticsRoutes);
   app.use('/api/admin', adminRoutes);
   app.use('/api/newsletter', newsletterRoutes);
+  app.use('/api/jobs', jobRoutes);
+  app.use('/api/content', contentRoutes);
+  app.use('/api/settings', publicSettingsRoutes);
+  app.use('/api/admin/communications', communicationRoutes);
+  app.use('/api/cron', cronRoutes);
+  app.use('/', seoRoutes);
 
   // 404 Handler for undefined API routes
   app.use((req: Request, res: Response) => {

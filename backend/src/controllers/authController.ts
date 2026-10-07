@@ -4,11 +4,13 @@ import * as authService from '../services/authService';
 import { sendSuccess, sendError } from '../utils/response';
 import { AuthenticatedRequest } from '../middleware/authMiddleware';
 import { env } from '../config/environment';
+import { LoginActivity } from '../models/LoginActivity';
 
 export async function login(req: Request, res: Response): Promise<void> {
   try {
     const validatedData = loginSchema.parse(req.body);
     const { user, token } = await authService.loginUser(validatedData.email, validatedData.password);
+    await LoginActivity.create({ userId: user.id, device: (req.get('user-agent') || 'Unknown device').slice(0, 500) }).catch(() => console.error('Sign-in activity could not be recorded.'));
 
     // Set secure httpOnly cookie
     res.cookie('token', token, {
@@ -63,6 +65,7 @@ export async function updateProfile(req: AuthenticatedRequest, res: Response): P
       name: updatedUser.name,
       email: updatedUser.email,
       role: updatedUser.role,
+      lastLogin: updatedUser.lastLogin,
     });
   } catch (error: any) {
     sendError(res, error.message || 'Failed to update profile', 400);

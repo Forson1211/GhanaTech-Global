@@ -3,8 +3,8 @@
     <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Candidate Management</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Maintain technical talent profiles, approve applications, and assign statuses.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Candidate Profiles") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Manage candidate profiles, skills, approval, and availability.") }} </p>
       </div>
 
       <Button variant="primary" size="md" @click="openCreateModal">
@@ -12,9 +12,7 @@
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
-        </template>
-        Add New Candidate
-      </Button>
+        </template> {{ t("Add New Candidate") }} </Button>
     </div>
 
     <!-- Filter and Search Header -->
@@ -29,10 +27,10 @@
           class="text-xs border border-brand-border/80 rounded-xl px-3 py-2 bg-white text-brand-dark font-medium cursor-pointer"
           @change="fetchCandidates"
         >
-          <option value="">All Statuses</option>
-          <option value="Approved">Approved</option>
-          <option value="Pending">Pending</option>
-          <option value="Rejected">Rejected</option>
+          <option value=""> {{ t("All Statuses") }} </option>
+          <option value="Approved"> {{ t("Approved") }} </option>
+          <option value="Pending"> {{ t("Pending") }} </option>
+          <option value="Rejected"> {{ t("Rejected") }} </option>
         </select>
 
         <select
@@ -40,11 +38,11 @@
           class="text-xs border border-brand-border/80 rounded-xl px-3 py-2 bg-white text-brand-dark font-medium cursor-pointer"
           @change="fetchCandidates"
         >
-          <option value="">All Availability</option>
-          <option value="Available">Available</option>
-          <option value="Interviewing">Interviewing</option>
-          <option value="Placed">Placed</option>
-          <option value="Unavailable">Unavailable</option>
+          <option value=""> {{ t("All Availability") }} </option>
+          <option value="Available"> {{ t("Available") }} </option>
+          <option value="Interviewing"> {{ t("Interviewing") }} </option>
+          <option value="Placed"> {{ t("Placed") }} </option>
+          <option value="Unavailable"> {{ t("Unavailable") }} </option>
         </select>
 
         <select
@@ -52,11 +50,11 @@
           class="text-xs border border-brand-border/80 rounded-xl px-3 py-2 bg-white text-brand-dark font-medium cursor-pointer"
           @change="fetchCandidates"
         >
-          <option value="">All Disciplines</option>
-          <option value="Cybersecurity">Cybersecurity</option>
-          <option value="Cloud & IT">Cloud & IT</option>
-          <option value="Software Engineering">Software</option>
-          <option value="Data & Analytics">Data</option>
+          <option value=""> {{ t("All Disciplines") }} </option>
+          <option value="Cybersecurity"> {{ t("Cybersecurity") }} </option>
+          <option value="Cloud & IT"> {{ t("Cloud & IT") }} </option>
+          <option value="Software Engineering"> {{ t("Software") }} </option>
+          <option value="Data & Analytics"> {{ t("Data") }} </option>
         </select>
       </div>
     </div>
@@ -64,12 +62,12 @@
     <!-- Candidates Table (Section 53) -->
     <Table :loading="loading" :empty="candidates.length === 0" :col-span="6">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Candidate</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Role & Discipline</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Experience</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Availability</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Profile Status</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Candidate") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Role & Discipline") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Experience") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Availability") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Profile Status") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="c in candidates" :key="c._id" class="hover:bg-brand-lightest/40 transition-colors">
@@ -92,8 +90,7 @@
 
         <!-- Experience -->
         <td class="py-4 px-4 text-xs font-semibold text-brand-dark">
-          {{ c.yearsExperience }} Years
-        </td>
+          {{ c.yearsExperience }} {{ t("Years") }} </td>
 
         <!-- Availability selector -->
         <td class="py-4 px-4">
@@ -102,10 +99,10 @@
             class="text-xs border border-brand-border/60 rounded-lg px-2 py-1 bg-white text-brand-dark cursor-pointer font-medium"
             @change="updateAvailability(c._id, ($event.target as HTMLSelectElement).value as any)"
           >
-            <option value="Available">Available</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Placed">Placed</option>
-            <option value="Unavailable">Unavailable</option>
+            <option value="Available"> {{ t("Available") }} </option>
+            <option value="Interviewing"> {{ t("Interviewing") }} </option>
+            <option value="Placed"> {{ t("Placed") }} </option>
+            <option value="Unavailable"> {{ t("Unavailable") }} </option>
           </select>
         </td>
 
@@ -118,17 +115,13 @@
               type="button"
               class="text-[10px] font-bold text-brand-primary bg-brand-soft px-2 py-0.5 rounded hover:bg-brand-primary hover:text-white transition-colors"
               @click="updateStatus(c._id, 'Approved')"
-            >
-              Approve
-            </button>
+            > {{ t("Approve") }} </button>
             <button
               v-if="c.profileStatus !== 'Rejected'"
               type="button"
               class="text-[10px] font-bold text-brand-muted hover:text-brand-dark bg-brand-lightest px-2 py-0.5 rounded transition-colors"
               @click="updateStatus(c._id, 'Rejected')"
-            >
-              Reject
-            </button>
+            > {{ t("Reject") }} </button>
           </div>
         </td>
 
@@ -138,16 +131,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
             @click="openEditModal(c)"
-          >
-            Edit
-          </button>
+          > {{ t("Edit") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(c._id, `${c.firstName} ${c.lastName}`)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
 
@@ -196,8 +185,8 @@
         </div>
 
         <div class="pt-4 border-t border-brand-border/40 flex justify-end space-x-3">
-          <Button variant="ghost" size="sm" @click="showEditModal = false">Cancel</Button>
-          <Button type="submit" variant="primary" size="sm" :loading="isSaving">Save Candidate</Button>
+          <Button variant="ghost" size="sm" @click="showEditModal = false"> {{ t("Cancel") }} </Button>
+          <Button type="submit" variant="primary" size="sm" :loading="isSaving"> {{ t("Save Candidate") }} </Button>
         </div>
       </form>
     </Modal>
@@ -216,6 +205,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
 import { candidateService } from '@/services/candidates';
 import type { AdminCandidate, CandidateAvailability, CandidateStatus } from '@/types/candidate';

@@ -9,6 +9,7 @@ export interface ISiteSettings extends Document {
   usOfficeAddress: string;
   allowPublicApplications: boolean;
   allowLeadSubmissions: boolean;
+  socialLinks?: Record<string, string>;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,6 +24,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
     usOfficeAddress: { type: String, default: 'Austin, TX & New York, NY' },
     allowPublicApplications: { type: Boolean, default: true },
     allowLeadSubmissions: { type: Boolean, default: true },
+    socialLinks: { type: Schema.Types.Mixed, default: {} },
   },
   {
     timestamps: true,

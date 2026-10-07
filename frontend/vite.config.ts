@@ -14,8 +14,10 @@ export default defineConfig({
     port: 5173,
     host: true,
     proxy: {
+      '/robots.txt': { target: process.env.DEV_API_TARGET || 'http://127.0.0.1:5010', changeOrigin: true },
+      '/sitemap.xml': { target: process.env.DEV_API_TARGET || 'http://127.0.0.1:5010', changeOrigin: true },
       '/api': {
-        target: 'http://127.0.0.1:5000',
+        target: process.env.DEV_API_TARGET || 'http://127.0.0.1:5010',
         changeOrigin: true,
       },
     },

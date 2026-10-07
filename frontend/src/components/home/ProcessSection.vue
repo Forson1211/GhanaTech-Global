@@ -49,12 +49,12 @@ const steps = [
   },
   {
     number: '02',
-    title: 'We Source & Assess',
+    title: "We Find & Check Candidates",
     description: 'We query our active Ghanaian database and run technical evaluations tailored to your stack.',
   },
   {
     number: '03',
-    title: 'Meet Your Shortlist',
+    title: "Review Suggested Candidates",
     description: 'Review complete vetted candidate profiles, assessment summaries, and verified repositories.',
   },
   {

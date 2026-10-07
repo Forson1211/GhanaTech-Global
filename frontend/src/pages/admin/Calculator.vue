@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Calculator Management</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Edit role salary baselines. Admin updates immediately affect the public value calculator.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Cost Calculator") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Edit role salary baselines. Admin updates immediately affect the public value calculator.") }} </p>
       </div>
 
       <Button variant="primary" size="md" @click="openCreateModal">
@@ -11,20 +11,18 @@
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
-        </template>
-        Add Role Baseline
-      </Button>
+        </template> {{ t("Add Role Baseline") }} </Button>
     </div>
 
     <!-- Table -->
     <Table :loading="loading" :empty="configs.length === 0" :col-span="6">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Role Title</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Seniority Baseline</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Estimated U.S. Cost</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">GhanaTech Cost</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Annual Savings</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Role Title") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Seniority Baseline") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Estimated U.S. Cost") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("GhanaTech Cost") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Annual Savings") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="cfg in configs" :key="cfg._id || cfg.role" class="hover:bg-brand-lightest/40 transition-colors">
@@ -47,8 +45,7 @@
         <td class="py-4 px-4 text-xs font-bold text-brand-dark">
           {{ formatCurrency(cfg.usEstimatedAnnualCost - cfg.ghanaTechEstimatedAnnualCost) }}
           <span class="block text-[10px] text-brand-muted font-normal">
-            {{ Math.round(((cfg.usEstimatedAnnualCost - cfg.ghanaTechEstimatedAnnualCost) / cfg.usEstimatedAnnualCost) * 100) }}% saved
-          </span>
+            {{ Math.round(((cfg.usEstimatedAnnualCost - cfg.ghanaTechEstimatedAnnualCost) / cfg.usEstimatedAnnualCost) * 100) }} {{ t("% saved") }} </span>
         </td>
 
         <td class="py-4 px-6 text-right space-x-2">
@@ -56,16 +53,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
             @click="openEditModal(cfg)"
-          >
-            Edit Baseline
-          </button>
+          > {{ t("Edit Baseline") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(cfg._id!, cfg.role)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
     </Table>
@@ -91,8 +84,8 @@
         />
 
         <div class="pt-4 border-t border-brand-border/40 flex justify-end space-x-3">
-          <Button variant="ghost" size="sm" @click="showModal = false">Cancel</Button>
-          <Button type="submit" variant="primary" size="sm" :loading="isSaving">Save Assumptions</Button>
+          <Button variant="ghost" size="sm" @click="showModal = false"> {{ t("Cancel") }} </Button>
+          <Button type="submit" variant="primary" size="sm" :loading="isSaving"> {{ t("Save Assumptions") }} </Button>
         </div>
       </form>
     </Modal>
@@ -110,6 +103,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
 import { calculatorService } from '@/services/calculator';
 import type { CalculatorConfigItem } from '@/types/common';

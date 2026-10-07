@@ -6,6 +6,8 @@ import { CompanyLead } from '../models/CompanyLead';
 import { Service } from '../models/Service';
 import { SiteSettings } from '../models/SiteSettings';
 import { sendSuccess, sendError } from '../utils/response';
+import { OPEN_LEAD_STATUSES } from '../utils/workflow';
+import { z } from 'zod';
 
 export async function getPublicStatistics(_req: Request, res: Response): Promise<void> {
   try {
@@ -57,9 +59,9 @@ export async function getDashboardSummary(_req: Request, res: Response): Promise
       Candidate.countDocuments({ profileStatus: 'Approved' }),
       Candidate.countDocuments({ profileStatus: 'Pending' }),
       TalentApplication.countDocuments(),
-      TalentApplication.countDocuments({ status: 'New' }),
+      TalentApplication.countDocuments({ status: { $in: ['New', 'Applied'] } }),
       CompanyLead.countDocuments(),
-      CompanyLead.countDocuments({ status: { $in: ['New', 'Contacted', 'Qualified', 'Proposal'] } }),
+      CompanyLead.countDocuments({ status: { $in: OPEN_LEAD_STATUSES } }),
       Service.countDocuments({ status: 'published' }),
       TalentApplication.find().sort({ createdAt: -1 }).limit(5).lean(),
       CompanyLead.find().sort({ createdAt: -1 }).limit(5).lean(),
@@ -104,11 +106,12 @@ export async function getSiteSettings(_req: Request, res: Response): Promise<voi
 
 export async function updateSiteSettings(req: Request, res: Response): Promise<void> {
   try {
+    const data = z.object({ companyName: z.string().trim().min(2).max(200), tagline: z.string().max(500), contactEmail: z.string().trim().email(), supportPhone: z.string().max(100), accraOfficeAddress: z.string().max(500), usOfficeAddress: z.string().max(500), allowPublicApplications: z.boolean(), allowLeadSubmissions: z.boolean(), socialLinks: z.record(z.string().url().refine(value => /^https?:\/\//.test(value))).optional() }).parse(req.body);
     let settings = await SiteSettings.findOne();
     if (!settings) {
-      settings = new SiteSettings(req.body);
+      settings = new SiteSettings(data);
     } else {
-      Object.assign(settings, req.body);
+      Object.assign(settings, data);
     }
     await settings.save();
     sendSuccess(res, 'Site settings updated successfully', settings);

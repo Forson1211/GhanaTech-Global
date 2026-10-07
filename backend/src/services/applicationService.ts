@@ -13,6 +13,7 @@ export interface ApplicationQueryOptions {
 
 export async function submitApplication(data: any, file?: Express.Multer.File): Promise<ITalentApplication> {
   const { cvToken, ...applicationData } = data;
+  if (!cvToken && !file) throw new Error('Please attach your CV.');
   if (cvToken && file) throw new Error('Submit only one CV document.');
   if (cvToken) {
     Object.assign(applicationData, await resolveUploadedCv(cvToken));
@@ -22,7 +23,7 @@ export async function submitApplication(data: any, file?: Express.Multer.File): 
     Object.assign(applicationData, await storeMultipartCv(file));
   }
 
-  const application = new TalentApplication(applicationData);
+  const application = new TalentApplication({ ...applicationData, consentAt: new Date(), consentVersion: 'talent-opportunities-v1', status: 'Applied', statusHistory: [{ status: 'Applied', changedAt: new Date() }] });
   return application.save();
 }
 
@@ -82,14 +83,17 @@ export async function getApplicationById(id: string): Promise<ITalentApplication
 
 export async function updateApplicationStatusAndNotes(
   id: string,
-  update: { status?: ApplicationStatus; internalNotes?: string }
+  update: { status?: ApplicationStatus; internalNotes?: string },
+  changedBy?: string
 ): Promise<ITalentApplication> {
   const application = await TalentApplication.findById(id);
   if (!application) {
     throw new Error('Application not found');
   }
 
-  if (update.status) {
+  if (update.status && update.status !== application.status) {
+    application.statusHistory ||= [];
+    application.statusHistory.push({ status: update.status, changedAt: new Date(), changedBy });
     application.status = update.status;
   }
   if (update.internalNotes !== undefined) {

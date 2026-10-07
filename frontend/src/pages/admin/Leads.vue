@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Company Leads & Inquiries</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Track inbound hiring requests from U.S. technology leaders and enterprise buyers.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Company Requests") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Track inbound hiring requests from U.S. technology leaders and enterprise buyers.") }} </p>
       </div>
     </div>
 
@@ -19,13 +19,8 @@
           class="text-xs border border-brand-border/80 rounded-xl px-3 py-2 bg-white text-brand-dark font-medium cursor-pointer"
           @change="fetchLeads"
         >
-          <option value="">All Lead Statuses</option>
-          <option value="New">New</option>
-          <option value="Contacted">Contacted</option>
-          <option value="Qualified">Qualified</option>
-          <option value="Proposal">Proposal</option>
-          <option value="Closed">Closed</option>
-          <option value="Rejected">Rejected</option>
+          <option value=""> {{ t("All Lead Statuses") }} </option>
+          <option v-for="status in LEAD_STATUSES" :key="status" :value="status">{{ status }}</option>
         </select>
       </div>
     </div>
@@ -33,12 +28,12 @@
     <!-- Leads Table -->
     <Table :loading="loading" :empty="leads.length === 0" :col-span="6">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Company & Contact</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Need & Role</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Headcount & Type</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Target Budget</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Pipeline Status</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Company & Contact") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Need & Role") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Headcount & Type") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Target Budget") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Pipeline Status") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="lead in leads" :key="lead._id" class="hover:bg-brand-lightest/40 transition-colors">
@@ -46,7 +41,7 @@
         <td class="py-4 px-6">
           <p class="font-bold text-brand-dark text-xs sm:text-sm">{{ lead.company }}</p>
           <p class="text-[11px] text-brand-muted">{{ lead.name }} • {{ lead.email }}</p>
-          <p class="text-[10px] text-brand-muted/80">Received: {{ formatDate(lead.createdAt) }}</p>
+          <p class="text-[10px] text-brand-muted/80"> {{ t("Received:") }} {{ formatDate(lead.createdAt) }}</p>
         </td>
 
         <!-- Need & Role -->
@@ -73,12 +68,7 @@
             class="text-xs border border-brand-border/60 rounded-lg px-2 py-1 bg-white text-brand-dark cursor-pointer font-medium"
             @change="updateStatus(lead._id!, ($event.target as HTMLSelectElement).value as any)"
           >
-            <option value="New">New</option>
-            <option value="Contacted">Contacted</option>
-            <option value="Qualified">Qualified</option>
-            <option value="Proposal">Proposal</option>
-            <option value="Closed">Closed</option>
-            <option value="Rejected">Rejected</option>
+            <option v-for="status in LEAD_STATUSES" :key="status" :value="status">{{ status }}</option>
           </select>
         </td>
 
@@ -88,16 +78,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
             @click="viewDetails(lead)"
-          >
-            View Details
-          </button>
+          > {{ t("View Details") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(lead._id!, lead.company)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
 
@@ -114,38 +100,48 @@
     <!-- Details Modal -->
     <Modal v-model="showDetailsModal" :title="`Lead Details: ${selectedLead?.company || ''}`" max-width="xl">
       <div v-if="selectedLead" class="space-y-5">
-        <div class="grid grid-cols-2 gap-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
-            <span class="text-brand-muted block">Client Representative:</span>
+            <span class="text-brand-muted block"> {{ t("Client Representative:") }} </span>
             <strong class="text-brand-dark text-sm">{{ selectedLead.name }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Company Name:</span>
+            <span class="text-brand-muted block"> {{ t("Company Name:") }} </span>
             <strong class="text-brand-dark">{{ selectedLead.company }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Email:</span>
+            <span class="text-brand-muted block"> {{ t("Email:") }} </span>
             <strong class="text-brand-dark">{{ selectedLead.email }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Phone:</span>
+            <span class="text-brand-muted block"> {{ t("Phone:") }} </span>
             <strong class="text-brand-dark">{{ selectedLead.phone || 'Not provided' }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Company Size:</span>
+            <span class="text-brand-muted block"> {{ t("Company Size:") }} </span>
             <strong class="text-brand-dark">{{ selectedLead.companySize || 'Unknown' }}</strong>
           </div>
           <div>
-            <span class="text-brand-muted block">Role / Quantity:</span>
-            <strong class="text-brand-dark">{{ selectedLead.role }} ({{ selectedLead.numberOfProfessionals }} required)</strong>
+            <span class="text-brand-muted block"> {{ t("Role / Quantity:") }} </span>
+            <strong class="text-brand-dark">{{ selectedLead.role }} ({{ selectedLead.numberOfProfessionals }} {{ t("required)") }} </strong>
           </div>
         </div>
 
         <div v-if="selectedLead.message" class="p-3.5 bg-brand-lightest rounded-xl border border-brand-border/60">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-brand-dark block mb-1">Message / Requirements</span>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-brand-dark block mb-1"> {{ t("Message / Requirements") }} </span>
           <p class="text-xs text-brand-dark whitespace-pre-line leading-relaxed">{{ selectedLead.message }}</p>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div><span class="text-brand-muted block"> {{ t("Experience Level:") }} </span><strong class="text-brand-dark">{{ selectedLead.experienceLevel || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Employment Type:") }} </span><strong class="text-brand-dark">{{ selectedLead.employmentType || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Desired Start:") }} </span><strong class="text-brand-dark">{{ selectedLead.desiredStartDate || 'Not specified' }}</strong></div>
+          <div><span class="text-brand-muted block"> {{ t("Required Skills:") }} </span><strong class="text-brand-dark">{{ selectedLead.requiredSkills?.join(', ') || 'Not specified' }}</strong></div>
+        </div>
+        <div v-if="selectedLead.jobDescription" class="p-3.5 bg-brand-lightest rounded-xl border border-brand-border/60"><span class="text-[11px] font-bold text-brand-dark"> {{ t("Job Description") }} </span><p class="text-xs text-brand-dark whitespace-pre-line mt-2">{{ selectedLead.jobDescription }}</p></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><Input v-model="discoveryAt" type="datetime-local" label="Discovery Call" /><Input v-model="placedAt" type="date" label="Placement Date" /></div>
+        <div v-if="followUps.length" class="space-y-3"><p class="text-xs font-bold text-brand-dark"> {{ t("Placement Follow-ups") }} </p><label v-for="followUp in followUps" :key="followUp.day" class="flex items-center gap-3 text-xs text-brand-dark"><input v-model="followUp.completed" type="checkbox" class="rounded border-brand-border text-brand-primary" /><span>{{ followUp.day }} {{ t("-day follow-up:") }} {{ formatDate(followUp.dueAt) }}</span></label></div>
+        <div v-if="selectedLead.statusHistory?.length" class="space-y-2"><p class="text-xs font-bold text-brand-dark"> {{ t("Pipeline History") }} </p><p v-for="(entry, index) in selectedLead.statusHistory" :key="index" class="text-xs text-brand-muted">{{ entry.status }} &middot; {{ formatDate(entry.changedAt) }}</p></div>
         <!-- Notes -->
         <div class="pt-3 border-t border-brand-border/40">
           <Textarea
@@ -157,10 +153,8 @@
         </div>
 
         <div class="flex justify-end space-x-3 pt-2">
-          <Button variant="ghost" size="sm" @click="showDetailsModal = false">Close</Button>
-          <Button variant="primary" size="sm" :loading="isSavingNotes" @click="saveNotes">
-            Save Deal Notes
-          </Button>
+          <Button variant="ghost" size="sm" @click="showDetailsModal = false"> {{ t("Close") }} </Button>
+          <Button variant="primary" size="sm" :loading="isSavingNotes" @click="saveNotes"> {{ t("Save Deal Notes") }} </Button>
         </div>
       </div>
     </Modal>
@@ -178,7 +172,10 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
+import { LEAD_STATUSES } from '@/utils/constants';
 import { leadService } from '@/services/leads';
 import type { CompanyLead, LeadStatus } from '@/types/lead';
 import { formatDate } from '@/utils/formatters';
@@ -189,6 +186,7 @@ import SearchInput from '@/components/common/SearchInput.vue';
 import Modal from '@/components/common/Modal.vue';
 import Textarea from '@/components/common/Textarea.vue';
 import Button from '@/components/common/Button.vue';
+import Input from '@/components/common/Input.vue';
 import ConfirmDialog from '@/components/common/ConfirmDialog.vue';
 
 const toast = useToast();
@@ -203,6 +201,9 @@ const totalCount = ref(0);
 
 const selectedLead = ref<CompanyLead | null>(null);
 const internalNotes = ref('');
+const discoveryAt = ref('');
+const placedAt = ref('');
+const followUps = ref<NonNullable<CompanyLead['followUps']>>([]);
 const showDetailsModal = ref(false);
 const isSavingNotes = ref(false);
 
@@ -226,6 +227,7 @@ const fetchLeads = async () => {
     }
   } catch {
     leads.value = [];
+    toast.error('Company leads could not be loaded.');
   } finally {
     loading.value = false;
   }
@@ -246,8 +248,13 @@ const updateStatus = async (id: string, status: LeadStatus) => {
   }
 };
 
+const localDateTime = (value: string) => { const date = new Date(value); return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16); };
+
 const viewDetails = (lead: CompanyLead) => {
   selectedLead.value = lead;
+  discoveryAt.value = lead.discoveryAt ? localDateTime(lead.discoveryAt) : '';
+  placedAt.value = lead.placedAt?.slice(0, 10) || '';
+  followUps.value = (lead.followUps || []).map(item => ({ ...item }));
   internalNotes.value = lead.internalNotes || '';
   showDetailsModal.value = true;
 };
@@ -256,7 +263,7 @@ const saveNotes = async () => {
   if (!selectedLead.value?._id) return;
   isSavingNotes.value = true;
   try {
-    await leadService.updateLeadNotes(selectedLead.value._id, internalNotes.value);
+    await leadService.updateLeadWorkflow(selectedLead.value._id, { internalNotes: internalNotes.value, discoveryAt: discoveryAt.value ? new Date(discoveryAt.value).toISOString() : undefined, placedAt: placedAt.value ? new Date(placedAt.value).toISOString() : undefined, followUps: followUps.value.map(item => ({ day: item.day, completed: item.completed })) });
     toast.success('Lead notes saved.');
     showDetailsModal.value = false;
     fetchLeads();

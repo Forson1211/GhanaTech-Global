@@ -120,7 +120,7 @@ async function testAllEndpoints() {
   });
 
   // 11. Public Submit Application
-  await test('POST /applications (Join Talent Form)', async () => {
+  await test('POST /applications (CV is required)', async () => {
     const res = await fetch(`${BASE_URL}/applications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -135,10 +135,11 @@ async function testAllEndpoints() {
         skills: ['Vue 3', 'TypeScript', 'Node.js', 'PostgreSQL'],
         availability: 'Available Immediately',
         desiredEngagement: 'Full-time Remote',
+        consent: true,
       }),
     });
     const json = await res.json();
-    if (!json.success || !json.data.id) throw new Error('Application creation failed');
+    if (res.status !== 400 || json.success) throw new Error('Application without a CV must be rejected');
   });
 
   // 12. Admin Authentication & Protected Endpoints

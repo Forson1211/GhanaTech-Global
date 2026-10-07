@@ -1,12 +1,27 @@
 import { Request, Response } from 'express';
+import { AuthenticatedRequest } from '../middleware/authMiddleware';
 import { createApplicationSchema, updateApplicationSchema } from '../validators/applicationValidator';
 import * as applicationService from '../services/applicationService';
 import * as emailService from '../services/emailService';
 import { sendSuccess, sendError } from '../utils/response';
 import { sendStoredCv } from '../services/cvStorage';
+import { SiteSettings } from '../models/SiteSettings';
+import { JobPosting } from '../models/JobPosting';
+import { publishedJobFilter } from '../validators/publishingValidator';
+import path from 'path';
+import fs from 'fs/promises';
+import { env } from '../config/environment';
+
+async function discardUploadedCv(req: Request) {
+  if (!req.file?.path) return;
+  const file = path.resolve(req.file.path), directory = path.resolve(env.UPLOAD_DIR, 'cvs');
+  if (file.startsWith(directory + path.sep)) await fs.unlink(file).catch(() => {});
+}
 
 export async function submitApplication(req: Request, res: Response): Promise<void> {
+  let saved = false;
   try {
+    if ((await SiteSettings.findOne().lean())?.allowPublicApplications === false) { await discardUploadedCv(req); sendError(res, 'Talent applications are temporarily closed. Please contact our team directly.', 403); return; }
     const rawData = req.body;
     // Parse JSON if skills was sent as string or JSON string from FormData
     if (typeof rawData.skills === 'string') {
@@ -19,10 +34,17 @@ export async function submitApplication(req: Request, res: Response): Promise<vo
     }
 
     const validatedData = createApplicationSchema.parse(rawData);
+    if (validatedData.jobId) {
+      const job = await JobPosting.findOne({ _id: validatedData.jobId, ...publishedJobFilter() }).lean();
+      if (!job) { await discardUploadedCv(req); sendError(res, 'This opportunity is no longer accepting applications.', 409); return; }
+      validatedData.role = job.title;
+      validatedData.technologyArea = job.category;
+    }
     const application = await applicationService.submitApplication(validatedData, req.file);
+    saved = true;
 
     // Send notification
-    emailService.sendApplicationNotification(application).catch(console.error);
+    await emailService.sendApplicationNotification(application).catch(() => console.error('Could not queue application notifications.'));
 
     sendSuccess(
       res,
@@ -36,6 +58,7 @@ export async function submitApplication(req: Request, res: Response): Promise<vo
       201
     );
   } catch (error: any) {
+    if (!saved) await discardUploadedCv(req);
     sendError(res, error.message || 'Failed to submit application', 400);
   }
 }
@@ -68,10 +91,10 @@ export async function getAdminApplicationById(req: Request, res: Response): Prom
   }
 }
 
-export async function updateApplication(req: Request, res: Response): Promise<void> {
+export async function updateApplication(req: AuthenticatedRequest, res: Response): Promise<void> {
   try {
     const validatedData = updateApplicationSchema.parse(req.body);
-    const updated = await applicationService.updateApplicationStatusAndNotes(req.params.id, validatedData);
+    const updated = await applicationService.updateApplicationStatusAndNotes(req.params.id, validatedData, req.user?._id.toString());
     sendSuccess(res, 'Application updated successfully', updated);
   } catch (error: any) {
     sendError(res, error.message || 'Failed to update application', 400);

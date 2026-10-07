@@ -37,7 +37,9 @@ export async function getPublicCandidates(options: CandidateQueryOptions) {
   }
 
   if (options.experience && options.experience !== 'All') {
-    if (options.experience === '1-3 years') {
+    if (/^\d+(\.\d+)?$/.test(options.experience)) {
+      filter.yearsExperience = { $gte: Number(options.experience) };
+    } else if (options.experience === '1-3 years') {
       filter.yearsExperience = { $gte: 1, $lte: 3 };
     } else if (options.experience === '3-5 years') {
       filter.yearsExperience = { $gte: 3, $lte: 5 };

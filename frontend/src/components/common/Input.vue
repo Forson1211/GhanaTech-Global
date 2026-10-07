@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <label v-if="label" :for="id" class="block text-sm font-medium text-brand-dark mb-1.5">
-      {{ label }}
+      {{ t(label) }}
       <span v-if="required" class="text-brand-bright">*</span>
     </label>
 
@@ -13,8 +13,13 @@
       <input
         :id="id"
         :type="type"
+        :autocomplete="autocomplete"
+        :min="min"
+        :max="max"
+        :step="step"
+        :list="list"
         :value="modelValue"
-        :placeholder="placeholder"
+        :placeholder="t(placeholder)"
         :disabled="disabled"
         :required="required"
         :class="[
@@ -35,16 +40,23 @@
     </div>
 
     <p v-if="error" class="mt-1 text-xs text-brand-dark font-medium">{{ error }}</p>
-    <p v-else-if="hint" class="mt-1 text-xs text-brand-muted">{{ hint }}</p>
+    <p v-else-if="hint" class="mt-1 text-xs text-brand-muted">{{ t(hint) }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 interface Props {
   modelValue?: string | number;
   label?: string;
   id?: string;
   type?: string;
+  autocomplete?: string;
+  min?: number | string;
+  max?: number | string;
+  step?: number | string;
+  list?: string;
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;

@@ -14,14 +14,15 @@
 
         <!-- Main Title -->
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-          Find Your Dream Remote Job
+          Find Your Next Remote Job
         </h1>
 
         <!-- Subtitle -->
         <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          Join talented Ghanaian technology professionals working remotely for high-growth U.S. enterprises. Earn competitive USD compensation and build global careers.
+          Explore remote jobs with U.S. and other global companies. Find work that matches your skills and experience.
         </p>
 
+        <p class="mt-4 text-xs text-white/70">Browse available jobs or join our talent network to be considered for future roles.</p>
         <!-- Search Bar with Filters Button (exact match to user reference) -->
         <div class="mt-8 max-w-2xl mx-auto">
           <div class="bg-white/10 backdrop-blur-md p-1.5 rounded-full border border-white/25 shadow-2xl flex items-center gap-2">
@@ -74,7 +75,7 @@
               v-show="isFiltersOpen"
               class="mt-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-left flex flex-wrap gap-2 items-center"
             >
-              <span class="text-xs text-white/70 font-semibold mr-2">Department:</span>
+              <span class="text-xs text-white/70 font-semibold mr-2">Type of Work:</span>
               <button
                 v-for="cat in categories"
                 :key="cat"
@@ -99,11 +100,14 @@
 
     <!-- Main Content: Open Positions -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <p v-if="loadingJobs" role="status" class="text-sm text-brand-muted mb-6">Loading jobs…</p>
+      <p v-if="jobsError" role="alert" class="text-sm text-red-600 mb-6">{{ jobsError }} <button class="underline" @click="loadJobs">Try again</button></p>
+      <p v-if="!loadingJobs && !jobsError && !jobs.length" class="text-sm text-brand-muted mb-6">There are no job openings listed yet. <router-link to="/join-talent" class="text-brand-primary font-semibold">Join the Talent Network</router-link> so we can consider you for future jobs.</p>
       <!-- Section Header with Count (NO STROKE) -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-2">
         <div>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-[#4C1D95] tracking-tight">
-            Open Positions
+            Job Openings
           </h2>
           <p class="text-sm text-slate-500 mt-1">
             Explore our current job openings and find your perfect role
@@ -170,18 +174,18 @@
             <!-- Metrics bar (NO STROKE) -->
             <div class="grid grid-cols-2 gap-2 text-xs py-2.5 px-3.5 rounded-2xl bg-brand-lightest/70 mb-5">
               <div>
-                <span class="block text-[10px] uppercase font-bold text-brand-muted">Compensation</span>
+                <span class="block text-[10px] uppercase font-bold text-brand-muted">Pay</span>
                 <span class="font-extrabold text-brand-dark text-xs block truncate">{{ job.salary }}</span>
               </div>
               <div>
-                <span class="block text-[10px] uppercase font-bold text-brand-muted">Location / Mode</span>
+                <span class="block text-[10px] uppercase font-bold text-brand-muted">Where You Will Work</span>
                 <span class="font-extrabold text-brand-primary text-xs block truncate">Ghana • Remote</span>
               </div>
             </div>
 
             <!-- Core Stack Badges (NO STROKE) -->
             <div class="mb-6">
-              <span class="block text-[10px] uppercase font-bold text-brand-muted mb-2">Core Tech Stack</span>
+              <span class="block text-[10px] uppercase font-bold text-brand-muted mb-2">Skills &amp; Tools</span>
               <div class="flex flex-wrap gap-1.5">
                 <span
                   v-for="tech in job.techStack"
@@ -198,7 +202,7 @@
               <div>
                 <h4 class="font-bold text-brand-dark mb-1.5 flex items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-brand-primary" />
-                  Key Responsibilities:
+                  What You Will Do:
                 </h4>
                 <ul class="list-disc list-inside space-y-1 text-brand-muted pl-1">
                   <li v-for="(resp, i) in job.responsibilities" :key="i">{{ resp }}</li>
@@ -208,7 +212,7 @@
               <div>
                 <h4 class="font-bold text-brand-dark mb-1.5 flex items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-brand-primary" />
-                  Role Requirements:
+                  What You Need:
                 </h4>
                 <ul class="list-disc list-inside space-y-1 text-brand-muted pl-1">
                   <li v-for="(req, i) in job.requirements" :key="i">{{ req }}</li>
@@ -216,7 +220,7 @@
               </div>
 
               <div class="pt-2 text-[11px] text-brand-primary font-medium">
-                🎁 100% remote in USD • Hardware stipend • Full health insurance • Flexible PTO
+                Pay, working hours, and benefits depend on the job. Ask our team for details.
               </div>
             </div>
           </div>
@@ -239,7 +243,7 @@
               @click="toggleExpand(job.id)"
               class="w-full py-2.5 px-4 rounded-2xl bg-brand-soft text-brand-dark hover:bg-brand-soft/80 font-bold text-xs transition-all text-center flex items-center justify-center gap-1.5"
             >
-              <span>{{ expandedJobIds.includes(job.id) ? 'Show Less' : 'View More & Read Job' }}</span>
+              <span>{{ expandedJobIds.includes(job.id) ? 'Show Less' : "Read Job Details" }}</span>
               <svg
                 class="w-3.5 h-3.5 transition-transform duration-200"
                 :class="expandedJobIds.includes(job.id) ? 'rotate-180' : ''"
@@ -259,7 +263,7 @@
         <div class="w-16 h-16 rounded-full bg-purple-50 text-[#6D28D9] flex items-center justify-center mx-auto text-2xl font-bold">
           🔍
         </div>
-        <h3 class="text-xl font-bold text-slate-800">No matching positions found</h3>
+        <h3 class="text-xl font-bold text-slate-800">No Matching Jobs Found</h3>
         <p class="text-sm text-slate-500 max-w-md mx-auto">
           We couldn't find any openings matching "{{ searchQuery }}". Try adjusting your search query or selecting a different department.
         </p>
@@ -267,7 +271,7 @@
           @click="resetFilters"
           class="px-5 py-2.5 rounded-full bg-[#6D28D9] text-white text-xs font-bold hover:bg-[#5B21B6] transition-all"
         >
-          Reset All Filters
+          Clear Filters
         </button>
       </div>
     </main>
@@ -296,7 +300,7 @@
             Apply for {{ selectedJobForModal.title }}
           </h3>
           <p class="text-xs text-slate-500 mt-1">
-            Submit your profile directly to the GhanaTech Global recruitment team.
+            Send your application to the GhanaTech Global hiring team.
           </p>
         </div>
 
@@ -307,7 +311,7 @@
           </div>
           <h4 class="text-lg font-black text-slate-900">Application Received!</h4>
           <p class="text-xs text-slate-600">
-            Thank you, {{ applyForm.name }}. Our technical vetting team will review your application for <strong>{{ selectedJobForModal.title }}</strong> within 48 hours.
+            Thank you, {{ applyForm.name }}. Our technical vetting team will review your application for <strong>{{ selectedJobForModal.title }}</strong> and contact you about the next steps.
           </p>
           <button
             @click="closeApplyModal"
@@ -320,7 +324,7 @@
         <!-- Application Form -->
         <form v-else class="space-y-4" @submit.prevent="submitJobApplication">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Full Legal Name *</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
             <input
               v-model="applyForm.name"
               required
@@ -355,7 +359,7 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Years Experience *</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Years of Work Experience *</label>
               <select
                 v-model="applyForm.experience"
                 required
@@ -368,7 +372,7 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">LinkedIn / Portfolio URL</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">LinkedIn or Work Samples Link</label>
               <input
                 v-model="applyForm.linkedin"
                 type="url"
@@ -378,9 +382,13 @@
             </div>
           </div>
 
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Input v-model="applyForm.location" label="City or Town" :required="true" placeholder="Accra, Ghana" />
+            <Input v-model="applyForm.skills" label="Your Skills" :required="true" placeholder="Skills you have experience with" />
+          </div>
           <!-- Resume / CV File Upload -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Resume / CV (PDF or DOCX) *</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">CV or Resume (PDF, DOC or DOCX) *</label>
             <div class="border-2 border-dashed border-slate-300 rounded-2xl p-4 text-center hover:border-[#6D28D9] transition-colors cursor-pointer relative bg-slate-50/50">
               <input
                 type="file"
@@ -403,6 +411,7 @@
             </div>
           </div>
 
+          <label class="flex items-start gap-2 text-xs text-slate-600"><input v-model="applyForm.consent" type="checkbox" required class="mt-0.5" /><span>I agree that GhanaTech Global can review my information and CV for job opportunities.</span></label>
           <div v-if="applyError" class="p-3 rounded-xl bg-red-50 text-red-700 text-xs font-semibold">
             {{ applyError }}
           </div>
@@ -418,7 +427,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              <span>{{ isSubmitting ? 'Submitting Application...' : 'Submit Application Now' }}</span>
+              <span>{{ isSubmitting ? 'Submitting Application...' : "Send Application" }}</span>
             </button>
           </div>
         </form>
@@ -428,8 +437,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { publishingService } from '@/services/publishing';
+import { TALENT_TECH_AREAS } from '@/utils/constants';
 import { applicationService } from '@/services/applications';
+import Input from '@/components/common/Input.vue';
 
 interface Job {
   id: string;
@@ -448,143 +460,17 @@ const selectedCategory = ref('All');
 const isFiltersOpen = ref(false);
 const expandedJobIds = ref<string[]>([]);
 
-const categories = [
-  'All',
-  'Software Engineering',
-  'Cybersecurity',
-  'Cloud & DevOps',
-  'Data & AI',
-  'Client Success',
-];
-
-const jobs = ref<Job[]>([
-  {
-    id: '14527',
-    title: 'SU – Senior Full-Stack Engineer (Vue / React / Node)',
-    category: 'Software Engineering',
-    type: 'Full Time',
-    salary: '$60,000 - $95,000 USD/yr',
-    description: 'This is a full-time remote role for a Senior Full-Stack Engineer at a high-growth U.S. B2B SaaS enterprise. You will architect robust microservices, collaborate directly with US product owners, and write scalable frontend and backend systems.',
-    responsibilities: [
-      'Architect and build high-throughput REST & GraphQL APIs with Node.js and TypeScript',
-      'Develop modern, responsive web applications using Vue 3 and React',
-      'Optimize database queries and schema performance across PostgreSQL and Redis',
-      'Participate in daily agile standups and code reviews with U.S. engineering peers',
-    ],
-    requirements: [
-      '5+ years professional experience building enterprise software',
-      'Strong proficiency in TypeScript, Node.js, and modern frontend frameworks',
-      'Experience with AWS or GCP containerized deployments (Docker, ECS, Kubernetes)',
-      'Excellent verbal and written English communication skills',
-    ],
-    techStack: ['TypeScript', 'Vue 3', 'React', 'Node.js', 'PostgreSQL', 'Docker', 'AWS'],
-  },
-  {
-    id: '10965',
-    title: 'SU – Cybersecurity Analyst (SOC / SIEM Operations)',
-    category: 'Cybersecurity',
-    type: 'Full Time',
-    salary: '$55,000 - $85,000 USD/yr',
-    description: 'This is a full-time remote role for a Cybersecurity Analyst at a growing U.S.-based security consulting firm. You will perform 24/7 security event monitoring, threat detection, incident triage, and vulnerability assessments.',
-    responsibilities: [
-      'Monitor and analyze security alerts generated by Splunk, Microsoft Sentinel, and CrowdStrike',
-      'Conduct initial triage, root cause analysis, and containment for verified security incidents',
-      'Collaborate on SOC runbooks, threat intelligence correlation, and remediation advisory',
-      'Assist U.S. clients with SOC 2, ISO 27001, and HIPAA compliance posture tracking',
-    ],
-    requirements: [
-      '3+ years of hands-on experience in a Security Operations Center (SOC) environment',
-      'Demonstrated knowledge of network protocols, threat vectors, and MITRE ATT&CK matrix',
-      'Security certifications preferred: Security+, CySA+, CEH, or CISSP associate',
-      'Proven ability to draft clear incident reports and remediation steps in English',
-    ],
-    techStack: ['Splunk', 'Microsoft Sentinel', 'CrowdStrike', 'Wireshark', 'Python', 'Linux'],
-  },
-  {
-    id: '08752',
-    title: 'SU – Cloud & DevOps Infrastructure Architect',
-    category: 'Cloud & DevOps',
-    type: 'Full Time',
-    salary: '$65,000 - $105,000 USD/yr',
-    description: 'This is a full-time remote role for a Cloud DevOps Architect supporting U.S. fintech and enterprise SaaS clients. You will manage Infrastructure as Code (Terraform), CI/CD pipelines, and multi-region AWS/Azure architectures.',
-    responsibilities: [
-      'Design, provision, and maintain resilient cloud infrastructure using Terraform & CloudFormation',
-      'Automate deployment workflows with GitHub Actions, GitLab CI, and ArgoCD',
-      'Implement Kubernetes cluster monitoring with Prometheus, Grafana, and Datadog',
-      'Ensure 99.99% availability, zero-downtime rollouts, and SOC 2 security compliance',
-    ],
-    requirements: [
-      '4+ years working as a DevOps, SRE, or Cloud Infrastructure Engineer',
-      'Deep expertise in AWS or Azure (AWS Solutions Architect or DevOps Pro preferred)',
-      'Proven experience managing production Kubernetes (EKS/AKS) workloads',
-      'Fluency in scripting with Python, Bash, or Go for automated operational tooling',
-    ],
-    techStack: ['AWS', 'Kubernetes', 'Terraform', 'Docker', 'GitHub Actions', 'Datadog', 'Prometheus'],
-  },
-  {
-    id: '12410',
-    title: 'SU – Data Engineer & Analytics Specialist',
-    category: 'Data & AI',
-    type: 'Full Time',
-    salary: '$50,000 - $80,000 USD/yr',
-    description: 'This is a full-time remote role for a Data Engineer building modern data stack pipelines (Snowflake, dbt, Airflow) for a U.S. healthcare and e-commerce platform. You will build ETL/ELT pipelines and BI dashboards.',
-    responsibilities: [
-      'Build and maintain scalable data pipelines ingestion from multiple transactional APIs',
-      'Design dimensional data models in Snowflake using dbt and SQL best practices',
-      'Orchestrate scheduled batch and streaming pipelines with Apache Airflow',
-      'Collaborate with US product managers and leadership to deliver actionable executive dashboards',
-    ],
-    requirements: [
-      '3+ years in data engineering or advanced BI engineering roles',
-      'Expert level SQL and intermediate-to-advanced Python skills',
-      'Experience with modern data stack tools: Snowflake, BigQuery, dbt, or Airflow',
-      'Familiarity with data governance, security, and schema migration workflows',
-    ],
-    techStack: ['Python', 'SQL', 'Snowflake', 'dbt', 'Airflow', 'Tableau', 'PostgreSQL'],
-  },
-  {
-    id: '09811',
-    title: 'SU – Client Success & Technical Account Manager',
-    category: 'Client Success',
-    type: 'Full Time',
-    salary: '$40,000 - $65,000 USD/yr',
-    description: 'This is a full-time remote role for a Technical Client Success Manager at a growing U.S.-based B2B software company. You will lead onboarding, handle client inquiries, and ensure seamless delivery and retention.',
-    responsibilities: [
-      'Serve as the primary technical point of contact for assigned U.S. client enterprise accounts',
-      'Conduct remote onboarding webinars, platform walk-throughs, and quarterly business reviews',
-      'Coordinate technical escalations with Ghanaian engineering pods to solve client blockers',
-      'Track client satisfaction (CSAT, NPS), health scores, and identify expansion opportunities',
-    ],
-    requirements: [
-      '3+ years experience in B2B Customer Success, Technical Support, or Account Management',
-      'Impeccable spoken and written English with a warm, confident professional demeanor',
-      'Experience with modern CRM and support tools (Zendesk, Salesforce, HubSpot, Slack)',
-      'Ability to overlap smoothly with U.S. East Coast business hours (9am - 5pm EST)',
-    ],
-    techStack: ['HubSpot', 'Zendesk', 'Slack', 'Jira', 'Notion', 'Google Workspace'],
-  },
-  {
-    id: '15204',
-    title: 'SU – QA Automation Engineer (Cypress / Playwright)',
-    category: 'Software Engineering',
-    type: 'Full Time',
-    salary: '$45,000 - $70,000 USD/yr',
-    description: 'This is a full-time remote role for a QA Automation Engineer at an American logistics technology provider. You will build comprehensive E2E and API automation suites to guarantee zero regression on deployments.',
-    responsibilities: [
-      'Author and execute end-to-end automated tests using Playwright, Cypress, and TypeScript',
-      'Integrate automated test runs into CI/CD pipelines to block breaking pull requests',
-      'Perform exploratory testing, identify corner cases, and log detailed bug reports in Jira',
-      'Collaborate closely with remote developers and product designers on acceptance criteria',
-    ],
-    requirements: [
-      '3+ years in software quality assurance and automated testing',
-      'Strong coding skills in JavaScript/TypeScript or Python for test harness creation',
-      'Experience testing REST APIs using Postman or automated test fixtures',
-      'Self-driven mindset with meticulous attention to detail and edge cases',
-    ],
-    techStack: ['Playwright', 'Cypress', 'TypeScript', 'Jest', 'Postman', 'Git'],
-  },
-]);
+const categories = ['All', ...TALENT_TECH_AREAS];
+const jobs = ref<Job[]>([]);
+const loadingJobs = ref(true);
+const jobsError = ref('');
+async function loadJobs() {
+  loadingJobs.value = true; jobsError.value = '';
+  try { const response = await publishingService.jobs(); jobs.value = (response.data || []).map(job => ({ ...job, id: job._id })); }
+  catch { jobsError.value = "Jobs could not be loaded. Please try again."; }
+  finally { loadingJobs.value = false; }
+}
+onMounted(loadJobs);
 
 // Filtering logic
 const filteredJobs = computed(() => {
@@ -635,6 +521,9 @@ const applyForm = ref({
   phone: '',
   experience: '4-6',
   linkedin: '',
+  location: '',
+  skills: '',
+  consent: false,
 });
 
 const openApplyModal = (job: Job) => {
@@ -659,6 +548,8 @@ const handleFileUpload = (e: Event) => {
 
 const submitJobApplication = async () => {
   if (!selectedJobForModal.value) return;
+  if (isSubmitting.value) return;
+  if (!applyForm.value.consent || !applyForm.value.location.trim() || !applyForm.value.skills.split(',').some(skill => skill.trim())) { applyError.value = "Add your city and skills, and agree to let us review your application."; return; }
   if (!resumeFile.value) {
     applyError.value = 'Please attach your CV or Resume (PDF/DOCX).';
     return;
@@ -673,16 +564,21 @@ const submitJobApplication = async () => {
     formData.append('email', applyForm.value.email);
     formData.append('phone', applyForm.value.phone);
     formData.append('role', selectedJobForModal.value.title);
-    formData.append('yearsOfExperience', applyForm.value.experience);
-    formData.append('techStack', selectedJobForModal.value.techStack.join(', '));
-    formData.append('linkedInUrl', applyForm.value.linkedin || '');
+    formData.append('jobId', selectedJobForModal.value.id);
+    formData.append('yearsExperience', String(parseInt(applyForm.value.experience, 10)));
+    formData.append('location', applyForm.value.location);
+    formData.append('technologyArea', selectedJobForModal.value.category);
+    formData.append('consent', String(applyForm.value.consent));
+    formData.append('desiredEngagement', 'Full-time');
+    formData.append('skills', applyForm.value.skills);
+    formData.append('linkedin', applyForm.value.linkedin || '');
     formData.append('cv', resumeFile.value);
 
-    await applicationService.submitApplication(formData);
+    const result = await applicationService.submitApplication(formData);
+    if (!result.success) throw new Error(result.message || 'Application could not be saved.');
     applySuccess.value = true;
   } catch (err: any) {
-    // Graceful fallback if backend server isn't answering
-    applySuccess.value = true;
+    applyError.value = err?.response?.data?.message || err?.message || 'Application could not be submitted. Please try again.';
   } finally {
     isSubmitting.value = false;
   }

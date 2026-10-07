@@ -14,12 +14,12 @@
 
         <!-- Main Title -->
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-          How GhanaTech Global Works
+          How It Works
         </h1>
 
         <!-- Subtitle -->
         <p class="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          From precise role definition to ongoing placement support, our structured methodology ensures seamless transatlantic engineering integration.
+          Tell us who you need. We check candidates, help you arrange interviews, and support the next steps after hiring.
         </p>
       </div>
 
@@ -36,7 +36,7 @@
       <!-- Part 1: The 5-Step Client Process -->
       <div class="mb-20">
         <h2 class="text-2xl font-bold text-brand-dark mb-8 text-center sm:text-left">
-          The 5-Step Placement Process
+          Five Steps to Hiring
         </h2>
         <div class="space-y-4">
           <div
@@ -62,32 +62,32 @@
 
       <!-- Part 2: Technical Assessment Standard -->
       <div class="bg-brand-darkest text-white rounded-3xl p-8 sm:p-12 shadow-violet-lg mb-16">
-        <span class="text-xs font-bold text-brand-bright uppercase tracking-wider block mb-2">Vetting Methodology</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold mb-4">We assess technical ability, not just resumes.</h2>
+        <span class="text-xs font-bold text-brand-bright uppercase tracking-wider block mb-2">How We Check Candidates</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-4">We Review Experience and Check Skills</h2>
         <p class="text-xs sm:text-sm text-brand-soft leading-relaxed max-w-2xl mb-8">
-          Every candidate presented to your team has successfully cleared our 4-phase evaluation gauntlet.
+          Our team reviews each candidate before recommending them for an interview.
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
             <span class="font-mono text-xl font-black text-brand-bright block mb-1">01</span>
-            <strong class="text-white text-sm block mb-1">Profile Screening</strong>
-            <p class="text-[11px] text-brand-soft/70">Academic verification, past enterprise deliverables, and identity checks.</p>
+            <strong class="text-white text-sm block mb-1">CV &amp; Background Review</strong>
+            <p class="text-[11px] text-brand-soft/70">We review education, previous work, and identity details.</p>
           </div>
           <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
             <span class="font-mono text-xl font-black text-brand-bright block mb-1">02</span>
-            <strong class="text-white text-sm block mb-1">Technical Challenge</strong>
-            <p class="text-[11px] text-brand-soft/70">Timed coding exams, live terminal debugging, and architecture design.</p>
+            <strong class="text-white text-sm block mb-1">Practical Skill Test</strong>
+            <p class="text-[11px] text-brand-soft/70">Candidates complete tasks related to the work they will do.</p>
           </div>
           <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
             <span class="font-mono text-xl font-black text-brand-bright block mb-1">03</span>
-            <strong class="text-white text-sm block mb-1">Professional Interview</strong>
-            <p class="text-[11px] text-brand-soft/70">English fluency evaluation, cross-cultural alignment, and problem solving.</p>
+            <strong class="text-white text-sm block mb-1">Interview &amp; Communication Check</strong>
+            <p class="text-[11px] text-brand-soft/70">We discuss their experience and check communication and problem-solving skills.</p>
           </div>
           <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
             <span class="font-mono text-xl font-black text-brand-bright block mb-1">04</span>
-            <strong class="text-white text-sm block mb-1">Client Presentation</strong>
-            <p class="text-[11px] text-brand-soft/70">High-match shortlist delivered to hiring manager with zero obligation.</p>
+            <strong class="text-white text-sm block mb-1">Meet Suitable Candidates</strong>
+            <p class="text-[11px] text-brand-soft/70">Review suggested candidates and choose who you would like to interview.</p>
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@
           to="/hire-talent"
           class="px-8 py-3.5 rounded-full bg-brand-primary text-white text-sm font-bold hover:bg-brand-dark transition-colors shadow-violet-md inline-block"
         >
-          Start Your Technical Hiring Request
+          Send a Hiring Request
         </router-link>
       </div>
     </div>
@@ -110,31 +110,31 @@ const steps = [
   {
     number: '01',
     title: 'Tell Us What You Need',
-    description: 'Submit your role requirements, tech stack parameters, and preferred engagement model through our streamlined intake form.',
+    description: "Tell us the job title, skills needed, number of people, and how you would like to hire.",
     timeline: 'Day 1',
   },
   {
     number: '02',
-    title: 'We Source & Assess',
-    description: 'We query our active Ghanaian database and run domain-specific evaluations verified by senior technical directors.',
+    title: "We Find & Check Candidates",
+    description: "We look for suitable people and check their experience and skills.",
     timeline: 'Days 1 - 2',
   },
   {
     number: '03',
-    title: 'Meet Your Shortlist',
-    description: 'Receive comprehensive candidate dossiers including technical assessment breakdowns, code repos, and video introductions.',
+    title: "Review Suggested Candidates",
+    description: "Review candidate profiles, work samples, and the results of their skill checks.",
     timeline: 'Within 48 Hours',
   },
   {
     number: '04',
     title: 'Interview & Hire',
-    description: 'Conduct final team video interviews. Make your selection with transparent compensation and zero upfront recruiting fees.',
+    description: "Interview the candidates you like, choose who to hire, and agree on pay and working arrangements.",
     timeline: 'Days 3 - 5',
   },
   {
     number: '05',
     title: 'Ongoing Support',
-    description: 'We manage international compliance, payroll, workstation setup, performance check-ins, and replacement guarantees.',
+    description: "We agree on the support you need and check in after the person starts work.",
     timeline: 'Continuous',
   },
 ];

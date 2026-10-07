@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <label v-if="label" :for="id" class="block text-sm font-medium text-brand-dark mb-1.5">
-      {{ label }}
+      {{ t(label) }}
       <span v-if="required" class="text-brand-bright">*</span>
     </label>
 
@@ -18,7 +18,7 @@
         @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
       >
         <option v-if="placeholder" value="" disabled :selected="!modelValue">
-          {{ placeholder }}
+          {{ t(placeholder) }}
         </option>
         <slot>
           <option
@@ -26,7 +26,7 @@
             :key="typeof opt === 'string' ? opt : opt.value"
             :value="typeof opt === 'string' ? opt : opt.value"
           >
-            {{ typeof opt === 'string' ? opt : opt.label }}
+            {{ t(typeof opt === 'string' ? opt : opt.label) }}
           </option>
         </slot>
       </select>
@@ -39,11 +39,13 @@
     </div>
 
     <p v-if="error" class="mt-1 text-xs text-brand-dark font-medium">{{ error }}</p>
-    <p v-else-if="hint" class="mt-1 text-xs text-brand-muted">{{ hint }}</p>
+    <p v-else-if="hint" class="mt-1 text-xs text-brand-muted">{{ t(hint) }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 interface OptionItem {
   label: string;
   value: string | number;

@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Services Management</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Publish, edit, and configure managed service offerings and capability items.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Services") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Publish, edit, and configure managed service offerings and capability items.") }} </p>
       </div>
 
       <Button variant="primary" size="md" @click="openCreateModal">
@@ -11,19 +11,17 @@
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
-        </template>
-        Add Managed Service
-      </Button>
+        </template> {{ t("Add Managed Service") }} </Button>
     </div>
 
     <!-- Services Table -->
     <Table :loading="loading" :empty="services.length === 0" :col-span="5">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Service Title</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Slug</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Capabilities</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Status</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Service Title") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Slug") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Capabilities") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Status") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="s in services" :key="s._id" class="hover:bg-brand-lightest/40 transition-colors">
@@ -56,16 +54,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-dark hover:bg-brand-soft rounded-lg transition-colors"
             @click="openEditModal(s)"
-          >
-            Edit
-          </button>
+          > {{ t("Edit") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(s._id, s.title)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
     </Table>
@@ -86,8 +80,8 @@
         <Select v-model="form.status" label="Publish Status" :options="['published', 'draft']" />
 
         <div class="pt-4 border-t border-brand-border/40 flex justify-end space-x-3">
-          <Button variant="ghost" size="sm" @click="showModal = false">Cancel</Button>
-          <Button type="submit" variant="primary" size="sm" :loading="isSaving">Save Service</Button>
+          <Button variant="ghost" size="sm" @click="showModal = false"> {{ t("Cancel") }} </Button>
+          <Button type="submit" variant="primary" size="sm" :loading="isSaving"> {{ t("Save Service") }} </Button>
         </div>
       </form>
     </Modal>
@@ -105,6 +99,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
 import { servicesService } from '@/services/services';
 import type { ServiceItem } from '@/types/service';

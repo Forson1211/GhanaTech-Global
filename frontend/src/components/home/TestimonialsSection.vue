@@ -14,7 +14,7 @@
             <div class="bg-brand-lightest/50 rounded-xl p-6 sm:p-12 text-center relative flex flex-col items-center">
               <!-- Demo notice badge -->
               <span class="text-sm text-brand-muted mb-6">
-                Demo testimonial — illustrative feedback
+                Example review
               </span>
 
               <!-- Quote text -->

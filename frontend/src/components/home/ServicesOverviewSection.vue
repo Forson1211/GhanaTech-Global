@@ -94,7 +94,7 @@ const services = [
       '24/7 SOC Monitoring & Triage',
       'SIEM Engineering (Splunk, Sentinel)',
       'GRC & SOC 2 Readiness',
-      'Identity & Access Management (IAM)',
+      "Account Access & Permissions (IAM)",
       'Vulnerability Management',
       'Incident Response Coordination',
     ],

@@ -33,11 +33,21 @@ export interface AdminCandidate extends PublicCandidate {
   updatedAt: string;
 }
 
-export type ApplicationStatus = 'New' | 'Reviewing' | 'Shortlisted' | 'Interview' | 'Accepted' | 'Rejected';
+export type ApplicationStatus = typeof import('@/utils/constants').APPLICATION_STATUSES[number];
 
 export interface TalentApplication {
   _id: string;
   name: string;
+  firstName?: string;
+  lastName?: string;
+  employmentStatus?: string;
+  education?: string;
+  certifications?: string[];
+  employmentPreferences?: string[];
+  consent?: boolean;
+  consentAt?: string;
+  consentVersion?: string;
+  statusHistory?: { status: string; changedAt: string; changedBy?: string }[];
   email: string;
   phone: string;
   location: string;
@@ -49,7 +59,7 @@ export interface TalentApplication {
   github?: string;
   portfolio?: string;
   availability: CandidateAvailability;
-  desiredEngagement: 'Full-time' | 'Contract' | 'Part-time';
+  desiredEngagement: 'Full-time' | 'Contract' | 'Part-time' | 'Project' | 'Managed team';
   cvUrl?: string;
   cvOriginalName?: string;
   cvMimeType?: string;

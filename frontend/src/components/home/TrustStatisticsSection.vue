@@ -24,10 +24,10 @@ import { parseCountValue, formatCountValue } from '@/utils/countUp';
 import type { StatisticItem } from '@/types/common';
 
 const fallbackStats: StatisticItem[] = [
-  { key: 'professionals', value: '100+', label: 'Technology Professionals', description: 'Skilled Ghanaian tech talent', order: 1, isPublished: true },
-  { key: 'roles', value: '25+', label: 'Technology Roles', description: 'Across software, cloud & security', order: 2, isPublished: true },
-  { key: 'disciplines', value: '4', label: 'Technology Disciplines', description: 'Specialist areas of expertise', order: 3, isPublished: true },
-  { key: 'network', value: 'U.S. ↔ Ghana', label: 'Global Technology Network', description: 'Local talent. Global opportunities.', order: 4, isPublished: true },
+  { key: 'professionals', value: '100+', label: "Tech Professionals", description: 'Skilled Ghanaian tech talent', order: 1, isPublished: true },
+  { key: 'roles', value: '25+', label: "Types of Jobs", description: 'Across software, cloud & security', order: 2, isPublished: true },
+  { key: 'disciplines', value: '4', label: "Types of Work", description: "Areas our professionals work in", order: 3, isPublished: true },
+  { key: 'network', value: 'U.S. ↔ Ghana', label: "Our Global Network", description: 'Local talent. Global opportunities.', order: 4, isPublished: true },
 ];
 
 const statistics = ref<StatisticItem[]>(fallbackStats);

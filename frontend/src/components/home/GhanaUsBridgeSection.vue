@@ -1,6 +1,17 @@
 <template>
   <section class="career-bridge" aria-labelledby="career-bridge-title">
     <div class="bridge-container">
+      <div class="bridge-path">
+        <div class="path-heading"><h3>Three steps to your next opportunity.</h3></div>
+        <ol class="path-steps">
+          <li v-for="step in steps" :key="step.number" class="path-step">
+            <div class="step-icon" :class="step.iconClass"><component :is="step.icon" :size="56" :stroke-width="1.7" aria-hidden="true" /></div>
+            <h4>{{ step.title }}</h4>
+            <p>{{ step.description }}</p>
+          </li>
+        </ol>
+      </div>
+
       <div class="bridge-intro">
         <div class="bridge-copy">
           <h2 id="career-bridge-title">Easy way to <span class="headline-highlight">find</span><br />your next U.S. job.</h2>
@@ -33,16 +44,6 @@
         </div>
       </div>
 
-      <div class="bridge-path">
-        <div class="path-heading"><h3>Three steps to your next opportunity.</h3></div>
-        <ol class="path-steps">
-          <li v-for="step in steps" :key="step.number" class="path-step">
-            <div class="step-icon" :class="step.iconClass"><component :is="step.icon" :size="56" :stroke-width="1.7" aria-hidden="true" /></div>
-            <h4>{{ step.title }}</h4>
-            <p>{{ step.description }}</p>
-          </li>
-        </ol>
-      </div>
     </div>
   </section>
 </template>
@@ -62,9 +63,9 @@ function startApplication() {
 }
 
 const steps = [
-  { number: '01', icon: UserRound, iconClass: 'step-icon-profile', title: 'Introduce yourself', description: 'Join the talent network. Share your skills, experience, and the kind of role you’re looking for.' },
-  { number: '02', icon: BriefcaseBusiness, iconClass: 'step-icon-opportunity', title: 'Find your opportunity', description: 'Explore U.S. job openings and apply to the roles that align with your strengths and goals.' },
-  { number: '03', icon: MessagesSquare, iconClass: 'step-icon-interview', title: 'Take the next step', description: 'If shortlisted, connect with the hiring team to discuss the role and show what you can bring.' },
+  { number: '01', icon: UserRound, iconClass: 'step-icon-profile', title: 'Introduce yourself', description: "Join our talent network. Tell us about your skills, experience, and the job you want." },
+  { number: '02', icon: BriefcaseBusiness, iconClass: 'step-icon-opportunity', title: 'Find your opportunity', description: "Browse U.S. job openings and apply for jobs that match your skills and interests." },
+  { number: '03', icon: MessagesSquare, iconClass: 'step-icon-interview', title: 'Take the next step', description: "If you are selected for an interview, meet the hiring team and talk about your experience." },
 ];
 </script>
 
@@ -101,7 +102,7 @@ const steps = [
 .opportunity-card > div > span { color: #82788e; font-size: 14px; }
 .opportunity-card strong { color: #21162d; font-size: 20px; font-weight: 600; }
 .opportunity-arrow { color: #6d28d9; margin-left: 6px; }
-.bridge-path { margin-top: 64px; }
+.bridge-path { margin-bottom: 64px; }
 .path-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 21px; }
 .path-heading h3 { color: #352148; font-size: 24px; font-weight: 700; letter-spacing: -.4px; }
 .path-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 0; padding: 0; list-style: none; }
@@ -129,7 +130,7 @@ const steps = [
   .bridge-copy { max-width: 600px; padding: 0; }
   .bridge-copy h2 { font-size: clamp(36px, 5.5vw, 48px); }
   .bridge-visual { width: calc(100% - 48px); max-width: 540px; margin: 0 auto; }
-  .bridge-path { margin-top: 64px; }
+  .bridge-path { margin-bottom: 64px; }
 }
 @media (max-width: 767px) {
   .path-steps { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; gap: 24px; }
@@ -154,6 +155,6 @@ const steps = [
   .opportunity-card strong { font-size: 18px; }
   .opportunity-card > div > span { font-size: 13px; }
   .opportunity-arrow { display: none; }
-  .bridge-path { margin-top: 48px; }
+  .bridge-path { margin-bottom: 48px; }
 }
 </style>

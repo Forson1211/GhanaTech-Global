@@ -3,6 +3,8 @@
 For a single Vercel deployment of the frontend and backend, see [the deployment guide](docs/vercel-deployment.md).
 Run `npm ci` and `npm run build` from the repository root. Vercel uses the root `vercel.json`; do not select `frontend` as the project root.
 
+For publishing tools, email configuration, completed development, and launch checks, see [launch setup](docs/launch-checklist.md) and [the development audit](docs/development-audit.md).
+
 > **U.S.–Ghana Technology Talent & Services Platform**  
 > Connecting forward-thinking U.S. companies with thoroughly vetted, top-tier Ghanaian technology professionals and enterprise-grade managed tech services.
 
@@ -164,7 +166,7 @@ All API routes follow a consistent JSON response standard:
    ```bash
    npm run dev
    ```
-   The backend API will run at `http://localhost:5000/api`.
+   The backend API will run at `http://localhost:5010/api`.
 
 ---
 

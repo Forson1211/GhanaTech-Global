@@ -31,7 +31,7 @@
             <!-- Header -->
             <div v-if="title || $slots.header" class="px-6 py-4 border-b border-brand-border/40 flex items-center justify-between">
               <slot name="header">
-                <h3 class="text-base font-bold text-brand-dark">{{ title }}</h3>
+                <h3 class="text-base font-bold text-brand-dark">{{ t(title) }}</h3>
               </slot>
               <button
                 type="button"
@@ -61,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUiTranslation } from '@/composables/useUiTranslation';
+const { t } = useUiTranslation();
 interface Props {
   modelValue: boolean;
   title?: string;

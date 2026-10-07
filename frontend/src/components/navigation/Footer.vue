@@ -21,7 +21,7 @@
           <img src="/images/Purple%20background.png" alt="GhanaTech Global" width="240" height="60" loading="lazy" />
         </router-link>
         <nav class="footer-socials" aria-label="Social media">
-          <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" rel="noopener noreferrer" :aria-label="`GhanaTech Global on ${social.name}`">
+          <a v-for="social in socialLinks" :key="social.name" :href="settings.socialLinks?.[social.name] || social.url" target="_blank" rel="noopener noreferrer" :aria-label="`GhanaTech Global on ${social.name}`">
             <svg v-if="social.name === 'X'" viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.6l-5.2-6.8L5.8 22H2.5l7.7-8.8L.5 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L6.3 3.9h-2L17.7 20Z" /></svg>
             <component v-else :is="social.icon" :size="20" aria-hidden="true" />
           </a>
@@ -69,7 +69,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useSiteSettings } from '@/composables/useSiteSettings';
 import { ArrowUpRight, ChevronDown, Facebook, Globe2, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-vue-next';
 import api from '@/services/api';
 
@@ -84,14 +85,8 @@ function toggleSection(index: number) {
   openSection.value = openSection.value === index ? null : index;
 }
 
-// Demo contact details and social URLs. Replace with the official details when ready.
-const contactDetails = {
-  email: 'advisors@ghanatechglobal.com',
-  phone: '+1 (726) 227-2605',
-  phoneLink: 'tel:+17262272605',
-  accraOffice: 'Airport Residential Area, Accra, Ghana',
-  usOffice: 'Austin, TX & New York, NY',
-};
+const { settings } = useSiteSettings();
+const contactDetails = computed(() => ({ email: settings.value.contactEmail, phone: settings.value.supportPhone, phoneLink: 'tel:' + settings.value.supportPhone.replace(/[^+0-9]/g, ''), accraOffice: settings.value.accraOfficeAddress, usOffice: settings.value.usOfficeAddress }));
 const socialLinks = [
   { name: 'Facebook', url: 'https://www.facebook.com/ghanatechglobal', icon: Facebook },
   { name: 'Instagram', url: 'https://www.instagram.com/ghanatechglobal/', icon: Instagram },
@@ -109,27 +104,28 @@ const linkGroups = [
     { label: 'Data & AI systems', to: '/jobs' },
     { label: 'Join the talent network', to: '/join-talent' },
   ] },
-  { title: 'For U.S. employers', links: [
+  { title: "For Employers", links: [
     { label: 'Hire Ghanaian talent', to: '/hire-talent' },
-    { label: 'Browse talent directory', to: '/talent' },
-    { label: 'Vetting & assessment', to: '/how-it-works' },
+    { label: "Browse candidate profiles", to: '/talent-directory' },
+    { label: "How we check skills", to: '/how-it-works' },
     { label: 'Why hire from Ghana', to: '/why-ghana' },
-    { label: 'Hiring FAQ', to: '/faq' },
+    { label: "Hiring questions", to: '/faq' },
   ] },
   { title: 'Our services', links: [
     { label: 'Cybersecurity', to: '/services/cybersecurity' },
-    { label: 'Cloud & IT infrastructure', to: '/services/cloud-it' },
+    { label: "Cloud & IT support", to: '/services/cloud-it' },
     { label: 'Software engineering', to: '/services/software' },
-    { label: 'Data & analytics', to: '/services/data' },
+    { label: "Data & reporting", to: '/services/data' },
     { label: 'Explore all services', to: '/services' },
   ] },
   { title: 'Company & support', links: [
     { label: 'About GhanaTech', to: '/about' },
     { label: 'How it works', to: '/how-it-works' },
     { label: 'Why Ghana', to: '/why-ghana' },
-    { label: 'Frequently asked questions', to: '/faq' },
+    { label: "Common questions", to: '/faq' },
     { label: 'Contact our team', to: '/contact' },
-    { label: 'Admin portal', to: '/admin/login' },
+    { label: 'Privacy Policy', to: '/privacy' },
+    { label: 'Terms of Use', to: '/terms' },
   ] },
 ];
 

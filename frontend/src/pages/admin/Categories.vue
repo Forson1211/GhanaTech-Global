@@ -2,8 +2,8 @@
   <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight">Technology Categories</h1>
-        <p class="text-xs text-brand-muted mt-0.5">Manage the 4 primary technology domains and catalog classifications.</p>
+        <h1 class="text-2xl font-extrabold text-brand-dark tracking-tight"> {{ t("Job Categories") }} </h1>
+        <p class="text-xs text-brand-muted mt-0.5"> {{ t("Manage the 4 primary technology domains and catalog classifications.") }} </p>
       </div>
 
       <Button variant="primary" size="md" @click="openCreateModal">
@@ -11,18 +11,16 @@
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
-        </template>
-        Add Category
-      </Button>
+        </template> {{ t("Add Category") }} </Button>
     </div>
 
     <!-- Categories Table -->
     <Table :loading="loading" :empty="categories.length === 0" :col-span="4">
       <template #header>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider">Category Name</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Slug</th>
-        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider">Status</th>
-        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right">Actions</th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Category Name") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Slug") }} </th>
+        <th class="py-3.5 px-4 font-bold text-brand-dark text-xs uppercase tracking-wider"> {{ t("Status") }} </th>
+        <th class="py-3.5 px-6 font-bold text-brand-dark text-xs uppercase tracking-wider text-right"> {{ t("Actions") }} </th>
       </template>
 
       <tr v-for="cat in categories" :key="cat._id" class="hover:bg-brand-lightest/40 transition-colors">
@@ -44,16 +42,12 @@
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-primary hover:bg-brand-soft rounded-lg transition-colors"
             @click="openEditModal(cat)"
-          >
-            Edit
-          </button>
+          > {{ t("Edit") }} </button>
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
             @click="confirmDelete(cat._id, cat.name)"
-          >
-            Delete
-          </button>
+          > {{ t("Delete") }} </button>
         </td>
       </tr>
     </Table>
@@ -67,8 +61,8 @@
         <Select v-model="form.status" label="Status" :options="['published', 'draft']" />
 
         <div class="pt-4 border-t border-brand-border/40 flex justify-end space-x-3">
-          <Button variant="ghost" size="sm" @click="showModal = false">Cancel</Button>
-          <Button type="submit" variant="primary" size="sm" :loading="isSaving">Save Category</Button>
+          <Button variant="ghost" size="sm" @click="showModal = false"> {{ t("Cancel") }} </Button>
+          <Button type="submit" variant="primary" size="sm" :loading="isSaving"> {{ t("Save Category") }} </Button>
         </div>
       </form>
     </Modal>
@@ -86,6 +80,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAdminPreferences } from '@/composables/useAdminPreferences';
+const { t } = useAdminPreferences();
 import { ref, onMounted } from 'vue';
 import { servicesService } from '@/services/services';
 import type { TechnologyCategory } from '@/types/service';

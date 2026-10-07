@@ -11,7 +11,7 @@
       <div class="hero-copy">
         <p class="hero-eyebrow">GhanaTech Global</p>
         <h1 id="home-hero-title">Find your dream<br />remote jobs here</h1>
-        <p class="hero-description">Connect with U.S. companies, explore remote technology roles, and build your next chapter from Ghana.</p>
+        <p class="hero-description">Connect with U.S. companies, find remote tech jobs, and take the next step in your career from Ghana.</p>
         <div class="hero-actions">
           <router-link to="/jobs" class="hero-primary">Explore remote jobs <ArrowRight :size="20" aria-hidden="true" /></router-link>
           <router-link to="/hire-talent" class="hero-secondary">Hire talent</router-link>
