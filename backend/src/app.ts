@@ -4,7 +4,9 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
-import { env } from './config/environment';
+import fs from 'fs';
+import { env, validateProductionEnvironment } from './config/environment';
+import { connectDatabase } from './config/database';
 import { errorHandler } from './middleware/errorMiddleware';
 import { sendError } from './utils/response';
 
@@ -87,6 +89,19 @@ export function createApp(): Application {
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
   app.use(cookieParser());
 
+  // Vercel must wait for the database on each cold start and permit a failed
+  // connection to retry on the next request, without crashing module loading.
+  if (env.isVercel) app.use(async (_req, res, next) => {
+    try {
+      validateProductionEnvironment();
+      await connectDatabase();
+      next();
+    } catch {
+      res.setHeader('Cache-Control', 'no-store');
+      sendError(res, 'The API is not ready. Check the database and server environment settings.', 503);
+    }
+  });
+
   // Static directory for uploaded public images if any (CVs are served via protected download endpoint)
   if (!env.isVercel) app.use('/uploads/images', express.static(path.join(env.UPLOAD_DIR, 'images')));
 
@@ -120,6 +135,18 @@ export function createApp(): Application {
   app.use('/api/cron', cronRoutes);
   app.use('/', seoRoutes);
 
+  // Serve static frontend build with SPA fallback for standalone server deployments
+  const frontendDistPath = path.resolve(__dirname, '../../frontend/dist');
+  if (!env.isVercel && fs.existsSync(frontendDistPath)) {
+    app.use(express.static(frontendDistPath));
+    app.get('*', (req: Request, res: Response, next) => {
+      if (req.path.startsWith('/api') || req.path === '/robots.txt' || req.path === '/sitemap.xml') {
+        return next();
+      }
+      res.sendFile(path.join(frontendDistPath, 'index.html'));
+    });
+  }
+
   // 404 Handler for undefined API routes
   app.use((req: Request, res: Response) => {
     sendError(res, `API route not found: ${req.method} ${req.originalUrl}`, 404);
@@ -130,3 +157,6 @@ export function createApp(): Application {
 
   return app;
 }
+
+// Vercel detects src/app.ts before src/server.ts and requires a default app.
+export default createApp();

@@ -1,10 +1,24 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import fs from 'fs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    {
+      name: 'copy-spa-404-fallback',
+      closeBundle() {
+        const distPath = path.resolve(__dirname, './dist')
+        const indexPath = path.join(distPath, 'index.html')
+        const fallbackPath = path.join(distPath, '404.html')
+        if (fs.existsSync(indexPath)) {
+          fs.copyFileSync(indexPath, fallbackPath)
+        }
+      },
+    },
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
