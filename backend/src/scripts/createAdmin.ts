@@ -16,8 +16,15 @@ async function createAdmin() {
   });
   validateProductionEnvironment();
   await connectDatabase();
-  await User.collection.createIndex({ email: 1 }, { unique: true });
-  if (await User.findOne({ email: input.email })) throw new Error('This account already exists. No account was changed.');
+  const existing = await User.findOne({ email: input.email });
+  if (existing) {
+    existing.password = await hashPassword(input.password);
+    existing.role = 'admin';
+    existing.isActive = true;
+    await existing.save();
+    console.log('Administrator password updated. No other data was changed.');
+    return;
+  }
   await User.create({ name: input.name, email: input.email, password: await hashPassword(input.password), role: 'admin', isActive: true });
   console.log('Administrator created. No other data was changed.');
 }
