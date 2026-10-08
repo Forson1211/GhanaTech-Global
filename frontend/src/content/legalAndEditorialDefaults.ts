@@ -63,7 +63,8 @@ If you have questions, concerns, or requests regarding this Privacy Policy or yo
 - Email: privacy@ghanatechglobal.com / compliance@ghanatechglobal.com
 - Physical Office: GhanaTech Global, Airport Residential Area, Accra, Ghana
 - Inbound Inquiries: Contact us via our official website contact page.`,
-  createdAt: '2026-01-01T00:00:00.000Z',
+  imageUrl: '',
+  order: 1,
   updatedAt: '2026-10-01T00:00:00.000Z',
 };
 
@@ -123,7 +124,8 @@ GhanaTech Global reserves the right to amend or update these Terms of Use at any
 For inquiries regarding our terms, commercial contracts, or intellectual property rights, contact our legal counsel:
 - Email: legal@ghanatechglobal.com
 - Attention: Legal & Commercial Affairs Department, GhanaTech Global Inc.`,
-  createdAt: '2026-01-01T00:00:00.000Z',
+  imageUrl: '',
+  order: 1,
   updatedAt: '2026-10-01T00:00:00.000Z',
 };
 
@@ -132,9 +134,11 @@ export const defaultLeadershipContent: SiteContent[] = [
     _id: 'leader-1',
     kind: 'leadership',
     title: 'Executive Leadership',
+    slug: 'executive-leadership',
     author: 'Chief Executive Officer',
     summary: 'Guiding the strategic vision of connecting Africa’s top tech innovators with high-impact global enterprise opportunities.',
     body: 'Passionate about engineering excellence and economic bridge-building between Ghana and the global technology ecosystem. With over 15 years of technology advisory and executive recruiting experience across Sub-Saharan Africa and North America, our leadership team ensures that every Ghanaian professional placed through GhanaTech Global has the technical acumen, leadership skills, and operational support to excel on world-class engineering teams.',
+    imageUrl: '',
     order: 1,
     status: 'published',
   },
@@ -142,9 +146,11 @@ export const defaultLeadershipContent: SiteContent[] = [
     _id: 'leader-2',
     kind: 'leadership',
     title: 'Technical Assessment & Architecture',
+    slug: 'technical-assessment-and-architecture',
     author: 'Head of Technical Assessment',
     summary: 'Overseeing multi-stage code reviews, live problem-solving audits, and enterprise cybersecurity vetting standards.',
     body: 'Senior systems architect and engineering lead with a decade of experience designing scalable distributed cloud infrastructure and leading cybersecurity squads. Directs GhanaTech Global’s proprietary 4-stage vetting pipeline, ensuring that only the top 2% of applicants—those with proven problem-solving depth, rigorous code standards, and seamless English communication—advance to the active client roster.',
+    imageUrl: '',
     order: 2,
     status: 'published',
   },
@@ -152,9 +158,11 @@ export const defaultLeadershipContent: SiteContent[] = [
     _id: 'leader-3',
     kind: 'leadership',
     title: 'Global Delivery & Client Partnerships',
+    slug: 'global-delivery-and-client-partnerships',
     author: 'VP of Global Client Delivery',
     summary: 'Ensuring seamless onboarding, time-zone synchronization, and ongoing success for U.S. and European engineering teams.',
     body: 'Specializes in distributed team management and international technology staffing. Dedicated to removing friction from cross-border hiring—from setting up compliant international billing and contracts to coordinating hardware procurement and 30/60/90-day retention reviews for our enterprise clients.',
+    imageUrl: '',
     order: 3,
     status: 'published',
   },
@@ -183,6 +191,7 @@ Home to premier technical institutions such as the Kwame Nkrumah University of S
 
 4. 55% TO 70% OPERATIONAL SAVINGS WITHOUT SACRIFICING QUALITY
 By partnering with GhanaTech Global, U.S. startups extend their runway by 2.5x while shipping product features faster. Enterprises stand up 24/7 follow-the-sun SOC monitoring and cloud infrastructure maintenance squads with unmatched operational efficiency.`,
+    imageUrl: '',
     order: 1,
     status: 'published',
   },
@@ -208,6 +217,7 @@ Technical brilliance is ineffective without clear communication. We evaluate spo
 
 Phase 4: Client Match & Ongoing Placement Support
 We don’t just introduce candidates; we match them to the exact cadence, tooling stack, and cultural expectations of the hiring company, backed by our 90-day placement guarantee.`,
+    imageUrl: '',
     order: 2,
     status: 'published',
   },
@@ -227,6 +237,7 @@ Key recommendations for distributed technical squads:
 - IP Assignment & Legal Safeguards: Ensure that all contracts clearly define that all intellectual property, git commits, documentation, and digital assets belong exclusively to the client organization upon creation.
 
 GhanaTech Global integrates these compliance and security standards into every client placement to ensure peace of mind from day one.`,
+    imageUrl: '',
     order: 3,
     status: 'published',
   },
