@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white min-h-screen">
     <!-- Header Hero with GhanaTech purple gradient and organic curve -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -220,7 +220,7 @@
                 <div>
                   <div class="flex items-center justify-between mb-2">
                     <h4 class="text-base font-bold text-brand-dark">{{ role.title }}</h4>
-                    <span class="text-[10px] font-bold text-brand-primary bg-brand-soft px-2 py-0.5 rounded">
+                    <span class="text-[10px] font-bold text-brand-primary bg-brand-soft px-2 py-0.5 rounded-sm">
                       {{ role.experience }}
                     </span>
                   </div>
@@ -231,7 +231,7 @@
                     <span
                       v-for="s in role.skills"
                       :key="s"
-                      class="px-2 py-0.5 rounded bg-white text-brand-dark text-[10px] font-medium border border-brand-border/40"
+                      class="px-2 py-0.5 rounded-sm bg-white text-brand-dark text-[10px] font-medium border border-brand-border/40"
                     >
                       {{ s }}
                     </span>

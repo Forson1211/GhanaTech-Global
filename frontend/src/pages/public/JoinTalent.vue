@@ -1,7 +1,7 @@
 <template>
   <div class="bg-slate-50 min-h-screen">
     <!-- Header Hero with GhanaTech purple gradient and organic curve -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -13,7 +13,7 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
 
         <!-- Main Title -->
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-none">
           Join Our Talent Network
         </h1>
 
@@ -123,7 +123,7 @@
           <fieldset class="space-y-3">
             <legend class="text-sm font-medium text-brand-dark mb-2">Choose Your Skills</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label v-for="skill in suggestedSkills" :key="skill" class="flex items-center gap-2 text-xs text-brand-dark"><input v-model="selectedSkills" type="checkbox" :value="skill" class="rounded border-brand-border text-brand-primary focus:ring-brand-primary" />{{ skill }}</label>
+              <label v-for="skill in suggestedSkills" :key="skill" class="flex items-center gap-2 text-xs text-brand-dark"><input v-model="selectedSkills" type="checkbox" :value="skill" class="rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary" />{{ skill }}</label>
             </div>
           </fieldset>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -144,7 +144,7 @@
 
           <fieldset class="space-y-3">
             <legend class="text-sm font-medium text-brand-dark mb-2">Types of Work You Would Consider *</legend>
-            <div class="flex flex-wrap gap-4"><label v-for="preference in EMPLOYMENT_PREFERENCES" :key="preference" class="flex items-center gap-2 text-xs text-brand-dark"><input v-model="form.employmentPreferences" type="checkbox" :value="preference" class="rounded border-brand-border text-brand-primary focus:ring-brand-primary" />{{ preference }}</label></div>
+            <div class="flex flex-wrap gap-4"><label v-for="preference in EMPLOYMENT_PREFERENCES" :key="preference" class="flex items-center gap-2 text-xs text-brand-dark"><input v-model="form.employmentPreferences" type="checkbox" :value="preference" class="rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary" />{{ preference }}</label></div>
             <p v-if="errors.employmentPreferences" class="text-xs text-brand-dark">{{ errors.employmentPreferences }}</p>
           </fieldset>
           <!-- Professional Links -->
@@ -177,7 +177,7 @@
             @file-selected="onFileSelected"
           />
 
-          <label class="flex items-start gap-3 text-xs text-brand-muted leading-relaxed"><input v-model="form.consent" type="checkbox" required class="mt-0.5 rounded border-brand-border text-brand-primary focus:ring-brand-primary" /><span>I agree that GhanaTech Global can review my information and CV for job opportunities and contact me about my application.</span></label>
+          <label class="flex items-start gap-3 text-xs text-brand-muted leading-relaxed"><input v-model="form.consent" type="checkbox" required class="mt-0.5 rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary" /><span>I agree that GhanaTech Global can review my information and CV for job opportunities and contact me about my application.</span></label>
           <p v-if="errors.consent" class="text-xs text-brand-dark">{{ errors.consent }}</p>
           <!-- Error Alert Banner -->
           <div v-if="serverError" class="p-3.5 rounded-xl bg-brand-lightest border border-brand-primary text-xs font-semibold text-brand-dark">

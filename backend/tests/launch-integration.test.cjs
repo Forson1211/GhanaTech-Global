@@ -82,6 +82,9 @@ test('complete launch workflows persist safely in an isolated local database', {
     assert.equal((await request('/settings')).body.data.contactEmail, 'updated@example.com');
     assert.equal((await request('/applications', 'POST', application())).status, 403);
     await request('/applications/admin/' + applicationId, 'DELETE', undefined, true);
+    assert.equal(await TalentApplication.countDocuments({ _id: applicationId }), 0);
+    assert.equal(await EmailNotification.countDocuments({ sourceId: applicationId }), 0, 'Deleted applications must not leave unsent confirmations');
+    assert.ok(await EmailNotification.countDocuments({ sourceId: leadId }) > 0, 'Other submissions must retain their confirmations');
     console.log('Isolated persistence: job publishing/closing, application attribution, private CVs, content visibility, sitemap, employer/contact/newsletter submissions, follow-ups, account changes, and public settings passed.');
   } finally {
     if (server) { server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); }

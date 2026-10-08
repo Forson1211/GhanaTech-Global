@@ -2,6 +2,10 @@
 
 The Vue website and Express API share one domain through the existing Vercel Services configuration. The `frontend` service builds the Vite application; the `backend` service runs Express. Requests for `/api`, `/robots.txt`, and `/sitemap.xml` route to the backend. Website routes such as `/join-talent` and `/admin/login` fall back to the Vue application; unknown API routes return JSON rather than the homepage.
 
+The root configuration's `services.frontend.rewrites` provides the SPA fallback to `/index.html` after the frontend service is selected. `frontend/vercel.json` contains the same fallback for standalone frontend deployments. The detected Express entrypoint, `backend/src/app.ts`, exports the application by default and awaits the database in request middleware. See [Vercel's Vite deep-linking instructions](https://vercel.com/docs/frameworks/frontend/vite#using-vite-to-make-spas).
+
+Backend runtime dependencies are also declared at the repository root because the Services adapter generates its Express bundle at that root. Keep these versions aligned with `backend/package.json`; the deployment regression check verifies the manifest and lockfile. Workspace packages do not depend on their parent package. This prevents a successful build from producing an API that fails with `Cannot find module 'express'` at runtime.
+
 ## 1. Import the repository
 
 Import https://github.com/Forson1211/GhanaTech-Global into Vercel.
@@ -45,6 +49,12 @@ node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 ```
 
 ## 3. Create your first administrator
+
+For the selected project, the administrator `ghanatechglobal@gmail.com` was created on October 8, 2026 and verified by production login. Its local handoff credentials are in the ignored `.tmp/production-admin.json`. Temporary production environment settings used for initialization have been removed. Do not rerun initialization to replace an existing account.
+
+When MongoDB secrets are write-only in Vercel, an explicitly enabled one-time production build can initialize indexes and create the account without downloading the database secret. Set `PRODUCTION_BOOTSTRAP_ENABLED=true`, `ADMIN_INITIAL_EMAIL`, and a sensitive `ADMIN_INITIAL_PASSWORD` temporarily. The backend build helper rejects nonproduction initialization, runs the additive index command and account creation, and fails rather than overwriting an existing account. Remove all three variables after success and redeploy so the running function no longer contains the initial password. Normal builds skip this step.
+
+After configuring the hosted production database in an ignored local environment file, initialize its declared indexes with `npm.cmd run initialize-db --workspace backend`. Production disables automatic index creation; this command adds uniqueness, query, and sign-in retention indexes without inserting demo data or dropping existing indexes. Existing duplicate data can cause unique-index creation to fail and must be reviewed before retrying.
 
 The production deployment does not create demo accounts or run the destructive demo seed.
 

@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white min-h-screen">
     <!-- Header Hero with GhanaTech purple gradient and organic curve -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -37,7 +37,7 @@
       <div class="space-y-12 mb-20">
         <!-- Pillar 1 -->
         <div class="p-8 rounded-3xl bg-brand-lightest/40 border border-brand-border/80 flex flex-col md:flex-row items-start gap-6">
-          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl flex-shrink-0 shadow-violet-sm">
+          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-violet-sm">
             01
           </div>
           <div class="space-y-3">
@@ -53,7 +53,7 @@
 
         <!-- Pillar 2 -->
         <div class="p-8 rounded-3xl bg-brand-lightest/40 border border-brand-border/80 flex flex-col md:flex-row items-start gap-6">
-          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl flex-shrink-0 shadow-violet-sm">
+          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-violet-sm">
             02
           </div>
           <div class="space-y-3">
@@ -69,7 +69,7 @@
 
         <!-- Pillar 3 -->
         <div class="p-8 rounded-3xl bg-brand-lightest/40 border border-brand-border/80 flex flex-col md:flex-row items-start gap-6">
-          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl flex-shrink-0 shadow-violet-sm">
+          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-violet-sm">
             03
           </div>
           <div class="space-y-3">
@@ -85,7 +85,7 @@
 
         <!-- Pillar 4 -->
         <div class="p-8 rounded-3xl bg-brand-lightest/40 border border-brand-border/80 flex flex-col md:flex-row items-start gap-6">
-          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl flex-shrink-0 shadow-violet-sm">
+          <div class="w-14 h-14 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-violet-sm">
             04
           </div>
           <div class="space-y-3">

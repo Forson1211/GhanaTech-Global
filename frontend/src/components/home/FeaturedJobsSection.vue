@@ -17,7 +17,7 @@
 
         <router-link
           to="/jobs"
-          class="mt-6 md:mt-0 inline-flex items-center gap-1.5 text-sm font-extrabold text-brand-primary hover:text-brand-dark transition-colors group flex-shrink-0"
+          class="mt-6 md:mt-0 inline-flex items-center gap-1.5 text-sm font-extrabold text-brand-primary hover:text-brand-dark transition-colors group shrink-0"
         >
           <span>Explore Recruitment Capabilities</span>
           <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@
           <div class="pt-2 space-y-2">
             <router-link
               to="/jobs"
-              class="w-full py-3 px-4 rounded-xl bg-brand-soft hover:bg-brand-primary text-brand-primary hover:text-white font-extrabold text-xs sm:text-sm transition-all duration-200 text-center flex items-center justify-center gap-1.5 shadow-sm"
+              class="w-full py-3 px-4 rounded-xl bg-brand-soft hover:bg-brand-primary text-brand-primary hover:text-white font-extrabold text-xs sm:text-sm transition-all duration-200 text-center flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Request Talent for This Role</span>
             </router-link>

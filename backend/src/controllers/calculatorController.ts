@@ -22,22 +22,16 @@ export async function getCalculatorConfigs(_req: Request, res: Response): Promis
 
 export async function calculateEstimate(req: Request, res: Response): Promise<void> {
   try {
-    const { role, seniority = 'Mid-Level', count = 1 } = req.body;
-
-    if (!role) {
-      sendError(res, 'Role is required for calculation', 400);
+    const parsed = z.object({ role: z.string().trim().min(2).max(200), seniority: z.enum(['Junior', 'Mid-Level', 'Senior']).default('Mid-Level'), count: z.coerce.number().finite().int().min(1).max(1000).default(1) }).safeParse(req.body);
+    if (!parsed.success) {
+      sendError(res, 'Provide a role, valid seniority, and a whole-number headcount from 1 to 1000', 400);
       return;
     }
-
-    const numProfessionals = Math.max(1, Number(count) || 1);
-    const validSeniority = (['Junior', 'Mid-Level', 'Senior'].includes(seniority) ? seniority : 'Mid-Level') as
-      | 'Junior'
-      | 'Mid-Level'
-      | 'Senior';
+    const { role, seniority: validSeniority, count: numProfessionals } = parsed.data;
 
     // Find specific role + seniority config in DB
     const config = await CalculatorConfig.findOne({
-      role: { $regex: new RegExp(`^${role.trim()}$`, 'i') },
+      role: { $regex: new RegExp(`^${role.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
       seniority: validSeniority,
     }).lean();
 

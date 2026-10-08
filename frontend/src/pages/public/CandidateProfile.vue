@@ -17,8 +17,8 @@
         <div class="flex items-center space-x-6">
           <div class="w-24 h-24 rounded-full bg-brand-soft"></div>
           <div class="space-y-3 flex-1">
-            <div class="h-6 bg-brand-soft rounded w-1/3"></div>
-            <div class="h-4 bg-brand-lightest rounded w-1/4"></div>
+            <div class="h-6 bg-brand-soft rounded-sm w-1/3"></div>
+            <div class="h-4 bg-brand-lightest rounded-sm w-1/4"></div>
           </div>
         </div>
         <div class="h-24 bg-brand-lightest rounded-2xl"></div>
@@ -134,7 +134,7 @@
 
             <!-- Assessment Badge Notice -->
             <div class="bg-brand-lightest/70 rounded-3xl p-6 border border-brand-border flex items-center space-x-4">
-              <div class="w-12 h-12 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-lg shadow-violet-sm flex-shrink-0">
+              <div class="w-12 h-12 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-lg shadow-violet-sm shrink-0">
                 ✓
               </div>
               <div>

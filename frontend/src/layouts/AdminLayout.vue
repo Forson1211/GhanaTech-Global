@@ -3,7 +3,7 @@
     <!-- Backdrop for mobile drawer -->
     <div
       v-if="isSidebarOpen"
-      class="fixed inset-0 z-40 bg-brand-dark/40 backdrop-blur-sm lg:hidden transition-opacity"
+      class="fixed inset-0 z-40 bg-brand-dark/40 backdrop-blur-xs lg:hidden transition-opacity"
       @click="isSidebarOpen = false"
     />
 

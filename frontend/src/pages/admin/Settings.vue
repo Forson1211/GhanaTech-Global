@@ -32,7 +32,7 @@
           <input
             v-model="settings.allowPublicApplications"
             type="checkbox"
-            class="rounded border-brand-border text-brand-primary focus:ring-brand-primary h-4 w-4"
+            class="rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary h-4 w-4"
           />
           <span> {{ t("Enable Public Candidate Applications (/join-talent)") }} </span>
         </label>
@@ -41,7 +41,7 @@
           <input
             v-model="settings.allowLeadSubmissions"
             type="checkbox"
-            class="rounded border-brand-border text-brand-primary focus:ring-brand-primary h-4 w-4"
+            class="rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary h-4 w-4"
           />
           <span> {{ t("Enable Inbound Company Leads (/hire-talent)") }} </span>
         </label>

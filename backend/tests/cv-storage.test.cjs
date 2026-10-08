@@ -102,15 +102,21 @@ test('private CV downloads stream files larger than a function request limit', a
 test('a document deletion failure preserves the application for a later retry', async () => {
   let recordDeleted = false;
   const originalFind = TalentApplication.findById;
-  const application = { cvStorage: 'blob', cvStorageKey: 'cvs/test.pdf', deleteOne: async () => { recordDeleted = true; } };
+  const { EmailNotification } = require('../dist/models/EmailNotification');
+  const originalDeleteEmails = EmailNotification.deleteMany;
+  let emailsDeleted = false;
+  EmailNotification.deleteMany = async () => { emailsDeleted = true; };
+  const application = { _id: 'test', cvStorage: 'blob', cvStorageKey: 'cvs/test.pdf', deleteOne: async () => { recordDeleted = true; } };
   TalentApplication.findById = async () => application;
   try {
     deletionError = new Error('Storage unavailable');
     await assert.rejects(applicationService.deleteApplication('test'), /Storage unavailable/);
     assert.equal(recordDeleted, false);
+    assert.equal(emailsDeleted, false);
     deletionError = undefined;
     await applicationService.deleteApplication('test');
     assert.equal(recordDeleted, true);
+    assert.equal(emailsDeleted, true);
     assert.deepEqual(deleted, ['cvs/test.pdf']);
-  } finally { TalentApplication.findById = originalFind; deletionError = undefined; }
+  } finally { TalentApplication.findById = originalFind; EmailNotification.deleteMany = originalDeleteEmails; deletionError = undefined; }
 });

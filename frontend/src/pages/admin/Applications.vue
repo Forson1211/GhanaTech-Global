@@ -47,7 +47,7 @@
         <!-- Role -->
         <td class="py-4 px-4">
           <p class="font-semibold text-brand-dark text-xs">{{ app.role }}</p>
-          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded">{{ app.technologyArea }}</span>
+          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded-sm">{{ app.technologyArea }}</span>
         </td>
 
         <!-- Experience -->
@@ -139,7 +139,7 @@
         <div>
           <span class="text-xs text-brand-muted block mb-1"> {{ t("Declared Skills:") }} </span>
           <div class="flex flex-wrap gap-1">
-            <span v-for="s in selectedApp.skills" :key="s" class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-soft text-brand-dark">
+            <span v-for="s in selectedApp.skills" :key="s" class="text-xs font-semibold px-2 py-0.5 rounded-sm bg-brand-soft text-brand-dark">
               {{ s }}
             </span>
           </div>

@@ -5,10 +5,28 @@
   "type": "commonjs",
   "engines": { "node": "22.x" },
   "workspaces": ["frontend", "backend"],
+  "devDependencies": { "typescript": "5.9.3" },
+  "dependencies": {
+    "@vercel/blob": "^2.8.1",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1",
+    "multer": "^2.4.0",
+    "zod": "^3.24.2"
+  },
   "scripts": {
     "build": "npm run build --workspace backend && npm run build --workspace frontend",
     "test": "npm test --workspace backend && npm test --workspace frontend && node --test tests/*.test.cjs",
     "dev": "npm run dev --workspace frontend",
-    "dev:api": "npm run dev --workspace backend"
+    "dev:api": "npm run dev --workspace backend",
+    "dev:all": "node scripts/dev.cjs",
+    "launch:check": "npm run launch:check --workspace backend --",
+    "launch:smoke": "node scripts/launch-smoke.cjs"
   }
 }

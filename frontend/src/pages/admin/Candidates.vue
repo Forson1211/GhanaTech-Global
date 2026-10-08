@@ -85,7 +85,7 @@
         <!-- Role -->
         <td class="py-4 px-4">
           <p class="font-semibold text-brand-dark text-xs">{{ c.role }}</p>
-          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded">{{ c.category }}</span>
+          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded-sm">{{ c.category }}</span>
         </td>
 
         <!-- Experience -->
@@ -113,13 +113,13 @@
             <button
               v-if="c.profileStatus !== 'Approved'"
               type="button"
-              class="text-[10px] font-bold text-brand-primary bg-brand-soft px-2 py-0.5 rounded hover:bg-brand-primary hover:text-white transition-colors"
+              class="text-[10px] font-bold text-brand-primary bg-brand-soft px-2 py-0.5 rounded-sm hover:bg-brand-primary hover:text-white transition-colors"
               @click="updateStatus(c._id, 'Approved')"
             > {{ t("Approve") }} </button>
             <button
               v-if="c.profileStatus !== 'Rejected'"
               type="button"
-              class="text-[10px] font-bold text-brand-muted hover:text-brand-dark bg-brand-lightest px-2 py-0.5 rounded transition-colors"
+              class="text-[10px] font-bold text-brand-muted hover:text-brand-dark bg-brand-lightest px-2 py-0.5 rounded-sm transition-colors"
               @click="updateStatus(c._id, 'Rejected')"
             > {{ t("Reject") }} </button>
           </div>

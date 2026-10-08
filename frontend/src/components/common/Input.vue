@@ -5,7 +5,7 @@
       <span v-if="required" class="text-brand-bright">*</span>
     </label>
 
-    <div class="relative rounded-lg shadow-sm">
+    <div class="relative rounded-lg shadow-xs">
       <div v-if="$slots.prefix" class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-muted">
         <slot name="prefix" />
       </div>
@@ -23,7 +23,7 @@
         :disabled="disabled"
         :required="required"
         :class="[
-          'block w-full rounded-lg border transition-all duration-200 text-brand-text placeholder-brand-muted/70 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed',
+          'block w-full rounded-lg border transition-all duration-200 text-brand-text placeholder-brand-muted/70 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed',
           $slots.prefix ? 'pl-10' : 'pl-3.5',
           $slots.suffix ? 'pr-10' : 'pr-3.5',
           error ? 'border-brand-primary ring-1 ring-brand-primary' : 'border-brand-border hover:border-brand-bright/50 bg-white',

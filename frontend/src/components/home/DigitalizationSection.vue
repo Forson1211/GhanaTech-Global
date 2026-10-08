@@ -22,7 +22,7 @@
           <div class="pt-2 flex flex-wrap items-center gap-4">
             <router-link
               to="/hire-talent"
-              class="bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.99] text-white font-medium text-sm px-6 py-3 rounded-lg shadow-sm hover:shadow transition-all duration-200 inline-flex items-center gap-2.5"
+              class="bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.99] text-white font-medium text-sm px-6 py-3 rounded-lg shadow-xs hover:shadow-sm transition-all duration-200 inline-flex items-center gap-2.5"
             >
               <!-- Calendar / Checklist Icon matching the screenshot -->
               <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

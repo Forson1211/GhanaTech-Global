@@ -15,7 +15,7 @@
     />
     <div
       v-else
-      class="w-full h-full bg-gradient-to-br from-brand-soft to-brand-border text-brand-dark flex items-center justify-center"
+      class="w-full h-full bg-linear-to-br from-brand-soft to-brand-border text-brand-dark flex items-center justify-center"
     >
       {{ initials }}
     </div>

@@ -16,7 +16,7 @@
         <!-- Icon based on type -->
         <div
           :class="[
-            'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-white',
+            'w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white',
             toast.type === 'success' ? 'bg-brand-primary' : toast.type === 'error' ? 'bg-brand-dark' : 'bg-brand-bright'
           ]"
         >

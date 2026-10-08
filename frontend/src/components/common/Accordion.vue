@@ -10,13 +10,13 @@
     >
       <button
         type="button"
-        class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+        class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-hidden"
         @click="toggle(index)"
       >
         <span class="text-base font-bold text-brand-dark pr-4">{{ item.question || item.title }}</span>
         <div
           :class="[
-            'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300',
+            'w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300',
             openIndex === index ? 'bg-brand-primary text-white rotate-180' : 'bg-brand-soft text-brand-primary'
           ]"
         >

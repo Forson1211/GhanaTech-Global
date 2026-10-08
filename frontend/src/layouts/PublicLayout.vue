@@ -4,7 +4,7 @@
     <Navbar />
 
     <!-- Main Content Area -->
-    <main class="flex-grow">
+    <main class="grow">
       <router-view />
     </main>
 

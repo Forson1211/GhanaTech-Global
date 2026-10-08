@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-slate-50">
     <!-- Header Hero with GhanaTech purple gradient and organic curve -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -98,7 +98,7 @@
       </div>
 
       <!-- Turnkey Pod SLA Guarantee Card -->
-      <div class="bg-gradient-to-r from-brand-dark to-brand-primary rounded-3xl p-8 sm:p-12 text-white shadow-violet-lg flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="bg-linear-to-r from-brand-dark to-brand-primary rounded-3xl p-8 sm:p-12 text-white shadow-violet-lg flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-2 max-w-xl text-center md:text-left">
           <h3 class="text-2xl font-extrabold tracking-tight">Need a Team for Your Project?</h3>
           <p class="text-sm text-brand-soft leading-relaxed">

@@ -3,7 +3,7 @@
     :type="type"
     :disabled="disabled || loading"
     :class="[
-      'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary active:scale-[0.98]',
+      'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary active:scale-[0.98]',
       sizeClasses[size],
       variantClasses[variant],
       roundedClasses[rounded],
@@ -74,7 +74,7 @@ const variantClasses = {
 };
 
 const roundedClasses = {
-  sm: 'rounded',
+  sm: 'rounded-sm',
   md: 'rounded-lg',
   lg: 'rounded-xl',
   full: 'rounded-full',

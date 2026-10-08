@@ -42,7 +42,7 @@
           <button
             type="button"
             :disabled="idx === 0"
-            class="p-1 rounded text-brand-dark hover:bg-brand-soft disabled:opacity-30"
+            class="p-1 rounded-sm text-brand-dark hover:bg-brand-soft disabled:opacity-30"
             title="Move Up"
             @click="moveFaq(idx, -1)"
           >
@@ -51,7 +51,7 @@
           <button
             type="button"
             :disabled="idx === faqs.length - 1"
-            class="p-1 rounded text-brand-dark hover:bg-brand-soft disabled:opacity-30"
+            class="p-1 rounded-sm text-brand-dark hover:bg-brand-soft disabled:opacity-30"
             title="Move Down"
             @click="moveFaq(idx, 1)"
           >

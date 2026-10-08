@@ -47,7 +47,7 @@
         <!-- Need & Role -->
         <td class="py-4 px-4">
           <p class="font-semibold text-brand-dark text-xs">{{ lead.role }}</p>
-          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded">{{ lead.technologyNeed }}</span>
+          <span class="text-[10px] text-brand-primary bg-brand-soft px-2 py-0.5 rounded-sm">{{ lead.technologyNeed }}</span>
         </td>
 
         <!-- Headcount & Type -->
@@ -140,7 +140,7 @@
         </div>
         <div v-if="selectedLead.jobDescription" class="p-3.5 bg-brand-lightest rounded-xl border border-brand-border/60"><span class="text-[11px] font-bold text-brand-dark"> {{ t("Job Description") }} </span><p class="text-xs text-brand-dark whitespace-pre-line mt-2">{{ selectedLead.jobDescription }}</p></div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><Input v-model="discoveryAt" type="datetime-local" label="Discovery Call" /><Input v-model="placedAt" type="date" label="Placement Date" /></div>
-        <div v-if="followUps.length" class="space-y-3"><p class="text-xs font-bold text-brand-dark"> {{ t("Placement Follow-ups") }} </p><label v-for="followUp in followUps" :key="followUp.day" class="flex items-center gap-3 text-xs text-brand-dark"><input v-model="followUp.completed" type="checkbox" class="rounded border-brand-border text-brand-primary" /><span>{{ followUp.day }} {{ t("-day follow-up:") }} {{ formatDate(followUp.dueAt) }}</span></label></div>
+        <div v-if="followUps.length" class="space-y-3"><p class="text-xs font-bold text-brand-dark"> {{ t("Placement Follow-ups") }} </p><label v-for="followUp in followUps" :key="followUp.day" class="flex items-center gap-3 text-xs text-brand-dark"><input v-model="followUp.completed" type="checkbox" class="rounded-sm border-brand-border text-brand-primary" /><span>{{ followUp.day }} {{ t("-day follow-up:") }} {{ formatDate(followUp.dueAt) }}</span></label></div>
         <div v-if="selectedLead.statusHistory?.length" class="space-y-2"><p class="text-xs font-bold text-brand-dark"> {{ t("Pipeline History") }} </p><p v-for="(entry, index) in selectedLead.statusHistory" :key="index" class="text-xs text-brand-muted">{{ entry.status }} &middot; {{ formatDate(entry.changedAt) }}</p></div>
         <!-- Notes -->
         <div class="pt-3 border-t border-brand-border/40">

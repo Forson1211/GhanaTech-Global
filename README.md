@@ -3,6 +3,8 @@
 For a single Vercel deployment of the frontend and backend, see [the deployment guide](docs/vercel-deployment.md).
 Run `npm ci` and `npm run build` from the repository root. Vercel uses the root `vercel.json`; do not select `frontend` as the project root.
 
+Start the API and frontend together with `npm.cmd run dev:all` from the root. Before launch, use `npm.cmd run launch:check -- --database` to inspect configuration and content without printing secrets, then `npm.cmd run launch:smoke -- https://your-domain.com` for read-only deployed checks.
+
 For publishing tools, email configuration, completed development, and launch checks, see [launch setup](docs/launch-checklist.md) and [the development audit](docs/development-audit.md).
 
 > **U.S.–Ghana Technology Talent & Services Platform**  

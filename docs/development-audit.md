@@ -4,6 +4,8 @@ The existing Vue 3 / Tailwind frontend, Express API, MongoDB models, authenticat
 
 ## Completed
 
+Production setup was approved and deployed on October 8, 2026 at https://ghanatechglobal.vercel.app (`dpl_7tA2V8pvzqPk9B6ng3Ryj6L8ohNR`). Atlas connectivity, additive indexes, the real administrator account, private Blob storage, JWT/cron secrets, SPA routing, and canonical URLs are configured. Live smoke checks, administrator login/dashboard checks, and private storage authorization checks passed. Temporary administrator build credentials were removed before the final deployment. Email remains disabled, approved policies and business content remain outstanding, and the Tailwind development-tool advisories remain open. See [launch-checklist.md](launch-checklist.md) for current status; earlier inspection notes below describe the pre-launch state.
+
 - Employer intake: exact headcount, a custom position, skills, experience level, employment type, start date, job description, and direct placement / managed talent / technology project / not sure engagement options.
 - Talent intake: first/last name, city, employment status, education, certifications, skill checklists, multiple employment preferences, and required authorization. Consent date and policy version are recorded server-side.
 - Private PDF/DOC/DOCX uploads retain the existing storage and download authorization. A new application requires a CV. Quick apply sends the actual API fields and displays failures honestly.
@@ -23,7 +25,19 @@ The existing Vue 3 / Tailwind frontend, Express API, MongoDB models, authenticat
 - Canonical links, page descriptions, default social-sharing metadata, robots rules, and a sitemap cover public pages and published content. Empty editorial pages and admin pages use noindex.
 - Local login reaches the GhanaTech API on port 5010. Another application owns port 5000; it was left running. Vite's API proxy and explicit TypeScript config selection now use the correct backend.
 
-## Integration and content still needed
+## October 8, 2026 verification and calculator fixes
+
+The public calculator now selects the exact role and seniority configuration without applying a second multiplier. Custom configured roles appear in its selector, zero GhanaTech costs remain valid, and missing configurations use the same seniority defaults as the API. Admin cost inputs enforce valid ranges and loading failures display an error. Calculation requests validate role, seniority, and a whole-number headcount from 1 to 1000; role names containing regex characters are matched literally.
+
+The backend, frontend, and deployment regression suites passed (43 checks passed, with the opt-in persistence check skipped in the normal run). The separate opt-in persistence integration check also passed using its isolated database and cleanup. Production builds passed. Production credentials and approved content remain required for launch as listed below.
+
+## Remaining launch inputs
+
+Launch preparation added root commands for running both apps (`dev:all`), checking configuration and optionally inspecting the database (`launch:check -- --database`), and performing read-only deployed checks (`launch:smoke -- URL`). Configuration checks omit secret values and detect demo passwords and missing published policies. Production no longer falls back to example reviews or homepage numbers. The frontend service now has a Vue SPA fallback; the Express service awaits its database and returns a retryable JSON 503 when startup configuration is missing, instead of failing at module import. Two existing Vercel projects were inspected; both had unconfigured environment variables and failed live API/subpage checks. No production changes were made while the intended project and launch inputs remain unresolved.
+
+After these launch-preparation changes, backend and frontend production builds passed. The regression suite passed 46 checks (30 backend, 13 frontend, and 3 deployment), with the opt-in persistence integration check skipped in the normal run. The frontend suite was checked again after removing production statistic fallbacks. The read-only local launch check correctly failed on missing production configuration, demo-password accounts, and unpublished policies; it is not a production-readiness pass.
+
+The user subsequently selected `ghanatechglobal.vercel.app`, will create MongoDB Atlas, and deferred Resend. The workspace was linked to `ghanatech-global-iu6d`; production settings were not changed after automatic approval review required explicit settings approval. Actual preview checks revealed and resolved Services SPA routing, missing Express default export, and root-level runtime dependency packaging. Multer was upgraded to 2.4, and a safe additive database-index initialization command was added. The final preview starts its API and returns JSON 503 for its unconfigured environment; login/application HTML and JavaScript return 200. The isolated persistence integration check passed again and the runtime-only dependency audit reported zero vulnerabilities. Seven Tailwind-chain build-tool advisories remain in the full audit. See the launch checklist for the verified preview URL and remaining production prerequisites.
 
 - Email delivery needs a server-side provider key, verified sender, and explicit enablement. Existing messages remain pending_configuration; local tests used mocked delivery and sent no actual email.
 - External CRM/ATS synchronization is not connected. The existing records, statuses, timestamps, and histories are ready for an adapter when a provider is chosen.

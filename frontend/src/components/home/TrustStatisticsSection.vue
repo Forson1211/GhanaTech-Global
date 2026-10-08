@@ -1,5 +1,5 @@
 <template>
-  <section ref="statisticsSection" class="statistics-section" aria-label="GhanaTech Global in numbers">
+  <section ref="statisticsSection" class="statistics-section" :class="{ hidden: statistics.length === 0 }" aria-label="GhanaTech Global in numbers">
     <div class="statistics-container">
       <div class="statistics-grid">
         <div v-for="stat in statistics" :key="stat.key" class="stat-item">
@@ -30,7 +30,7 @@ const fallbackStats: StatisticItem[] = [
   { key: 'network', value: 'U.S. ↔ Ghana', label: "Our Global Network", description: 'Local talent. Global opportunities.', order: 4, isPublished: true },
 ];
 
-const statistics = ref<StatisticItem[]>(fallbackStats);
+const statistics = ref<StatisticItem[]>(import.meta.env?.PROD ? [] : fallbackStats);
 const statisticsSection = ref<HTMLElement | null>(null);
 const animatedValues = ref<Record<string, string>>({});
 const requestController = new AbortController();
@@ -112,11 +112,11 @@ onMounted(async () => {
 
   try {
     const res = await statisticsService.getPublicStatistics(requestController.signal);
-    if (!disposed && res.success && res.data?.length) {
+    if (!disposed && res.success && res.data) {
       statistics.value = res.data.filter(stat => stat.isPublished).sort((a, b) => a.order - b.order);
     }
   } catch {
-    // Keep the existing site totals when the API is unavailable.
+    // Production never substitutes example totals for unavailable published data.
   }
 });
 

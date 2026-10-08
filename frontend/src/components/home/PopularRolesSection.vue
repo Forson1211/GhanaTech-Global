@@ -45,7 +45,7 @@
         <div
           v-for="role in roles"
           :key="role.name"
-          class="flex-shrink-0 w-72 snap-start bg-white p-6 rounded-3xl border border-brand-border/80 shadow-violet-sm hover:shadow-violet-md hover:border-brand-primary/40 transition-all duration-300 flex flex-col justify-between"
+          class="shrink-0 w-72 snap-start bg-white p-6 rounded-3xl border border-brand-border/80 shadow-violet-sm hover:shadow-violet-md hover:border-brand-primary/40 transition-all duration-300 flex flex-col justify-between"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -67,7 +67,7 @@
               <span
                 v-for="tech in role.techs"
                 :key="tech"
-                class="text-[10px] font-medium text-brand-dark bg-brand-lightest px-2 py-0.5 rounded border border-brand-border/40"
+                class="text-[10px] font-medium text-brand-dark bg-brand-lightest px-2 py-0.5 rounded-sm border border-brand-border/40"
               >
                 {{ tech }}
               </span>

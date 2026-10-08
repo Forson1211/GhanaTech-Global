@@ -4,7 +4,7 @@
       <slot name="trigger" :isOpen="isOpen">
         <button
           type="button"
-          class="inline-flex justify-center w-full rounded-lg border border-brand-border px-3 py-2 bg-white text-xs font-medium text-brand-dark hover:bg-brand-lightest focus:outline-none"
+          class="inline-flex justify-center w-full rounded-lg border border-brand-border px-3 py-2 bg-white text-xs font-medium text-brand-dark hover:bg-brand-lightest focus:outline-hidden"
         >
           Options
         </button>
@@ -22,7 +22,7 @@
       <div
         v-if="isOpen"
         :class="[
-          'origin-top-right absolute z-50 mt-1.5 w-48 rounded-xl shadow-violet-md bg-white border border-brand-border/80 focus:outline-none py-1.5',
+          'origin-top-right absolute z-50 mt-1.5 w-48 rounded-xl shadow-violet-md bg-white border border-brand-border/80 focus:outline-hidden py-1.5',
           align === 'right' ? 'right-0' : 'left-0'
         ]"
       >

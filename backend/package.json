@@ -6,12 +6,14 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc && node scripts/production-bootstrap.cjs",
     "test": "npm run build && node --test tests/*.test.cjs",
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed.ts",
     "create-admin": "tsx src/scripts/createAdmin.ts",
-    "process-emails": "tsx src/scripts/processEmails.ts"
+    "process-emails": "tsx src/scripts/processEmails.ts",
+    "launch:check": "npm run build && node dist/scripts/checkLaunch.js",
+    "initialize-db": "npm run build && node dist/scripts/initializeDatabase.js"
   },
   "dependencies": {
     "@vercel/blob": "^2.8.1",
@@ -21,11 +23,10 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
-    "ghanatech-global": "file:..",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.4.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {

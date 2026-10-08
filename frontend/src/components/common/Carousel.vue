@@ -9,7 +9,7 @@
       <div
         v-for="(item, index) in items"
         :key="index"
-        class="w-full flex-shrink-0 px-2 sm:px-4"
+        class="w-full shrink-0 px-2 sm:px-4"
       >
         <slot :item="item" :index="index" />
       </div>

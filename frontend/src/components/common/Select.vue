@@ -5,14 +5,14 @@
       <span v-if="required" class="text-brand-bright">*</span>
     </label>
 
-    <div class="relative rounded-lg shadow-sm">
+    <div class="relative rounded-lg shadow-xs">
       <select
         :id="id"
         :value="modelValue"
         :disabled="disabled"
         :required="required"
         :class="[
-          'block w-full rounded-lg border appearance-none transition-all duration-200 text-brand-text text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed cursor-pointer bg-white py-2.5 pl-3.5 pr-10',
+          'block w-full rounded-lg border appearance-none transition-all duration-200 text-brand-text text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed cursor-pointer bg-white py-2.5 pl-3.5 pr-10',
           error ? 'border-brand-primary ring-1 ring-brand-primary' : 'border-brand-border hover:border-brand-bright/50'
         ]"
         @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"

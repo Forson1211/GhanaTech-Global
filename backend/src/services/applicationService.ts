@@ -1,6 +1,7 @@
 import { TalentApplication, ITalentApplication, ApplicationStatus } from '../models/TalentApplication';
 import { FilterQuery } from 'mongoose';
 import { deleteStoredCv, resolveUploadedCv, storeMultipartCv } from './cvStorage';
+import { EmailNotification } from '../models/EmailNotification';
 
 export interface ApplicationQueryOptions {
   search?: string;
@@ -111,6 +112,11 @@ export async function deleteApplication(id: string): Promise<ITalentApplication>
 
   // Remove storage first so a failure can be retried without losing the reference.
   await deleteStoredCv(application);
+  // Deleted applications must not leave unsent confirmations in the outbox.
+  await EmailNotification.deleteMany({
+    sourceId: application._id.toString(),
+    status: { $in: ['pending_configuration', 'queued', 'failed'] },
+  });
   await application.deleteOne();
   return application;
 }

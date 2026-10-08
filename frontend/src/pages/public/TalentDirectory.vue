@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white min-h-screen">
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />

@@ -14,7 +14,7 @@
           <template v-else-if="loading">
             <tr v-for="n in 5" :key="n" class="animate-pulse">
               <td :colspan="colSpan" class="py-4 px-6">
-                <div class="h-4 bg-brand-soft/60 rounded w-3/4"></div>
+                <div class="h-4 bg-brand-soft/60 rounded-sm w-3/4"></div>
               </td>
             </tr>
           </template>

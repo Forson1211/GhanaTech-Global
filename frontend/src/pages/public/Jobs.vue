@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-white">
     <!-- Header Hero with the exact same vibrant GhanaTech purple gradient as home hero -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-24 sm:pt-40 sm:pb-32 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -28,14 +28,14 @@
           <div class="bg-white/10 backdrop-blur-md p-1.5 rounded-full border border-white/25 shadow-2xl flex items-center gap-2">
             <!-- Search Icon & Input -->
             <div class="flex-1 flex items-center pl-4 pr-2">
-              <svg class="w-5 h-5 text-white/70 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-white/70 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search by title, skills, or role..."
-                class="w-full bg-transparent text-white placeholder-white/60 text-sm focus:outline-none"
+                class="w-full bg-transparent text-white placeholder-white/60 text-sm focus:outline-hidden"
               />
               <button
                 v-if="searchQuery"
@@ -49,15 +49,15 @@
             <!-- Filters Toggle Button -->
             <button
               @click="isFiltersOpen = !isFiltersOpen"
-              class="px-5 py-2.5 rounded-full bg-white text-[#6D28D9] hover:bg-slate-100 font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md flex-shrink-0"
+              class="px-5 py-2.5 rounded-full bg-white text-brand-primary hover:bg-slate-100 font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md shrink-0"
             >
-              <svg class="w-4 h-4 text-[#6D28D9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
               </svg>
               <span>Filters</span>
               <span
                 v-if="selectedCategory !== 'All'"
-                class="w-2 h-2 rounded-full bg-[#6D28D9]"
+                class="w-2 h-2 rounded-full bg-brand-primary"
               />
             </button>
           </div>
@@ -81,7 +81,7 @@
                 :key="cat"
                 @click="selectedCategory = cat"
                 class="px-3 py-1.5 rounded-full text-xs font-semibold transition-all"
-                :class="selectedCategory === cat ? 'bg-white text-[#6D28D9] shadow' : 'bg-white/15 text-white hover:bg-white/25'"
+                :class="selectedCategory === cat ? 'bg-white text-brand-primary shadow-sm' : 'bg-white/15 text-white hover:bg-white/25'"
               >
                 {{ cat }}
               </button>
@@ -106,7 +106,7 @@
       <!-- Section Header with Count (NO STROKE) -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-2">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#4C1D95] tracking-tight">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
             Job Openings
           </h2>
           <p class="text-sm text-slate-500 mt-1">
@@ -129,7 +129,7 @@
           @click="selectedCategory = cat"
           class="px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all"
           :class="selectedCategory === cat
-            ? 'bg-[#6D28D9] text-white shadow-violet-sm'
+            ? 'bg-brand-primary text-white shadow-violet-sm'
             : 'bg-brand-soft/70 text-brand-dark hover:bg-brand-soft'"
         >
           {{ cat }}
@@ -230,7 +230,7 @@
             <!-- Apply for this Job Button -->
             <button
               @click="openApplyModal(job)"
-              class="w-full py-3 px-4 rounded-2xl bg-[#6D28D9] text-white hover:bg-[#5B21B6] font-bold text-xs transition-all text-center flex items-center justify-center gap-1.5 shadow-violet-sm"
+              class="w-full py-3 px-4 rounded-2xl bg-brand-primary text-white hover:bg-[#5B21B6] font-bold text-xs transition-all text-center flex items-center justify-center gap-1.5 shadow-violet-sm"
             >
               <span>Apply for this Job</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,7 +260,7 @@
 
       <!-- Empty State (NO STROKE) -->
       <div v-else class="text-center py-16 bg-white rounded-3xl shadow-violet-sm p-8 space-y-4">
-        <div class="w-16 h-16 rounded-full bg-purple-50 text-[#6D28D9] flex items-center justify-center mx-auto text-2xl font-bold">
+        <div class="w-16 h-16 rounded-full bg-purple-50 text-brand-primary flex items-center justify-center mx-auto text-2xl font-bold">
           🔍
         </div>
         <h3 class="text-xl font-bold text-slate-800">No Matching Jobs Found</h3>
@@ -269,7 +269,7 @@
         </p>
         <button
           @click="resetFilters"
-          class="px-5 py-2.5 rounded-full bg-[#6D28D9] text-white text-xs font-bold hover:bg-[#5B21B6] transition-all"
+          class="px-5 py-2.5 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-[#5B21B6] transition-all"
         >
           Clear Filters
         </button>
@@ -279,7 +279,7 @@
     <!-- Quick Apply Modal -->
     <div
       v-if="selectedJobForModal"
-      class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+      class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4"
       @click.self="closeApplyModal"
     >
       <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
@@ -293,7 +293,7 @@
 
         <!-- Modal Header -->
         <div class="pr-8 mb-6">
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-purple-100 text-[#6D28D9] font-mono text-xs font-bold mb-2">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-purple-100 text-brand-primary font-mono text-xs font-bold mb-2">
             ID {{ selectedJobForModal.id }} • {{ selectedJobForModal.category }}
           </span>
           <h3 class="text-xl font-black text-slate-900 leading-tight">
@@ -315,7 +315,7 @@
           </p>
           <button
             @click="closeApplyModal"
-            class="px-6 py-2.5 rounded-full bg-[#6D28D9] text-white text-xs font-bold hover:bg-[#5B21B6] transition-all"
+            class="px-6 py-2.5 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-[#5B21B6] transition-all"
           >
             Done
           </button>
@@ -330,7 +330,7 @@
               required
               type="text"
               placeholder="e.g. Kwame Mensah"
-              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#6D28D9] focus:ring-1 focus:ring-[#6D28D9]"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-[#6D28D9]"
             />
           </div>
 
@@ -342,7 +342,7 @@
                 required
                 type="email"
                 placeholder="kwame@example.com"
-                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#6D28D9] focus:ring-1 focus:ring-[#6D28D9]"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-[#6D28D9]"
               />
             </div>
             <div>
@@ -352,7 +352,7 @@
                 required
                 type="tel"
                 placeholder="+233 24 000 0000"
-                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#6D28D9] focus:ring-1 focus:ring-[#6D28D9]"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-[#6D28D9]"
               />
             </div>
           </div>
@@ -363,7 +363,7 @@
               <select
                 v-model="applyForm.experience"
                 required
-                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#6D28D9] focus:ring-1 focus:ring-[#6D28D9] bg-white"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-[#6D28D9] bg-white"
               >
                 <option value="2-3">2 - 3 Years</option>
                 <option value="4-6">4 - 6 Years</option>
@@ -377,7 +377,7 @@
                 v-model="applyForm.linkedin"
                 type="url"
                 placeholder="https://linkedin.com/in/..."
-                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#6D28D9] focus:ring-1 focus:ring-[#6D28D9]"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-[#6D28D9]"
               />
             </div>
           </div>
@@ -389,7 +389,7 @@
           <!-- Resume / CV File Upload -->
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">CV or Resume (PDF, DOC or DOCX) *</label>
-            <div class="border-2 border-dashed border-slate-300 rounded-2xl p-4 text-center hover:border-[#6D28D9] transition-colors cursor-pointer relative bg-slate-50/50">
+            <div class="border-2 border-dashed border-slate-300 rounded-2xl p-4 text-center hover:border-brand-primary transition-colors cursor-pointer relative bg-slate-50/50">
               <input
                 type="file"
                 accept=".pdf,.doc,.docx"
@@ -404,7 +404,7 @@
                 <p class="text-xs font-semibold text-slate-700">Click or drag your CV here</p>
                 <p class="text-[10px] text-slate-400">PDF, DOC, DOCX up to 10MB</p>
               </div>
-              <div v-else class="flex items-center justify-center gap-2 text-xs font-bold text-[#6D28D9]">
+              <div v-else class="flex items-center justify-center gap-2 text-xs font-bold text-brand-primary">
                 <span>📄 {{ resumeFile.name }}</span>
                 <span class="text-emerald-600 text-xs">✓ Ready</span>
               </div>
@@ -421,7 +421,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full py-3 rounded-xl bg-[#6D28D9] hover:bg-[#5B21B6] text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60"
+              class="w-full py-3 rounded-xl bg-brand-primary hover:bg-[#5B21B6] text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60"
             >
               <svg v-if="isSubmitting" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />

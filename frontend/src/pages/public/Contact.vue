@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white min-h-screen">
     <!-- Header Hero with GhanaTech purple gradient and organic curve -->
-    <section class="relative bg-gradient-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
+    <section class="relative bg-linear-to-br from-[#6D28D9] via-[#5B21B6] to-[#4C1D95] pt-32 pb-20 sm:pt-40 sm:pb-28 text-white">
       <!-- Background decoration wrapped in overflow-hidden so circles don't cause page scrollbars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="hidden sm:block absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full border border-white/10 pointer-events-none" />
@@ -102,7 +102,7 @@
           <img
             src="/images/contact-illustration.jpg"
             alt="Contact Us"
-            class="w-full max-w-[480px] object-contain drop-shadow-sm select-none pointer-events-none"
+            class="w-full max-w-[480px] object-contain drop-shadow-xs select-none pointer-events-none"
           />
         </div>
 
@@ -144,7 +144,7 @@
                       type="text"
                       required
                       placeholder="Name :"
-                      class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                      class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
                     />
                   </div>
                 </div>
@@ -162,7 +162,7 @@
                       type="email"
                       required
                       placeholder="Email :"
-                      class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                      class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
                     />
                   </div>
                 </div>
@@ -182,7 +182,7 @@
                     type="text"
                     required
                     placeholder="Subject :"
-                    class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
                   />
                 </div>
               </div>
@@ -201,7 +201,7 @@
                     required
                     rows="4"
                     placeholder="Message :"
-                    class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-y min-h-[110px]"
+                    class="w-full pl-10 pr-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-y min-h-[110px]"
                   ></textarea>
                 </div>
               </div>
@@ -211,7 +211,7 @@
                 <button
                   type="submit"
                   :disabled="loading"
-                  class="bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.99] text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm hover:shadow transition-all duration-200 inline-flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                  class="bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.99] text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-xs hover:shadow-sm transition-all duration-200 inline-flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span v-if="!loading">Send Message</span>
                   <span v-else class="flex items-center gap-2">

@@ -32,7 +32,7 @@
             </label>
             <select
               v-model="selectedRole"
-              class="w-full bg-brand-lightest/40 border border-brand-border rounded-xl px-4 py-3 text-sm font-semibold text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary cursor-pointer transition-all"
+              class="w-full bg-brand-lightest/40 border border-brand-border rounded-xl px-4 py-3 text-sm font-semibold text-brand-dark focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary cursor-pointer transition-all"
               @change="computeValues"
             >
               <option v-for="r in rolesList" :key="r" :value="r">
@@ -149,12 +149,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { calculateCosts } from '@/utils/calculator';
+import type { CalculatorConfigItem } from '@/types/common';
 import { calculatorService } from '@/services/calculator';
 import { formatCurrency } from '@/utils/formatters';
 import { POPULAR_ROLES, SENIORITY_LEVELS, DEFAULT_CALCULATOR_DATA } from '@/utils/constants';
 
-const rolesList = POPULAR_ROLES;
+const rolesList = computed(() => [...new Set([...POPULAR_ROLES, ...configMap.value.map(config => config.role)])]);
 const seniorityLevels = SENIORITY_LEVELS;
 
 const selectedRole = ref<string>('Full-Stack Developer');
@@ -166,33 +168,19 @@ const estimatedGhanaTechCost = ref<number>(88000);
 const annualDifference = ref<number>(192000);
 const percentageDifference = ref<number>(68);
 
-const configMap = ref<any[]>(DEFAULT_CALCULATOR_DATA);
+const configMap = ref<CalculatorConfigItem[]>(DEFAULT_CALCULATOR_DATA.map(item => ({ role: item.role, seniority: 'Mid-Level', usEstimatedAnnualCost: item.us, ghanaTechEstimatedAnnualCost: item.ghana })));
 
 const computeValues = () => {
-  // Find baseline match
-  const match = configMap.value.find(
-    (c) => c.role.toLowerCase() === selectedRole.value.toLowerCase()
-  );
-
-  let usBaseline = match ? (match.usEstimatedAnnualCost || match.us) : 130000;
-  let ghanaBaseline = match ? (match.ghanaTechEstimatedAnnualCost || match.ghana) : 40000;
-
-  // Seniority multiplier
-  const multiplier = selectedSeniority.value === 'Junior' ? 0.75 : selectedSeniority.value === 'Senior' ? 1.4 : 1.0;
-
-  const usPerPerson = Math.round(usBaseline * multiplier);
-  const ghanaPerPerson = Math.round(ghanaBaseline * multiplier);
-
-  estimatedUsCost.value = usPerPerson * count.value;
-  estimatedGhanaTechCost.value = ghanaPerPerson * count.value;
-  annualDifference.value = estimatedUsCost.value - estimatedGhanaTechCost.value;
-  percentageDifference.value = Math.round((annualDifference.value / (estimatedUsCost.value || 1)) * 100);
+  const result = calculateCosts(configMap.value, selectedRole.value, selectedSeniority.value, count.value);
+  estimatedUsCost.value = result.estimatedUsCost;
+  estimatedGhanaTechCost.value = result.estimatedGhanaTechCost;
+  annualDifference.value = result.annualDifference;
+  percentageDifference.value = result.percentageDifference;
 };
-
 onMounted(async () => {
   try {
     const res = await calculatorService.getConfigurations();
-    if (res.success && res.data && res.data.length > 0) {
+    if (res.success && res.data) {
       configMap.value = res.data;
     }
   } catch {

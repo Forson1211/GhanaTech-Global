@@ -1,8 +1,6 @@
-import { createApp } from './app';
+import app from './app';
 import { connectDatabase } from './config/database';
 import { env, validateProductionEnvironment } from './config/environment';
-
-const app = createApp();
 
 async function startServer(): Promise<void> {
   try {
@@ -39,14 +37,10 @@ async function startServer(): Promise<void> {
 }
 
 // In standalone / local mode, start the server listening on PORT.
-// In Vercel serverless / services mode, ensure database is connected and export app.
+// In Vercel services mode, app middleware checks configuration and awaits the
+// database per request, so startup errors return JSON and can be retried.
 if (!process.env.VERCEL) {
   startServer();
-} else {
-  validateProductionEnvironment();
-  connectDatabase().catch((error) => {
-    console.error('[Vercel Express] Database connection error:', error);
-  });
 }
 
 export { app, startServer };

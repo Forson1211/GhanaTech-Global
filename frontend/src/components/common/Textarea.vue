@@ -5,7 +5,7 @@
       <span v-if="required" class="text-brand-bright">*</span>
     </label>
 
-    <div class="relative rounded-lg shadow-sm">
+    <div class="relative rounded-lg shadow-xs">
       <textarea
         :id="id"
         :value="modelValue"
@@ -14,7 +14,7 @@
         :disabled="disabled"
         :required="required"
         :class="[
-          'block w-full rounded-lg border transition-all duration-200 text-brand-text placeholder-brand-muted/70 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed bg-white p-3.5',
+          'block w-full rounded-lg border transition-all duration-200 text-brand-text placeholder-brand-muted/70 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary disabled:bg-brand-lightest/50 disabled:cursor-not-allowed bg-white p-3.5',
           error ? 'border-brand-primary ring-1 ring-brand-primary' : 'border-brand-border hover:border-brand-bright/50'
         ]"
         @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"

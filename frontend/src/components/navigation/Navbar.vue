@@ -42,12 +42,12 @@
           <button
             :id="'nav-toggle-' + group.key"
             type="button"
-            class="inline-flex items-center gap-1.5 text-xs xl:text-sm font-semibold transition-all duration-200 py-1.5 px-3.5 rounded-full group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer whitespace-nowrap"
+            class="inline-flex items-center gap-1.5 text-xs xl:text-sm font-semibold transition-all duration-200 py-1.5 px-3.5 rounded-full group focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer whitespace-nowrap"
             :class="[
               activeDropdown === group.key
                 ? isTransparent
-                  ? 'bg-white/20 text-white shadow-sm'
-                  : 'bg-brand-soft text-brand-dark shadow-sm'
+                  ? 'bg-white/20 text-white shadow-xs'
+                  : 'bg-brand-soft text-brand-dark shadow-xs'
                 : isTransparent
                   ? 'text-white hover:text-brand-soft'
                   : 'text-brand-dark hover:text-brand-primary'
@@ -96,7 +96,7 @@
                     class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-violet-50/50 transition-all duration-150 group"
                     @click="closeMenuImmediate"
                   >
-                    <div class="w-10 h-10 rounded-xl bg-violet-50 text-brand-primary group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center shrink-0 transition-all shadow-xs">
+                    <div class="w-10 h-10 rounded-xl bg-violet-50 text-brand-primary group-hover:bg-brand-primary group-hover:text-white flex items-center justify-center shrink-0 transition-all shadow-2xs">
                       <NavIcon :name="item.icon" custom-class="w-5 h-5" />
                     </div>
                     <div class="flex-1 min-w-0 text-[13px] font-bold text-slate-800 group-hover:text-brand-primary transition-colors">
@@ -145,7 +145,7 @@
 
         <router-link
           to="/jobs"
-          class="px-5 py-2.5 text-xs font-bold rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+          class="px-5 py-2.5 text-xs font-bold rounded-full transition-all duration-200 shadow-xs hover:shadow-md"
           :class="isTransparent
             ? 'bg-white text-brand-dark hover:bg-brand-soft'
             : 'bg-brand-primary text-white hover:bg-brand-dark'"
@@ -159,7 +159,7 @@
       <div class="flex items-center lg:hidden">
         <button
           type="button"
-          class="p-1.5 rounded-full focus:outline-none transition-colors"
+          class="p-1.5 rounded-full focus:outline-hidden transition-colors"
           :class="isTransparent ? 'text-white hover:bg-white/10' : 'text-brand-dark hover:bg-brand-soft/60'"
           id="mobile-navigation-toggle"
           aria-label="Toggle navigation menu"
@@ -201,7 +201,7 @@
           >
             <button
               type="button"
-              class="w-full flex items-center justify-between text-brand-dark py-1 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              class="w-full flex items-center justify-between text-brand-dark py-1 font-semibold focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2"
               :aria-expanded="mobileSubmenu[group.key]"
               :aria-controls="'mobile-submenu-' + group.key"
               @click="toggleMobileSubmenu(group.key)"

@@ -57,7 +57,7 @@
           <button
             type="button"
             class="px-2.5 py-1 text-xs font-semibold text-brand-muted hover:text-brand-dark hover:bg-brand-soft/50 rounded-lg transition-colors"
-            @click="confirmDelete(cfg._id!, cfg.role)"
+            @click="confirmDelete(cfg._id || cfg.id, cfg.role)"
           > {{ t("Delete") }} </button>
         </td>
       </tr>
@@ -73,6 +73,8 @@
           type="number"
           label="U.S. Estimated Annual Cost ($)"
           placeholder="130000"
+          :min="0.01"
+          step="0.01"
           :required="true"
         />
         <Input
@@ -80,6 +82,8 @@
           type="number"
           label="GhanaTech Estimated Annual Cost ($)"
           placeholder="42000"
+          :min="0"
+          step="0.01"
           :required="true"
         />
 
@@ -126,7 +130,7 @@ const isEditing = ref(false);
 const isSaving = ref(false);
 const currentId = ref<string | null>(null);
 
-const form = ref<any>({
+const form = ref<CalculatorConfigItem>({
   role: '',
   seniority: 'Mid-Level',
   usEstimatedAnnualCost: 130000,
@@ -145,7 +149,7 @@ const fetchConfigs = async () => {
       configs.value = res.data;
     }
   } catch {
-    // Keep fallback list
+    toast.error('Failed to load calculator assumptions. Please try again.');
   } finally {
     loading.value = false;
   }
@@ -171,6 +175,11 @@ const openEditModal = (cfg: CalculatorConfigItem) => {
 };
 
 const saveConfig = async () => {
+  if (isSaving.value) return;
+  if (!form.value.role.trim() || !Number.isFinite(Number(form.value.usEstimatedAnnualCost)) || Number(form.value.usEstimatedAnnualCost) <= 0 || !Number.isFinite(Number(form.value.ghanaTechEstimatedAnnualCost)) || Number(form.value.ghanaTechEstimatedAnnualCost) < 0) {
+    toast.error('Enter a role, a positive U.S. cost, and a nonnegative GhanaTech cost.');
+    return;
+  }
   isSaving.value = true;
   try {
     if (isEditing.value && currentId.value) {
@@ -189,7 +198,8 @@ const saveConfig = async () => {
   }
 };
 
-const confirmDelete = (id: string, role: string) => {
+const confirmDelete = (id: string | undefined, role: string) => {
+  if (!id) return;
   roleToDeleteId.value = id;
   roleToDeleteName.value = role;
   showDeleteDialog.value = true;
