@@ -107,6 +107,7 @@ const linkGroups = [
   { title: "For Employers", links: [
     { label: 'Hire Ghanaian talent', to: '/hire-talent' },
     { label: "Browse candidate profiles", to: '/talent-directory' },
+    { label: 'ROI cost calculator', to: '/calculator' },
     { label: "How we check skills", to: '/how-it-works' },
     { label: 'Why hire from Ghana', to: '/why-ghana' },
     { label: "Hiring questions", to: '/faq' },

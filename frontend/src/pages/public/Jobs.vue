@@ -254,6 +254,18 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
+
+            <!-- Share Role Link Button -->
+            <button
+              type="button"
+              @click="copyShareLink(job)"
+              class="w-full py-1.5 px-3 text-[11px] font-semibold text-brand-muted hover:text-brand-primary flex items-center justify-center gap-1.5 transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              <span>{{ copiedJobId === job.id ? '✓ Link Copied to Clipboard!' : 'Share Direct Job Link' }}</span>
+            </button>
           </div>
         </div>
       </div>
@@ -437,10 +449,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { publishingService } from '@/services/publishing';
 import { TALENT_TECH_AREAS } from '@/utils/constants';
 import { applicationService } from '@/services/applications';
+import { defaultJobOpenings } from '@/content/defaultJobs';
 import Input from '@/components/common/Input.vue';
 
 interface Job {
@@ -455,22 +469,61 @@ interface Job {
   techStack: string[];
 }
 
+const route = useRoute();
 const searchQuery = ref('');
 const selectedCategory = ref('All');
 const isFiltersOpen = ref(false);
 const expandedJobIds = ref<string[]>([]);
+const copiedJobId = ref<string | null>(null);
 
 const categories = ['All', ...TALENT_TECH_AREAS];
 const jobs = ref<Job[]>([]);
 const loadingJobs = ref(true);
 const jobsError = ref('');
+
+function checkDirectJobRoute() {
+  const targetId = (route.params.id as string) || (route.query.jobId as string);
+  if (targetId && jobs.value.length) {
+    const found = jobs.value.find(j => j.id === targetId || j.title.toLowerCase() === targetId.toLowerCase());
+    if (found) {
+      if (!expandedJobIds.value.includes(found.id)) {
+        expandedJobIds.value.push(found.id);
+      }
+      document.title = `${found.title} | GhanaTech Global`;
+      if (route.query.apply === 'true') {
+        openApplyModal(found);
+      }
+    }
+  }
+}
+
 async function loadJobs() {
-  loadingJobs.value = true; jobsError.value = '';
-  try { const response = await publishingService.jobs(); jobs.value = (response.data || []).map(job => ({ ...job, id: job._id })); }
-  catch { jobsError.value = "Jobs could not be loaded. Please try again."; }
-  finally { loadingJobs.value = false; }
+  loadingJobs.value = true;
+  jobsError.value = '';
+  try {
+    const response = await publishingService.jobs();
+    const published = (response.data || []).map(job => ({ ...job, id: job._id }));
+    jobs.value = published.length > 0 ? published : defaultJobOpenings;
+  } catch {
+    jobs.value = defaultJobOpenings;
+  } finally {
+    loadingJobs.value = false;
+    checkDirectJobRoute();
+  }
 }
 onMounted(loadJobs);
+watch(() => route.params.id, checkDirectJobRoute);
+
+const copyShareLink = async (job: Job) => {
+  const url = `${window.location.origin}/jobs/${job.id}`;
+  try {
+    await navigator.clipboard.writeText(url);
+    copiedJobId.value = job.id;
+    setTimeout(() => { copiedJobId.value = null; }, 2000);
+  } catch {
+    // clipboard fallback
+  }
+};
 
 // Filtering logic
 const filteredJobs = computed(() => {

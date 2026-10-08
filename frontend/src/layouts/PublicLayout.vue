@@ -11,6 +11,9 @@
     <!-- Public Footer -->
     <Footer />
 
+    <!-- Cookie & Privacy Consent Banner -->
+    <CookieConsent />
+
     <!-- Global Toast Notifications -->
     <Toast />
   </div>
@@ -20,4 +23,5 @@
 import Navbar from '@/components/navigation/Navbar.vue';
 import Footer from '@/components/navigation/Footer.vue';
 import Toast from '@/components/common/Toast.vue';
+import CookieConsent from '@/components/common/CookieConsent.vue';
 </script>

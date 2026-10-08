@@ -298,6 +298,7 @@ const navigationGroups: { key: string; title: string; items: NavigationItem[] }[
     title: 'Employers',
     items: [
       { title: "Hire Tech Professionals", link: '/hire-talent', icon: 'software' },
+      { title: "Cost & ROI Calculator", link: '/calculator', icon: 'data' },
       { title: 'Industries', link: '/industries', icon: 'company' },
       { title: "Services for Employers", link: '/services', icon: 'cloud' },
       { title: 'Contact', link: '/contact', icon: 'resources' },

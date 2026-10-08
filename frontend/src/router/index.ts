@@ -46,6 +46,18 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'Find Your Dream Remote Job | GhanaTech Global' },
       },
       {
+        path: 'jobs/:id',
+        name: 'JobDetail',
+        component: () => import('@/pages/public/Jobs.vue'),
+        meta: { title: 'Career Opportunity | GhanaTech Global' },
+      },
+      {
+        path: 'calculator',
+        name: 'Calculator',
+        component: () => import('@/pages/public/CalculatorPage.vue'),
+        meta: { title: 'Technology ROI & Cost Calculator | GhanaTech Global', description: 'Calculate and compare engineering hiring costs between US domestic salaries and vetted Ghanaian technology professionals.' },
+      },
+      {
         path: 'find-job',
         redirect: '/jobs',
       },

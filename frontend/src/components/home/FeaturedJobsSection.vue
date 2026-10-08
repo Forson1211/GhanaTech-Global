@@ -45,9 +45,9 @@
               </span>
             </div>
 
-            <!-- Role Title (links to /jobs) -->
+            <!-- Role Title (links to /jobs/:id) -->
             <h3 class="text-2xl font-black text-brand-dark mb-3 hover:text-brand-primary transition-colors">
-              <router-link to="/jobs">
+              <router-link :to="'/jobs/' + job.id">
                 {{ job.title }}
               </router-link>
             </h3>
@@ -87,14 +87,14 @@
           <!-- Bottom Action Buttons: Apply + View More to Visit Job Page -->
           <div class="pt-2 space-y-2">
             <router-link
-              to="/jobs"
+              :to="{ path: '/hire-talent', query: { role: job.title, technologyNeed: job.category } }"
               class="w-full py-3 px-4 rounded-xl bg-brand-soft hover:bg-brand-primary text-brand-primary hover:text-white font-extrabold text-xs sm:text-sm transition-all duration-200 text-center flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Request Talent for This Role</span>
             </router-link>
 
             <router-link
-              to="/jobs"
+              :to="'/jobs/' + job.id"
               class="w-full py-2 text-center text-xs font-extrabold text-brand-primary hover:text-brand-dark flex items-center justify-center gap-1 group transition-colors"
             >
               <span>VIEW MORE &amp; READ DETAILS</span>

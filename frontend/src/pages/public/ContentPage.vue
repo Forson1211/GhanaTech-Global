@@ -14,6 +14,7 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { publishingService, type SiteContent } from '@/services/publishing';
+import { defaultEditorialContent } from '@/content/legalAndEditorialDefaults';
 import Card from '@/components/common/Card.vue';
 import Button from '@/components/common/Button.vue';
 import { updatePageMetadata } from '@/utils/seo';
@@ -23,7 +24,19 @@ const kind = computed(() => ({ Leadership: 'leadership', Insights: 'insight', In
 const title = computed(() => ({ leadership: "Our Team", insight: "News & Advice", privacy: 'Privacy Policy', terms: 'Terms of Use' }[kind.value]));
 const selected = computed(() => route.params.slug ? records.value.find(record => record.slug === route.params.slug) : undefined);
 const current = computed(() => selected.value || records.value[0]);
-async function load() { loading.value = true; error.value = false; try { const result = await publishingService.content(kind.value); records.value = result.data || []; } catch { records.value = []; error.value = true; } finally { loading.value = false; } }
+async function load() {
+  loading.value = true;
+  error.value = false;
+  try {
+    const result = await publishingService.content(kind.value);
+    const published = result.data || [];
+    records.value = published.length > 0 ? published : (defaultEditorialContent[kind.value] || []);
+  } catch {
+    records.value = defaultEditorialContent[kind.value] || [];
+  } finally {
+    loading.value = false;
+  }
+}
 watch(kind, load, { immediate: true });
 watch([selected, loading], ([record, busy]) => {
   if (busy) return;
