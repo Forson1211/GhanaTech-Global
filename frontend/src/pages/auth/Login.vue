@@ -1,253 +1,248 @@
 <template>
-  <div class="login-page relative isolate min-h-screen bg-brand-primary flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 selection:bg-brand-primary selection:text-white">
-    <div class="login-backdrop" aria-hidden="true">
-      <span class="login-glow login-glow--top"></span>
-      <span class="login-glow login-glow--bottom"></span>
-      <span class="login-orbit login-orbit--left"></span>
-      <span class="login-orbit login-orbit--right"></span>
-      <span v-for="particle in 6" :key="particle" class="login-particle"></span>
-    </div>
-    <div class="relative z-10 w-full sm:mx-auto sm:max-w-md">
-      <div class="bg-white py-8 px-6 sm:px-10 rounded-3xl border border-brand-border/80 shadow-violet-md space-y-6">
-        <form class="space-y-5" aria-label="Admin sign in" @submit.prevent="handleLogin">
-          <div class="text-center">
-            <router-link to="/" class="inline-flex items-center" aria-label="GhanaTech Global home">
-              <img
-                src="/images/white%20background.png"
-                alt="GhanaTech Global"
-                class="h-16 sm:h-20 w-auto max-w-full object-contain"
-              />
-            </router-link>
-          </div>
+  <main class="login-page">
+    <div class="login-card">
+      <img class="talent-backdrop" src="/images/talent-hero-transparent.png" alt="" aria-hidden="true" />
+      <div class="panel-texture" aria-hidden="true"></div>
+      <svg class="panel-curve" viewBox="0 0 1200 720" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 850 0 C 715 78 732 220 635 385 C 565 510 548 615 602 720 H 1200 V 0 Z" fill="#ffffff" />
+      </svg>
 
-          <!-- Error Alert Message -->
-          <div
-            v-if="errorMessage"
-            class="p-3.5 rounded-xl bg-brand-lightest border border-brand-primary text-xs font-semibold text-brand-dark flex items-center space-x-2"
-          >
-            <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>{{ errorMessage }}</span>
-          </div>
+      <section class="welcome-panel" aria-label="GhanaTech Global updates">
+        <router-link to="/" class="brand-link" aria-label="GhanaTech Global home">
+          <img src="/images/logo-on-purple.png" alt="GhanaTech Global" width="200" height="61" />
+        </router-link>
 
-          <!-- Email Input -->
-          <Input
-            v-model="email"
-            type="email"
-            label="Email Address"
-            placeholder="admin@ghanatechglobal.com"
-            :required="true"
-            :error="emailError"
-          >
-            <template #prefix>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-              </svg>
-            </template>
-          </Input>
+        <div class="welcome-content">
+          <span class="welcome-eyebrow">GHANAIAN TALENT. GLOBAL IMPACT.</span>
+          <h2>Great talent.<br />Global possibilities.</h2>
+          <p class="welcome-description">Connecting exceptional technology talent with opportunities that make a difference.</p>
 
-          <!-- Password Input -->
-          <Input
-            v-model="password"
-            type="password"
-            label="Password"
-            placeholder="••••••••••••"
-            :required="true"
-            :error="passwordError"
-          >
-            <template #prefix>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </template>
-          </Input>
-
-          <!-- Remember me & Forgot Password -->
-          <div class="flex items-center justify-between text-xs">
-            <label class="flex items-center text-brand-muted cursor-pointer">
-              <input
-                type="checkbox"
-                class="rounded-sm border-brand-border text-brand-primary focus:ring-brand-primary h-3.5 w-3.5 mr-2"
-              />
-              <span>Remember this session</span>
-            </label>
-          </div>
-
-          <!-- Sign In Button -->
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            :full-width="true"
-            :loading="isLoading"
-          >
-            Sign In
-          </Button>
-        </form>
-
-        <!-- Default Credentials Helper Banner for Development -->
-        <div class="p-3.5 rounded-xl bg-brand-soft/70 border border-brand-border text-[11px] text-brand-dark space-y-1">
-          <p class="font-bold text-brand-dark uppercase tracking-wider">Default Dev Credentials:</p>
-          <p><strong>Admin:</strong> admin@ghanatechglobal.com / AdminPass123!</p>
-          <p><strong>Recruiter:</strong> recruiter@ghanatechglobal.com / RecruiterPass123!</p>
+          <form class="updates-form" aria-label="Subscribe to GhanaTech Global updates" :aria-busy="isSubscribing" @submit.prevent="subscribe">
+            <h3>Stay in the loop.</h3>
+            <p>Get the latest news, insights, and opportunities.</p>
+            <label class="sr-only" for="updates-email">Your email for updates</label>
+            <div class="updates-input-row">
+              <input id="updates-email" v-model="updatesEmail" type="email" name="newsletter-email" autocomplete="email" placeholder="Your email address" maxlength="254" required :disabled="isSubscribing" :aria-describedby="subscriptionMessage ? 'updates-status' : undefined" :aria-invalid="subscriptionFailed" />
+              <button type="submit" :disabled="isSubscribing" aria-label="Subscribe to updates">
+                <LoaderCircle v-if="isSubscribing" class="spinner" :size="17" aria-hidden="true" />
+                <ArrowRight v-else :size="19" aria-hidden="true" />
+              </button>
+            </div>
+            <p v-if="subscriptionMessage" id="updates-status" class="updates-status" :role="subscriptionFailed ? 'alert' : 'status'">{{ subscriptionMessage }}</p>
+            <p class="updates-privacy">By subscribing, you agree to our <router-link to="/privacy">Privacy Policy</router-link>.</p>
+          </form>
         </div>
 
-        <div class="text-center pt-2">
-          <router-link to="/" class="text-xs text-brand-muted hover:text-brand-primary transition-colors">
-            ← Back to GhanaTech Global Public Site
-          </router-link>
+        <span class="welcome-footer">GhanaTech Global <span aria-hidden="true">/</span> Connecting people. Creating impact.</span>
+      </section>
+
+      <section class="signin-panel" aria-label="Administrator sign in">
+        <router-link to="/" class="close-link" aria-label="Back to GhanaTech Global website" title="Back to website">
+          <X :size="17" aria-hidden="true" />
+        </router-link>
+
+        <div class="signin-content">
+          <div class="portal-label"><ShieldCheck :size="16" aria-hidden="true" /> ADMIN WORKSPACE</div>
+          <h1>Hello there!<br /><span>Welcome back.</span></h1>
+          <p class="signin-description">Sign in to your GhanaTech Global workspace.</p>
+
+          <form class="signin-form" aria-label="Admin sign in" novalidate :aria-busy="isLoading" @submit.prevent="handleLogin">
+            <p v-if="errorMessage" class="login-error" role="alert"><CircleAlert :size="17" aria-hidden="true" /> {{ errorMessage }}</p>
+
+            <div class="field-group">
+              <label for="admin-email">Email address</label>
+              <div class="field-line" :class="{ 'field-invalid': emailError }">
+                <Mail :size="18" aria-hidden="true" />
+                <input id="admin-email" v-model="email" type="email" name="email" autocomplete="username" placeholder="Enter your email address" required :disabled="isLoading" :aria-invalid="!!emailError" :aria-describedby="emailError ? 'admin-email-error' : undefined" />
+              </div>
+              <p v-if="emailError" id="admin-email-error" class="field-error">{{ emailError }}</p>
+            </div>
+
+            <div class="field-group">
+              <label for="admin-password">Password</label>
+              <div class="field-line" :class="{ 'field-invalid': passwordError }">
+                <LockKeyhole :size="18" aria-hidden="true" />
+                <input id="admin-password" v-model="password" :type="showPassword ? 'text' : 'password'" name="password" autocomplete="current-password" placeholder="Enter your password" required :disabled="isLoading" :aria-invalid="!!passwordError" :aria-describedby="passwordError ? 'admin-password-error' : undefined" />
+                <button class="password-toggle" type="button" :aria-label="showPassword ? 'Hide password' : 'Show password'" :aria-pressed="showPassword" :disabled="isLoading" @click="showPassword = !showPassword">
+                  <EyeOff v-if="showPassword" :size="18" aria-hidden="true" />
+                  <Eye v-else :size="18" aria-hidden="true" />
+                </button>
+              </div>
+              <p v-if="passwordError" id="admin-password-error" class="field-error">{{ passwordError }}</p>
+            </div>
+
+            <button class="signin-button" type="submit" :disabled="isLoading">
+              <LoaderCircle v-if="isLoading" class="spinner" :size="18" aria-hidden="true" />
+              <span>{{ isLoading ? 'Signing in…' : 'Sign in' }}</span>
+              <ArrowRight v-if="!isLoading" :size="17" aria-hidden="true" />
+            </button>
+          </form>
+
+          <p class="access-help">Need access? <router-link to="/contact">Contact our team <ArrowUpRight :size="12" aria-hidden="true" /></router-link></p>
         </div>
-      </div>
+
+        <div class="signin-footer">
+          <span>© {{ year }} GhanaTech Global</span>
+          <div><router-link to="/privacy">Privacy</router-link><span aria-hidden="true">·</span><router-link to="/terms">Terms</router-link></div>
+        </div>
+      </section>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { ArrowRight, ArrowUpRight, CircleAlert, Eye, EyeOff, LoaderCircle, LockKeyhole, Mail, ShieldCheck, X } from 'lucide-vue-next';
 import { useAuth } from '@/composables/useAuth';
 import { isValidEmail } from '@/utils/validators';
-import Input from '@/components/common/Input.vue';
-import Button from '@/components/common/Button.vue';
+import api from '@/services/api';
 
 const router = useRouter();
 const { login, isAuthenticated, isLoading } = useAuth();
-
-const email = ref('admin@ghanatechglobal.com');
-const password = ref('AdminPass123!');
+const year = new Date().getFullYear();
+const email = ref('');
+const password = ref('');
+const showPassword = ref(false);
 const emailError = ref('');
 const passwordError = ref('');
 const errorMessage = ref('');
+const updatesEmail = ref('');
+const isSubscribing = ref(false);
+const subscriptionMessage = ref('');
+const subscriptionFailed = ref(false);
 
 onMounted(() => {
-  // If already authenticated: redirect away from login (Section 61/66)
-  if (isAuthenticated.value) {
-    router.replace('/admin');
-  }
+  if (isAuthenticated.value) router.replace('/admin');
 });
 
-const validate = () => {
+function validate() {
   emailError.value = '';
   passwordError.value = '';
   errorMessage.value = '';
+  if (!email.value.trim()) emailError.value = 'Email is required.';
+  else if (!isValidEmail(email.value.trim())) emailError.value = 'Enter a valid email address.';
+  if (!password.value) passwordError.value = 'Password is required.';
+  return !emailError.value && !passwordError.value;
+}
 
-  let valid = true;
-  if (!email.value.trim()) {
-    emailError.value = 'Email is required';
-    valid = false;
-  } else if (!isValidEmail(email.value)) {
-    emailError.value = 'Enter a valid email address';
-    valid = false;
-  }
-
-  if (!password.value) {
-    passwordError.value = 'Password is required';
-    valid = false;
-  }
-
-  return valid;
-};
-
-const handleLogin = async () => {
-  if (!validate()) return;
-
+async function handleLogin() {
+  if (isLoading.value || !validate()) return;
   try {
-    await login({ email: email.value, password: password.value });
-    // After successful login: redirect to /admin
+    await login({ email: email.value.trim(), password: password.value });
     router.push('/admin');
-  } catch (err: any) {
-    errorMessage.value = err.message || 'Incorrect email or password.';
+  } catch (err: unknown) {
+    errorMessage.value = err instanceof Error ? err.message : 'Incorrect email or password.';
   }
-};
+}
+
+async function subscribe() {
+  if (isSubscribing.value) return;
+  isSubscribing.value = true;
+  subscriptionMessage.value = '';
+  subscriptionFailed.value = false;
+  try {
+    await api.post('/newsletter/subscribe', { email: updatesEmail.value.trim() }, { timeout: 10000 });
+    subscriptionMessage.value = 'You’re on the list. Thanks for subscribing!';
+    updatesEmail.value = '';
+  } catch {
+    subscriptionFailed.value = true;
+    subscriptionMessage.value = 'We couldn’t save your subscription. Please try again.';
+  } finally {
+    isSubscribing.value = false;
+  }
+}
 </script>
 
 <style scoped>
-.login-backdrop {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+.login-page { min-height: 100dvh; display: grid; place-items: center; padding: 48px 32px; background: radial-gradient(ellipse at 50% 40%, #8863c8 0%, #7550b4 55%, #65419f 100%); color: #423753; }
+.login-card { position: relative; isolation: isolate; display: grid; grid-template-columns: 55% 45%; width: min(940px, 100%); min-height: 560px; overflow: hidden; border: 0; border-radius: 0; background: linear-gradient(135deg, #927bf2 0%, #8070ed 48%, #7564df 100%); box-shadow: 0 25px 75px #45346a14, 0 3px 14px #45346a0b; }
+.talent-backdrop { position: absolute; z-index: -1; left: -4%; bottom: -13%; width: 62%; height: 112%; object-fit: contain; object-position: bottom; opacity: .07; filter: grayscale(1); mix-blend-mode: luminosity; pointer-events: none; }
+.panel-texture { position: absolute; z-index: -1; inset: 0; background-image: radial-gradient(#fff5 .8px, transparent .8px); background-size: 15px 15px; mask-image: linear-gradient(transparent 62%, #000); opacity: .35; pointer-events: none; }
+.panel-curve { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.welcome-panel { display: flex; flex-direction: column; align-items: flex-start; padding: 30px 36px 24px; color: #fff; }
+.brand-link { display: inline-flex; border-radius: 0; }
+.brand-link img { width: 154px; height: auto; }
+.welcome-content { width: 100%; max-width: 350px; margin: auto 0; padding: 26px 0 24px; }
+.welcome-eyebrow { font-size: 10px; font-weight: 650; letter-spacing: 2px; color: #eee7ff; }
+.welcome-content h2 { margin-top: 14px; font-size: 34px; font-weight: 600; line-height: 1.22; letter-spacing: -1px; }
+.welcome-description { max-width: 290px; margin-top: 14px; font-size: 12px; line-height: 1.8; color: #eeeaff; }
+.updates-form { max-width: 280px; margin-top: 28px; }
+.updates-form h3 { font-size: 17px; font-weight: 550; letter-spacing: -.3px; }
+.updates-form > p { margin-top: 6px; font-size: 11px; line-height: 1.7; color: #eeeaff; }
+.updates-input-row { display: flex; align-items: center; gap: 16px; margin-top: 19px; padding-bottom: 9px; border-bottom: 1px solid #d9cdff8c; }
+.updates-input-row:focus-within { border-color: #fff; }
+.updates-input-row input { flex: 1; min-width: 0; padding: 8px 0; border: 0; background: transparent; font-size: 12px; color: #fff; outline: none; }
+.updates-input-row input::placeholder { color: #efe9ff; opacity: .85; }
+.updates-input-row button { display: grid; place-items: center; width: 39px; height: 30px; flex-shrink: 0; border: 0; border-radius: 0; background: #fff; color: #816ae8; cursor: pointer; transition: background .2s, transform .2s; }
+.updates-input-row button:hover { background: #f1ebff; transform: translateX(2px); }
+.updates-form > .updates-privacy { margin-top: 12px; font-size: 9px; color: #e5ddff; }
+.updates-privacy a { text-decoration: underline; text-underline-offset: 2px; }
+.updates-form > .updates-status { font-size: 11px; color: #fff; }
+.welcome-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 9px; color: #eee8ff; letter-spacing: .15px; }
+.welcome-footer > span { opacity: .5; }
+.signin-panel { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 54px 34px 24px 36px; }
+.close-link { position: absolute; top: 27px; right: 28px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 0; color: #fff; background: #8a75ed; box-shadow: 0 2px 6px #8975e62b; transition: background .2s; }
+.close-link:hover { background: #7052d5; }
+.signin-content { width: 100%; max-width: 280px; margin: auto 0 auto auto; padding: 16px 0; }
+.portal-label { display: flex; align-items: center; gap: 7px; color: #7a688f; font-size: 9px; font-weight: 650; letter-spacing: 1.7px; }
+.portal-label svg { color: #8a74e4; }
+.signin-content h1 { margin-top: 18px; color: #8872e5; font-size: 27px; font-weight: 600; letter-spacing: -.8px; line-height: 1.24; }
+.signin-content h1 span { color: #6e55ce; }
+.signin-description { margin-top: 12px; font-size: 12px; line-height: 1.8; color: #7f718e; }
+.signin-form { margin-top: 26px; }
+.field-group + .field-group { margin-top: 18px; }
+.field-group > label { display: block; margin-bottom: 6px; color: #7f6f96; font-size: 11px; }
+.field-line { display: flex; align-items: center; gap: 11px; min-height: 39px; border-bottom: 1px solid #dbd1f5; transition: border-color .2s; }
+.field-line > svg { flex-shrink: 0; color: #ac96ee; }
+.field-line:focus-within { border-color: #8065df; }
+.field-line input { width: 100%; min-width: 0; padding: 9px 0; border: 0; background: transparent; color: #493b61; outline: none; font-size: 13px; }
+.field-line input::placeholder { color: #7f718e; }
+.password-toggle { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border: 0; border-radius: 0; background: transparent; color: #b1a0cc; cursor: pointer; }
+.password-toggle:hover { background: #f6f2fc; color: #8065df; }
+.field-invalid { border-color: #bd5575; }
+.field-error { margin-top: 6px; color: #a84063; font-size: 11px; }
+.login-error { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 20px; padding: 12px; border: 0; border-radius: 0; background: #fdf7f9; color: #a84063; font-size: 11px; line-height: 1.6; }
+.login-error svg { flex-shrink: 0; margin-top: 1px; }
+.signin-button { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 44px; margin-top: 24px; border: 0; border-radius: 0; background: #8a73ed; color: #fff; font-size: 12px; font-weight: 550; box-shadow: 0 4px 10px #8a73ed14; cursor: pointer; transition: background .2s, box-shadow .2s; }
+.signin-button:hover { background: #775ddc; box-shadow: 0 5px 15px #8a73ed33; }
+button:disabled { opacity: .65; cursor: wait; }
+.access-help { margin-top: 20px; text-align: center; color: #7f718e; font-size: 11px; }
+.access-help a { display: inline-flex; align-items: center; gap: 2px; margin-left: 3px; color: #8a73da; }
+.access-help a:hover { color: #6244bf; }
+.signin-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 16px; color: #7f718e; font-size: 10px; }
+.signin-footer > div { display: flex; gap: 9px; }
+.signin-footer a:hover { color: #8065df; }
+a:focus-visible, button:focus-visible { outline: 2px solid #8065df; outline-offset: 4px; }
+.welcome-panel a:focus-visible, .welcome-panel button:focus-visible { outline-color: #fff; }
+.spinner { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 1000px) {
+  .login-page { padding: 18px 14px; align-items: start; }
+  .login-card { display: flex; flex-direction: column; width: min(540px, 100%); min-height: auto; border-width: 0; border-radius: 0; }
+  .panel-curve { display: none; }
+  .talent-backdrop { width: 80%; height: 410px; left: 27%; top: -15px; bottom: auto; opacity: .08; }
+  .panel-texture { background-size: 13px 13px; mask-image: linear-gradient(#000, transparent 45%); }
+  .welcome-panel { padding: 22px 24px 24px; }
+  .brand-link img { width: 140px; }
+  .welcome-content { max-width: none; padding: 20px 0 0; }
+  .welcome-eyebrow { font-size: 8px; letter-spacing: 1.4px; }
+  .welcome-content h2 { margin-top: 10px; font-size: 25px; }
+  .welcome-description { max-width: 270px; margin-top: 12px; font-size: 12px; }
+  .updates-form, .welcome-footer { display: none; }
+  .signin-panel { padding: 28px 24px 20px; border-radius: 0; background: #fff; }
+  .close-link { top: 23px; right: 24px; width: 27px; height: 27px; }
+  .signin-content { max-width: 420px; margin: 0 auto; padding: 10px 0 24px; }
+  .signin-content h1 { margin-top: 16px; font-size: 26px; }
+  .signin-description { font-size: 12px; }
+  .signin-form { margin-top: 22px; }
+  .field-group > label { font-size: 11px; }
+  .field-line { min-height: 45px; }
+  .field-line input { font-size: 16px; }
+  .field-line input::placeholder { font-size: 12px; }
+  .signin-button { min-height: 47px; font-size: 13px; }
+  .access-help { font-size: 11px; }
+  .signin-footer { justify-content: space-between; width: 100%; max-width: 420px; margin: 0 auto; font-size: 10px; gap: 10px; }
 }
-
-.login-glow {
-  position: absolute;
-  width: clamp(360px, 60vw, 850px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  animation: login-glow-drift 24s ease-in-out infinite alternate;
-}
-.login-glow--top {
-  top: -30%;
-  left: -16%;
-  background: radial-gradient(circle, #c4b5fd45 0%, #a78bfa18 38%, transparent 70%);
-}
-.login-glow--bottom {
-  bottom: -35%;
-  right: -18%;
-  background: radial-gradient(circle, #ede9fe30 0%, #a78bfa20 38%, transparent 70%);
-  animation-delay: -12s;
-  animation-direction: alternate-reverse;
-}
-
-.login-orbit {
-  position: absolute;
-  width: clamp(240px, 34vw, 490px);
-  aspect-ratio: 1;
-  border: 1px solid #ffffff24;
-  border-radius: 50%;
-  animation: login-orbit-turn 70s linear infinite;
-}
-.login-orbit::before {
-  content: '';
-  position: absolute;
-  inset: 12%;
-  border: 1px solid #ffffff12;
-  border-radius: 50%;
-}
-.login-orbit::after {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: calc(50% - 3px);
-  width: 6px;
-  height: 6px;
-  background: #ede9fe99;
-  border-radius: 50%;
-  box-shadow: 0 0 14px #ede9fe66;
-}
-.login-orbit--left { top: 14%; left: -13%; }
-.login-orbit--right { right: -12%; bottom: 8%; animation-direction: reverse; animation-delay: -30s; }
-
-.login-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #ede9fe;
-  opacity: .35;
-  animation: login-particle-float 14s ease-in-out infinite alternate;
-}
-.login-particle:nth-of-type(5) { left: 12%; top: 67%; animation-delay: -4s; }
-.login-particle:nth-of-type(6) { left: 23%; top: 21%; width: 3px; height: 3px; animation-delay: -9s; }
-.login-particle:nth-of-type(7) { left: 79%; top: 17%; animation-delay: -2s; }
-.login-particle:nth-of-type(8) { left: 90%; top: 72%; width: 3px; height: 3px; animation-delay: -11s; }
-.login-particle:nth-of-type(9) { left: 68%; top: 85%; width: 6px; height: 6px; animation-delay: -7s; }
-.login-particle:nth-of-type(10) { left: 45%; top: 8%; animation-delay: -5s; }
-
-@keyframes login-glow-drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(7%, 10%, 0) scale(1.12); }
-}
-@keyframes login-orbit-turn {
-  to { transform: rotate(360deg); }
-}
-@keyframes login-particle-float {
-  from { transform: translate3d(0, 0, 0); opacity: .2; }
-  to { transform: translate3d(16px, -36px, 0); opacity: .5; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .login-glow, .login-orbit, .login-particle { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>

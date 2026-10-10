@@ -4,8 +4,6 @@
     <TrustStatisticsSection />
     <ClientLogosSection />
     <TechCategoriesSection />
-    <ValueCalculatorSection />
-    <WhoWeServeSection />
     <WhyGhanaSection />
     <FeaturedJobsSection />
     <TestimonialsSection />
@@ -21,8 +19,6 @@ import HeroSection from '@/components/home/HeroSection.vue';
 import TrustStatisticsSection from '@/components/home/TrustStatisticsSection.vue';
 import ClientLogosSection from '@/components/home/ClientLogosSection.vue';
 import TechCategoriesSection from '@/components/home/TechCategoriesSection.vue';
-import ValueCalculatorSection from '@/components/home/ValueCalculatorSection.vue';
-import WhoWeServeSection from '@/components/home/WhoWeServeSection.vue';
 import WhyGhanaSection from '@/components/home/WhyGhanaSection.vue';
 import FeaturedJobsSection from '@/components/home/FeaturedJobsSection.vue';
 import TestimonialsSection from '@/components/home/TestimonialsSection.vue';
